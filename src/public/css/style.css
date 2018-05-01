@@ -33,6 +33,7 @@ h6{font-size:15px;}
     left: 0;
     z-index:2000;
     width:100%;
+    background:#f8f9fa !important
 }
 #header-section {
     background-color:#000;
@@ -79,7 +80,7 @@ h6{font-size:15px;}
     justify-content: center;
     align-items: center;
     min-height:400px;
-    min-width:600px;
+    min-width:1000px;
     border:5px solid #ff4758;
     position:relative;
     z-index:3;

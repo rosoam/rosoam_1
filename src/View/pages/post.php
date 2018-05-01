@@ -10,7 +10,7 @@ $title = $post['titre_article'];
 
 ob_start();
 ?>
-    <p>Voici mes posts</p>
+    <p>Voici mon post <b><?= $post['titre_article'] ?></b></p>
 <?php
 $post_details->closeCursor();
 $content = ob_get_clean();

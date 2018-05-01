@@ -15,8 +15,8 @@ class PagesController
 {
     static function homepage()
     {
-        $posts_teaser = new PostsManager();
-        $posts = new PostsManager();
+        $new_posts_teaser = new PostsManager();
+        $new_posts = new PostsManager();
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/homepage.php';
     }

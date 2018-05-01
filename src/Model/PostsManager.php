@@ -31,12 +31,12 @@ class PostsManager extends Manager
         }
     }
 
-    public function post($title)
+    public function post($slug)
     {
         $db = $this->connection_to_db();
-        $req_post = "SELECT * FROM t_article WHERE titre_article=:title";
+        $req_post = "SELECT * FROM t_article WHERE slug=:slug";
         $query = $db->prepare($req_post);
-        $query->bindParam(':title',$title, PDO::PARAM_STR);
+        $query->bindParam(':slug',$slug, PDO::PARAM_STR);
         $query->execute();
 
         return $query;

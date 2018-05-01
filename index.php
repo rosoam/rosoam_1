@@ -23,9 +23,9 @@ try
         $controller::posts();
     });
 
-    $router->get('/posts/:title', function($title) use ($controller){
-        $title = str_replace('-', ' ', $title);
-        $controller::post($title);
+    $router->get('/posts/:slug', function($slug) use ($controller) {
+        $controller::post($slug);
+
     });
 
     $router->run();

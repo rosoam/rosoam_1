@@ -11,5 +11,7 @@
             "App\\" : "src"
         }
     },
-    "require": {}
+    "require": {
+        "cocur/slugify": "^3.1"
+    }
 }

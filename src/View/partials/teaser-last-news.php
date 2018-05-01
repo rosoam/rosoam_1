@@ -10,20 +10,20 @@
     <div class="last-news-content">
         <div class="last-news-area">
             <?php
-            $posts = $posts_teaser->posts("id_article", 2, false);
-            $teaser_posts = $posts->fetchAll();
-            foreach ($teaser_posts as $post)
+            $posts_teaser = $new_posts_teaser->posts("id_article", 1, false);
+            $fetch_posts_teaser = $posts_teaser->fetchAll();
+            foreach ($fetch_posts_teaser as $post)
             { ?>
             <div class="box box1">
                 <img src="<?= htmlspecialchars($post['couverture_article']) ?>" alt="image de couverture, article : <?= htmlspecialchars($post['titre_article']) ?>" class="couverture-article">
-                <a href="/posts/<?= htmlspecialchars(str_replace(' ', '-', trim($post['titre_article']))) ?>">
+                <a href="/posts/<?= htmlspecialchars($post['slug']) ?>">
                     <div class="box-content">
                         <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
                     </div>
                 </a>
             </div>
             <?php }
-            $posts->closeCursor();
+            $posts_teaser->closeCursor();
             ?>
         </div>
     </div>
