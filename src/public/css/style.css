@@ -23,6 +23,9 @@ h6{font-size:15px;}
 .error-triggerer, .success-triggerer {
     display:none;
 }
+.container {
+    max-width:1500px;
+}
 /* -- menu -- */
 #content-page {
     padding-top:62px;
