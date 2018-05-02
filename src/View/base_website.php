@@ -40,9 +40,7 @@
     <i class="fa fa-check-circle"></i>
     <p>Success</p>
 </div>
-<div id="content-page">
-    <?= $content ?>
-</div>
+    <?= $style_page_content ?>
 <!-- jquery -->
 <script src="/src/public/js/jquery-3.3.1.min.js"></script>
 
