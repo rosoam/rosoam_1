@@ -13,4 +13,4 @@ ob_start();
     <p>Voici mes posts</p>
 <?php
 $content = ob_get_clean();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-post.php';
