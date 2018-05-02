@@ -33,4 +33,14 @@ class PagesController
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/post.php';
     }
+
+    static function admin()
+    {
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/admin.php';
+    }
+
+    static function subscribe()
+    {
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/subscribe.php';
+    }
 }
