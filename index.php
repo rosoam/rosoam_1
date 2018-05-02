@@ -23,6 +23,14 @@ try
         $controller::posts();
     });
 
+    $router->get('/admin', function() use ($controller) {
+        $controller::admin();
+    });
+
+    $router->get('/subscribe', function() use ($controller) {
+        $controller::subscribe();
+    });
+
     $router->get('/posts/:slug', function($slug) use ($controller) {
         $controller::post($slug);
 
