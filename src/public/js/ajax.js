@@ -8,15 +8,17 @@ function subscribe_user(username, email, password, confirm_password)
         data:{username:username, email:email, password:password, confirm_password:confirm_password},
         success: function(data)
         {
-            $('.success-triggerer p').text(data);
-            $('.success-triggerer').addClass('success-active');
-            setTimeout(function(){ $('.success-triggerer').removeClass('success-active'); },4000);
+            $('.modal-header h5').text("Succès!");
+            $('.modal-body').text(data);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
         },
         error: function(xhr, textStatus)
         {
-            $('.error-triggerer p').text(xhr.responseText);
-            $('.error-triggerer').addClass('error-active');
-            setTimeout(function(){ $('.error-triggerer').removeClass('error-active'); },4000);
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
         }
     })
 }
@@ -31,18 +33,17 @@ function login_user(username, password)
         data:{username:username, password:password},
         success: function(data)
         {
-            $('.success-triggerer p').text(data);
-            $('.success-triggerer').addClass('success-active');
-            setTimeout(function(){
-                $('.success-triggerer').removeClass('success-active');
-                location.reload();
-            },4000);
+            $('.modal-header h5').text("Succès!");
+            $('.modal-body').text(data);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ location.reload(); },3000);
         },
         error: function(xhr, textStatus)
         {
-            $('.error-triggerer p').text(xhr.responseText);
-            $('.error-triggerer').addClass('error-active');
-            setTimeout(function(){ $('.error-triggerer').removeClass('error-active'); },4000);
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
         }
     })
 }
@@ -56,18 +57,20 @@ function logout()
         type: 'POST',
         success: function(data)
         {
-            $('.success-triggerer p').text(data);
-            $('.success-triggerer').addClass('success-active');
-            setTimeout(function(){
-                $('.success-triggerer').removeClass('success-active');
-                location.reload();
-            },4000);
+            $('.modal-header h5').text("Succès!");
+            $('.modal-body').text(data);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
         },
         error: function(xhr, textStatus)
         {
-            $('.error-triggerer p').text(xhr.responseText);
-            $('.error-triggerer').addClass('error-active');
-            setTimeout(function(){ $('.error-triggerer').removeClass('error-active'); },4000);
-        }
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);        }
     })
 }
+
+$('#test').click(function(){
+    $('#modal-triggerer').modal('show');
+});

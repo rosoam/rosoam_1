@@ -32,15 +32,25 @@
 
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/menu.php';  ?>
-<div class="error-triggerer">
-    <i class="fa fa-exclamation-circle"></i>
-    <p>Erreur</p>
+<div class="modal fade" id="modal-triggerer" tabindex="-1" role="dialog" aria-labelledby="modal-triggerer-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-triggerer-title">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ok
+            </div>
+        </div>
+    </div>
 </div>
-<div class="success-triggerer">
-    <i class="fa fa-check-circle"></i>
-    <p>Success</p>
-</div>
+
+
     <?= $template_page_content ?>
+<button type="button" id="test" class="btn btn-primary">test</button>
 <!-- jquery -->
 <script src="/src/public/js/jquery-3.3.1.min.js"></script>
 

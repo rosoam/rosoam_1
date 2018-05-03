@@ -20,17 +20,26 @@ h6{font-size:15px;}
 .section {
     padding:60px 0;
 }
-.error-triggerer, .success-triggerer {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    z-index: 200000;
-    color: #fff;
-    display:none;
+/* work sur le modal qui gère les erreurs && succès */
+body.modal-open {
+    padding-right:0!important;
+    overflow-y:scroll;
 }
-.error-active, .success-active {
-    display:block;
+.modal {
+    bottom:auto;
+    left:auto;
+    right:20px;
+    top:50px;
+    min-width:250px;
+    max-width:350px;
 }
+.modal-backdrop.show {
+    opacity:0;
+}
+.modal-backdrop {
+    z-index:0;
+}
+/* modal work END */
 .container {
     max-width:1500px;
 }
