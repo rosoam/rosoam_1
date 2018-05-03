@@ -4,7 +4,7 @@
 
 **Nouveautés**
 
-* ajout de composer dans le projet
+* ajout de composer dans le projet - doc [ici](https://getcomposer.org/doc/)
 * suivi des avancement via git & repo github (privé pour le moment)
 * rewriting des urls
 * ajout de classe Router personnelle afin de gérer les get & post sur le router (index.php)
