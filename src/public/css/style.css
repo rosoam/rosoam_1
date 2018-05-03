@@ -21,13 +21,21 @@ h6{font-size:15px;}
     padding:60px 0;
 }
 .error-triggerer, .success-triggerer {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 200000;
+    color: #fff;
     display:none;
+}
+.error-active, .success-active {
+    display:block;
 }
 .container {
     max-width:1500px;
 }
 /* -- menu -- */
-#content-page {
+.content-page {
     padding-top:62px;
 }
 #menu-section {
