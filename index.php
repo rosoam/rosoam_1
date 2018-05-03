@@ -6,14 +6,18 @@
  * Time: 19:37
  */
 
+session_start();
+
 require 'vendor/autoload.php';
 
 use App\Controller\PagesController;
+use App\Controller\UsersController;
 
 try
 {
     $router = new App\Router\Router($_GET['url']);
     $controller = new PagesController();
+    $user = new UsersController();
 
     $router->get('/', function() use ($controller) {
         $controller::homepage();
@@ -35,6 +39,22 @@ try
         $controller::post($slug);
 
     });
+
+
+
+    $router->post('/subscribe_user', function() use ($user) {
+        $user::subscribe_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
+    });
+
+    $router->post('/login_user', function() use ($user) {
+        $user::login_user($_POST['username'],$_POST['password']);
+    });
+
+    $router->post('/logout', function() use ($user){
+        $user::logout();
+    });
+
+
 
     $router->run();
 } catch(Exception $e)
