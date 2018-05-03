@@ -23,5 +23,5 @@ ob_start();
         <?= $content ?>
     </div>
 <?php
-$style_page_content = ob_get_clean();
+$template_page_content = ob_get_clean();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/base_website.php';
