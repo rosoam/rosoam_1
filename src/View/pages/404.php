@@ -10,7 +10,11 @@ $title = "Bienvenue sur la homepage de mon site internet!";
 
 ob_start();
 ?>
-    <p>Error 404!!</p>
+    <div class="404-section section">
+        <div class="container">
+            <h1>ERROR 404</h1>
+        </div>
+    </div>
 <?php
 $content = ob_get_clean();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-page.php';
