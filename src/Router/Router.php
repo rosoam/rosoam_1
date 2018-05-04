@@ -71,7 +71,6 @@ class Router
         if(!isset($this->namedRoutes[$name]))
         {
             header("HTTP/1.1 404 Not Found");
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/404.php';
             //throw new RouterException('No route matches this name');
         }
         return $this->namedRoutes[$name]->getUrl($params);

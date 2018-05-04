@@ -6,7 +6,7 @@
  * Time: 20:58
  */
 
-$title = "Admin page";
+$title = "Subscribing page";
 
 ob_start();
 ?>

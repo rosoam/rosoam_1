@@ -42,15 +42,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                ok
+                This is the event triggerer!
             </div>
         </div>
     </div>
 </div>
-
-
-    <?= $template_page_content ?>
-<button type="button" id="test" class="btn btn-primary">test</button>
+<?= $template_page_content ?>
 <!-- jquery -->
 <script src="/src/public/js/jquery-3.3.1.min.js"></script>
 

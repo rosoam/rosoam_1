@@ -8,7 +8,7 @@ $(document).ready(function(){
         var $form_password = $('#inscription-form #password').val();
         var $form_confirmPassword = $('#inscription-form #confirmPassword').val();
 
-        subscribe($form_username, $form_email, $form_password, $form_confirmPassword);
+        subscribe_user($form_username, $form_email, $form_password, $form_confirmPassword);
     });
 
     $('#connect-submit').click(function(e){
@@ -17,11 +17,15 @@ $(document).ready(function(){
         var $form_username = $('#connection-form #username').val();
         var $form_password = $('#connection-form #password').val();
 
-        connect($form_username, $form_password);
+        login_user($form_username, $form_password);
     });
 
+    $('.logout').click(function(e){
+        e.preventDefault();
+        logout();
+    })
 
-
+    /*
     $('#add-post-submit').on('click', function(e){
         e.preventDefault();
         var $title_post = $('#add-post-form #title_post').val();
@@ -40,10 +44,10 @@ $(document).ready(function(){
 
     $('.appear-add-post, .cliquable-area').click(function(){
         $('.add-post-section').fadeToggle(200);
-    });
+    });*/
 });
 
-$('.personal-blog').on('click', '.delete-post', function (e){
+/*$('.personal-blog').on('click', '.delete-post', function (e){
     e.preventDefault();
     var $id_post = this.id;
 
@@ -59,4 +63,4 @@ $('.personal-blog').on('click', '.delete-post', function (e){
     }
 });
 
-$(".blog-area, .personal-blog-area").hide(0).fadeIn(700)
+$(".blog-area, .personal-blog-area").hide(0).fadeIn(700);*/

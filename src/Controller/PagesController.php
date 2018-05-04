@@ -16,7 +16,7 @@ class PagesController
     static function homepage()
     {
         $new_posts_teaser = new PostsManager();
-        $new_posts = new PostsManager();
+        //$new_posts = new PostsManager();
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/homepage.php';
     }
@@ -36,6 +36,8 @@ class PagesController
 
     static function admin()
     {
+        $new_posts_teaser = new PostsManager();
+
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/admin.php';
     }
 

@@ -10,6 +10,8 @@ $title = "Admin page";
 
 ob_start();
 ?>
+    <?php if(!isset($_SESSION['username']))
+    { ?>
     <div class="connection-section section">
         <div class="connection-content">
             <div class="container">
@@ -21,7 +23,7 @@ ob_start();
                                 <input type="text" id="username" class="form-control" name="username" placeholder="Username ou email" required>
                             </div>
                             <div class="col">
-                                <label for="email">Email</label>
+                                <label for="password">Mot de passe</label>
                                 <input type="password" id="password" class="form-control" name="password" placeholder="Mot de passe" required>
                             </div>
                         </div>
@@ -33,6 +35,13 @@ ob_start();
             </div>
         </div>
     </div>
+    <?php } else { ?>
+    <div class="admin-section section">
+        <div class="container">
+            <?php require $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/user-blog.php'; ?>
+        </div>
+    </div>
+    <?php } ?>
 <?php
 $content = ob_get_clean();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-admin.php';
