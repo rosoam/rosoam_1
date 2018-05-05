@@ -61,12 +61,21 @@ class PostsManager extends Manager
         return $query;
     }
 
-    // get_tag function
+    public function get_tags_article($nom_tag)
+    {
+        $db = $this->connection_to_db();
+        $req_get_articles = "SELECT ar.* FROM t_article AS ar JOIN rel_article_tags AS arta ON arta.fk_article=ar.id_article JOIN t_tag AS ta ON arta.fk_tag=ta.id_tag WHERE ta.nom_tag=:nom_tag";
+        $query = $db->prepare($req_get_articles);
+        $query->bindParam(':nom_tag',$nom_tag, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query;
+    }
 
     public function categories($id_article)
     {
         $db = $this->connection_to_db();
-        $req_categories = "SELECT ca.* FROM t_categorie AS ca JOIN rel_article_categorie as aca ON aca.fk_categorie=ca.id_categorie JOIN t_article AS ar ON aca.fk_article= ar.id_article WHERE aca.fk_article=:id_article";
+        $req_categories = "SELECT ca.nom_categorie FROM t_categorie AS ca JOIN rel_article_categorie as aca ON aca.fk_categorie=ca.id_categorie JOIN t_article AS ar ON aca.fk_article= ar.id_article WHERE aca.fk_article=:id_article";
         $query = $db->prepare($req_categories);
         $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
         $query->execute();

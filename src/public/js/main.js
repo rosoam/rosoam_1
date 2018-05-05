@@ -64,3 +64,6 @@ $(document).ready(function(){
 });
 
 $(".blog-area, .personal-blog-area").hide(0).fadeIn(700);*/
+
+window.sr = ScrollReveal();
+sr.reveal('.article-box',{ reset: true, origin: 'bottom', scale: 0.95, mobile: true, duration:700, delay:100, distance: '50stylepx',});

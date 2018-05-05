@@ -12,7 +12,7 @@ $fetch_posts_teaser = $posts_teaser->fetchAll();
 foreach ($fetch_posts_teaser as $post)
 { ?>
 <div class="article-box">
-    <img src="<?= htmlspecialchars($post['couverture_article']) ?>" alt="image de couverture, article : <?= htmlspecialchars($post['titre_article']) ?>" class="article-couverture">
+    <img src="<?php if($post['couverture_article'] === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($post['couverture_article']); }; ?>" alt="image de couverture, article : <?= htmlspecialchars($post['titre_article']) ?>" class="article-couverture">
     <a href="/posts/<?= htmlspecialchars($post['slug']) ?>">
         <div class="article-header">
             <h3><?= htmlspecialchars($post['titre_article']) ?></h3>

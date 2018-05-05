@@ -209,7 +209,7 @@ body.modal-open {
     -webkit-transform: translatey(-50%) translatex(-50%);
     -ms-transform: translatey(-50%) translatex(-50%);
     transform: translatey(-50%) translatex(-50%);
-    width: 1200px;
+    width: 175%;
     height: auto;
     -webkit-transition:all .35s;
     -o-transition:all .35s;

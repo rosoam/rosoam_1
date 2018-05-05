@@ -57,6 +57,8 @@
 <!-- font awesome cdn -->
 <script src="https://use.fontawesome.com/e97ca15392.js"></script>
 
+<script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+
 <!-- personnal script -->
 <script src="/src/public/js/ajax.js"></script>
 <script src="/src/public/js/main.js"></script>
