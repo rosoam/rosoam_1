@@ -64,3 +64,32 @@ function logout()
             setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);        }
     });
 }
+
+$("#file-send").submit(function(e){
+    //e.preventDefault();
+    var formData = new FormData($(this)[0]);
+
+    $.ajax({
+        url: '/send-file',
+        type: 'POST',
+        data: formData,
+        success: function (data) {
+            $('.modal-header h5').text("Succès!");
+            $('.modal-body').text(data);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        error: function(xhr, textStatus)
+        {
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
+        }
+    });
+
+    return false;
+});

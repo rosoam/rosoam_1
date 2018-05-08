@@ -12,12 +12,14 @@ require 'vendor/autoload.php';
 
 use App\Controller\PagesController;
 use App\Controller\UsersController;
+use App\Controller\FileController;
 
 try
 {
     $router = new App\Router\Router($_GET['url']);
     $controller = new PagesController();
     $user = new UsersController();
+    $file = new FileController();
 
     $router->get('/', function() use ($controller) {
         $controller::homepage();
@@ -40,6 +42,11 @@ try
 
     });
 
+    $router->get('/file-send', function() use ($controller) {
+        $controller::send_file();
+
+    });
+
 
 
     $router->post('/subscribe_user', function() use ($user) {
@@ -52,6 +59,10 @@ try
 
     $router->post('/logout', function() use ($user){
         $user::logout();
+    });
+
+    $router->post('/send-file', function() use ($file){
+        $file::send_file();
     });
 
 

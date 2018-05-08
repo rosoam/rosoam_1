@@ -45,4 +45,9 @@ class PagesController
     {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/subscribe.php';
     }
+
+    static function send_file()
+    {
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/file-send.php';
+    }
 }
