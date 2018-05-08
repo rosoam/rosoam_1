@@ -23,7 +23,7 @@ ob_start();
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
-                                    <input type="file" id="file" class="form-control" name="file" required>
+                                    <input type="file" id="file" class="form-control inputfile" name="file" data-multiple-caption="{count} files selected" required>
                                     <label for="file">Username</label>
                                 </div>
                                 <div class="col">

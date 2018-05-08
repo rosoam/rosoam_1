@@ -65,5 +65,18 @@ $(document).ready(function(){
 
 $(".blog-area, .personal-blog-area").hide(0).fadeIn(700);*/
 
-window.sr = ScrollReveal();
-sr.reveal('.article-box',{ reset: true, origin: 'bottom', scale: 0.95, mobile: true, duration:700, delay:100, distance: '50stylepx',});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#test').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$('#update-profil-picture').on('change', function(){
+    readURL(this);
+});

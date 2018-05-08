@@ -62,7 +62,11 @@ ob_start();
         </div>
     </div>
 </section>
-<section style="height:100vh;"></section>
+<section style="height:100vh;">
+    <a href="/file-send">
+        hello
+    </a>
+</section>
 <?php
 $content = ob_get_clean();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-homepage.php';

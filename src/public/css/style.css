@@ -45,7 +45,7 @@ body.modal-open {
 }
 /* modal work END */
 .container {
-    max-width:1500px;
+    max-width:1300px;
 }
 /* -- menu -- */
 .content-page {
@@ -73,8 +73,14 @@ body.modal-open {
     width:70px;
 }
 #header-section {
-    background-color:#000;
     position:relative;
+    background: -moz-linear-gradient(298deg, rgba(109,69,175,1) 0%, rgba(198,67,159,1) 21%, rgba(252,91,130,1) 37%, rgba(255,139,101,1) 57%, rgba(255,194,88,1) 81%, rgba(249,248,113,1) 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(109,69,175,1)), color-stop(21%, rgba(198,67,159,1)), color-stop(37%, rgba(252,91,130,1)), color-stop(57%, rgba(255,139,101,1)), color-stop(81%, rgba(255,194,88,1)), color-stop(100%, rgba(249,248,113,1))); /* safari4+,chrome */
+    background: -webkit-linear-gradient(298deg, rgba(109,69,175,1) 0%, rgba(198,67,159,1) 21%, rgba(252,91,130,1) 37%, rgba(255,139,101,1) 57%, rgba(255,194,88,1) 81%, rgba(249,248,113,1) 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(298deg, rgba(109,69,175,1) 0%, rgba(198,67,159,1) 21%, rgba(252,91,130,1) 37%, rgba(255,139,101,1) 57%, rgba(255,194,88,1) 81%, rgba(249,248,113,1) 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(298deg, rgba(109,69,175,1) 0%, rgba(198,67,159,1) 21%, rgba(252,91,130,1) 37%, rgba(255,139,101,1) 57%, rgba(255,194,88,1) 81%, rgba(249,248,113,1) 100%); /* ie10+ */
+    background: linear-gradient(152deg, rgba(109,69,175,1) 0%, rgba(198,67,159,1) 21%, rgba(252,91,130,1) 37%, rgba(255,139,101,1) 57%, rgba(255,194,88,1) 81%, rgba(249,248,113,1) 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d45af', endColorstr='#f9f871',GradientType=0 ); /* ie6-9 */
 }
 .header-content .col-12 {
     min-height:500px;
@@ -254,4 +260,24 @@ body.modal-open {
 }
 #file + label {
     cursor:pointer;
+}
+/* -- admin try -- */
+.admin-section p {
+    border-bottom:1px solid red;
+}
+#update-profil-picture {
+    display:none;
+}
+.update-profil-picture-zone img {
+    width:100%;
+}
+.update-profil-picture-zone label {
+    cursor:pointer;
+}
+.update-profil-picture-spec{
+    font-size: 12px;
+    line-height: 100%;
+    font-style: italic;
+    margin-bottom:5px;
+    border-bottom: 0 !important;
 }
