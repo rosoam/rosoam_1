@@ -84,22 +84,37 @@ class UsersController
         }
     }
 
+    /**
+     * @param $username -> username ou email envoyé en $_POST via le formulaire
+     * @param $password -> mot de passe envoyé en $_POST via le formulaire
+     *
+     * Toutes les étapes nécessaires au login de l'utilisateur sont testé dans cette fonction
+     * Si l'user passe toutes les étapes demandées, les CONSTANTES de session seront alors initialisées
+     */
     static function login_user($username, $password)
     {
-        if(!isset($_SESSION['username']))
+        if(!isset($_SESSION['username'])) // check d'abord si un user n'est pas déjà connecté..
         {
-            if(!empty($username) && !empty($password))
+            if(!empty($username) && !empty($password)) // check si les valeurs envoyées ne sont pas vides
             {
                 $user = new UsersManager();
-                if($user->login_check_user($username))
+                if($user->check_registered_user($username)) // check si l'username ou l'email envoyé est déjà enregistré
                 {
-                    $user->log_in($username, $password);
-                    echo 'Bonjour ' . $_SESSION['username'] . '!';
+                    if($user->check_password($username,$password)) // check si le mot de passe correspond
+                    {
+                        // INITIALISATION DES CONSTANTES DE SESSION
+                        $user->login($username);
+                    }
+                    else
+                    {
+                        throw new Exception("Mot de passe invalide!");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Vos informations ne sont pas valides");
+                    throw new Exception("Pseudo ou e-mail invalide");
                 }
+
             }
             else
             {

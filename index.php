@@ -38,7 +38,7 @@ try
     });
 
     $router->get('/validate_user/:id/:validation_code', function($id, $validation_code) use ($user){
-
+        // validation de l'url cliqué depuis l'email
     });
 
     $router->get('/posts/:slug', function($slug) use ($controller) {
@@ -52,7 +52,8 @@ try
 
 
     $router->post('/subscribe_user', function() use ($user) {
-        $user::validate_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
+        // $user::validate_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
+        $user::subscribe_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
     });
 
     $router->post('/login_user', function() use ($user) {

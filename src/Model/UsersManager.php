@@ -15,15 +15,18 @@ use PHPMailer\PHPMailer\PHPMailer;
 class UsersManager extends Manager
 {
 
-    public function login_check_user($user)
+    public function check_registered_user($user)
     {
         $db = $this->connection_to_db();
         $req_check_if_user_exist = "SELECT pseudo_utilisateur FROM t_utilisateur WHERE pseudo_utilisateur=:user OR email_utilisateur=:user";
         $query = $db->prepare($req_check_if_user_exist);
         $query->bindParam(':user', $user, PDO::PARAM_STR);
         $query->execute();
+
         $count = $query->rowCount();
+
         $query->closeCursor();
+
         if($count === 1)
         {
             return true;
@@ -34,30 +37,46 @@ class UsersManager extends Manager
         }
     }
 
-    public function log_in($user, $passwd)
+    public function check_password($user, $password)
     {
         $db = $this->connection_to_db();
-        $req_log_in = "SELECT id_utilisateur, pseudo_utilisateur, nom_utilisateur, nom_famille_utilisateur, email_utilisateur, password_utilisateur FROM t_utilisateur WHERE pseudo_utilisateur=:user OR email_utilisateur=:user";
-        $query = $db->prepare($req_log_in);
+        $req_check_password = "SELECT password_utilisateur FROM t_utilisateur WHERE pseudo_utilisateur=:user OR email_utilisateur=:user";
+        $query = $db->prepare($req_check_password);
         $query->bindParam(':user',$user, PDO::PARAM_STR);
         $query->execute();
         $user = $query->fetch();
 
-        $check_password = password_verify($passwd, $user['password_utilisateur']);
+        $check_password = password_verify($password, $user['password_utilisateur']);
 
-        if($check_password) // mot de passe valide, connection validée
+        $query->closeCursor();
+
+        if($check_password === true)
         {
-            $_SESSION['user_id'] = $user['id_utilisateur'];
-            $_SESSION['username'] = $user['pseudo_utilisateur'];
-            $_SESSION['name'] = $user['nom_utilisateur'];
-            $_SESSION['family_name'] = $user['nom_famille_utilisateur'];
-            $_SESSION['email'] = $user['email_utilisateur'];
-            $query->closeCursor();
+            return true;
         }
         else
         {
-            throw new Exception('Mot de passe invalide');
+            return false;
         }
+    }
+
+    public function login($user)
+    {
+        $db = $this->connection_to_db();
+        $req_user_infos = "SELECT id_utilisateur, pseudo_utilisateur, nom_utilisateur, nom_famille_utilisateur, email_utilisateur FROM t_utilisateur WHERE pseudo_utilisateur=:user OR email_utilisateur=:user";
+        $query = $db->prepare($req_user_infos);
+        $query->bindParam(':user', $user, PDO::PARAM_STR);
+        $query->execute();
+
+        $user = $query->fetch();
+
+        $query->closeCursor();
+
+        $_SESSION['user_id'] = $user['id_utilisateur'];
+        $_SESSION['username'] = $user['pseudo_utilisateur'];
+        $_SESSION['name'] = $user['nom_utilisateur'];
+        $_SESSION['family_name'] = $user['nom_famille_utilisateur'];
+        $_SESSION['email'] = $user['email_utilisateur'];
     }
 
     public function validate_user($username, $email, $password)
@@ -85,7 +104,7 @@ class UsersManager extends Manager
         $mail->Host = 'mail.infomaniak.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'info@rosoam.ch';
-        $mail->Password = 'document.readyfunction';
+        $mail->Password = '';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
@@ -156,8 +175,9 @@ class UsersManager extends Manager
         }
     }
 
-    private function subscribe($username, $email, $psswd)
+    public function subscribe($username, $email, $psswd)
     {
+        $psswd = password_hash($psswd, PASSWORD_DEFAULT);
         $db = $this->connection_to_db();
         $req_add_user = "INSERT INTO t_utilisateur(pseudo_utilisateur, email_utilisateur, password_utilisateur) VALUES(:username, :email, :user_password)";
         $query = $db->prepare($req_add_user);
