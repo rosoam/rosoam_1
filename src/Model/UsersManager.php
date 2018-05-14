@@ -44,6 +44,7 @@ class UsersManager extends Manager
         $query = $db->prepare($req_check_password);
         $query->bindParam(':user',$user, PDO::PARAM_STR);
         $query->execute();
+
         $user = $query->fetch();
 
         $check_password = password_verify($password, $user['password_utilisateur']);
@@ -81,7 +82,6 @@ class UsersManager extends Manager
 
     public function validate_user($username, $email, $password)
     {
-        ini_set('SMTP', 'mail.infomaniak.com');
         $password = password_hash($password, PASSWORD_DEFAULT);
         $validation_code = substr(md5(mt_rand()),0,30);
 
@@ -111,6 +111,7 @@ class UsersManager extends Manager
         $mail->setFrom('info@rosoam.ch', 'localhost!');
         $mail->addAddress($email, $username);
 
+        $mail->charSet = 'UTF-8';
         $mail->isHTML(true);
         $mail->Subject = "Lien de validation de votre enregistrement " . $username . " :)";
         $mail->Body    = "Merci de votre enregistrement! Naviguez jusqu'à ce lien pour valider votre enregistrement! -> <a href='http://localhost/validate_user/" . $last_id . "/" . $validation_code . "/'>http://localhost/validate_user/" . $last_id . "/" . $validation_code . "/ </a>";
