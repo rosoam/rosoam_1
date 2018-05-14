@@ -51,8 +51,8 @@ ob_start();
                         <div class="public-profil-text-area">
                             <form class="update-public-profil-form" id="public-profil-form">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <p>col 8</p>
+                                    <div class="col-9">
+                                        <p>col 9</p>
                                         <div class="form-group">
                                             <label for="update-name">Prénom</label>
                                             <input type="text" class="form-control" id="update-name" placeholder="Prénom">
@@ -68,7 +68,7 @@ ob_start();
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="update-npa">NPA</label>
-                                                <input type="password" class="form-control" id="update-npa" placeholder="Numéro postal">
+                                                <input type="text" class="form-control" id="update-npa" placeholder="Numéro postal">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -76,7 +76,8 @@ ob_start();
                                             <input type="text" class="form-control" id="update-country" placeholder="Pays">
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
+                                        <p>col 3</p>
                                         <div class="form-group update-profil-picture-zone">
                                             <label for="update-profil-picture">
                                                 <span>Photo de profil</span>
@@ -92,6 +93,7 @@ ob_start();
                                             <p class="update-profil-picture-spec">
                                                 <strong>Taille max:</strong> 1MB!
                                             </p>
+                                            <p><?= substr(md5(mt_rand()),0,30); ?></p>
                                         </div>
                                     </div>
                                 </div>

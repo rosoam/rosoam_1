@@ -20,6 +20,9 @@ h6{font-size:15px;}
 .section {
     padding:60px 0;
 }
+a, a:hover {
+    text-decoration:none;
+}
 /* work sur le modal qui gère les erreurs && succès */
 body.modal-open {
     padding-right:0!important;
@@ -45,7 +48,7 @@ body.modal-open {
 }
 /* modal work END */
 .container {
-    max-width:1300px;
+    max-width:1500px;
 }
 /* -- menu -- */
 .content-page {
@@ -270,6 +273,7 @@ body.modal-open {
 }
 .update-profil-picture-zone img {
     width:100%;
+    margin:15px 0;
 }
 .update-profil-picture-zone label {
     cursor:pointer;
@@ -277,7 +281,6 @@ body.modal-open {
 .update-profil-picture-spec{
     font-size: 12px;
     line-height: 100%;
-    font-style: italic;
     margin-bottom:5px;
     border-bottom: 0 !important;
 }

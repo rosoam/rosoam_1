@@ -37,20 +37,22 @@ try
         $controller::subscribe();
     });
 
+    $router->get('/validate_user/:id/:validation_code', function($id, $validation_code) use ($user){
+
+    });
+
     $router->get('/posts/:slug', function($slug) use ($controller) {
         $controller::post($slug);
-
     });
 
     $router->get('/file-send', function() use ($controller) {
         $controller::send_file();
-
     });
 
 
 
     $router->post('/subscribe_user', function() use ($user) {
-        $user::subscribe_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
+        $user::validate_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
     });
 
     $router->post('/login_user', function() use ($user) {
