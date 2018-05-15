@@ -10,13 +10,13 @@ namespace App\Controller;
 
 use App\Model\PostsManager;
 use App\Model\UsersManager;
+use Exception;
 
 class PagesController
 {
     static function homepage()
     {
         $new_posts_teaser = new PostsManager();
-        //$new_posts = new PostsManager();
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/homepage.php';
     }
@@ -29,7 +29,6 @@ class PagesController
     static function post($title)
     {
         $details = new PostsManager();
-        $post_details = $details->post($title);
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/post.php';
     }
@@ -43,6 +42,11 @@ class PagesController
 
     static function subscribe()
     {
+        if(isset($_SESSION['username']))
+        {
+            header('Location: /');
+            return false;
+        }
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/subscribe.php';
     }
 
