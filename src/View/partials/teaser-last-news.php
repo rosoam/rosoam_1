@@ -10,8 +10,6 @@
     <div class="last-news-content">
         <div class="last-news-area">
             <?php
-            $posts_teaser = $new_posts_teaser->posts("id_article", 1, false);
-            $fetch_posts_teaser = $posts_teaser->fetchAll();
             foreach ($fetch_posts_teaser as $post)
             { ?>
             <div class="box box1">
@@ -23,7 +21,7 @@
                 </a>
             </div>
             <?php }
-            $posts_teaser->closeCursor();
+            $post_teaser->closeCursor();
             ?>
         </div>
     </div>

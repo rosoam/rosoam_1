@@ -16,7 +16,12 @@ class PagesController
 {
     static function homepage()
     {
-        $new_posts_teaser = new PostsManager();
+        $post_management = new PostsManager();
+        $blog = $post_management->posts("id_article", 5, false);
+        $fetch_blog = $blog->fetchAll();
+
+        $post_teaser = $post_management->posts("id_article", 1, false);
+        $fetch_posts_teaser = $post_teaser->fetchAll();
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/homepage.php';
     }

@@ -7,9 +7,7 @@
  */
 ?>
 <?php
-$posts_teaser = $new_posts_teaser->posts("id_article", 5, false);
-$fetch_posts_teaser = $posts_teaser->fetchAll();
-foreach ($fetch_posts_teaser as $post)
+foreach ($fetch_blog as $post)
 { ?>
 <div class="article-box">
     <img src="<?php if($post['couverture_article'] === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($post['couverture_article']); }; ?>" alt="image de couverture, article : <?= htmlspecialchars($post['titre_article']) ?>" class="article-couverture">
@@ -19,7 +17,7 @@ foreach ($fetch_posts_teaser as $post)
         </div>
         <div class="article-tags">
             <?php
-            $tags_post = $new_posts_teaser->tags($post['id_article']);
+            $tags_post = $post_management->tags($post['id_article']);
             $fetch_tags = $tags_post->fetchAll();
             $count = 0;
             if(count($fetch_tags) > 0)
@@ -40,7 +38,7 @@ foreach ($fetch_posts_teaser as $post)
         </div>
         <div class="article-categorie">
             <?php
-            $categorie_post = $new_posts_teaser->categories($post['id_article']);
+            $categorie_post = $post_management->categories($post['id_article']);
             $fetch_categorie = $categorie_post->fetchAll();
             if(count($fetch_categorie) > 0)
             {
@@ -59,5 +57,5 @@ foreach ($fetch_posts_teaser as $post)
     </a>
 </div>
 <?php }
-$posts_teaser->closeCursor();
+$blog->closeCursor();
 ?>
