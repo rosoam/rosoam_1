@@ -54,7 +54,7 @@ ob_start();
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="blog-area">
+                    <div class="blog-area ajax-container">
                         <?php require $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php'; ?>
                     </div>
                 </div>
