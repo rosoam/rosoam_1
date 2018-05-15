@@ -31,23 +31,45 @@ class PagesController
         $details = new PostsManager();
         $post_details = $details->post($title);
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/post.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/post.php';
     }
 
     static function admin()
     {
         $new_posts_teaser = new PostsManager();
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/admin.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/admin.php';
     }
 
     static function subscribe()
     {
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/subscribe.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/subscribe.php';
     }
 
     static function send_file()
     {
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/Pages/file-send.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/file-send.php';
+    }
+
+    /**
+     * @param $id
+     * @param $validation_code
+     * @throws \Exception
+     */
+    static function validate_user($id, $validation_code)
+    {
+        $user = new UsersManager();
+
+        if($user->confirm_user_validation($id, $validation_code))
+        {
+            $message = "Merci! Votre compte est maintenant validé!";
+        }
+        else
+        {
+            $message = "Oh Oh, un petit problème s'est déroulé, votre lien de confirmation est invalide!";
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/confirm-user.php';
+
     }
 }

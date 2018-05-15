@@ -9,7 +9,7 @@ function subscribe_user(username, email, password, confirm_password)
         success: function(data)
         {
             $('.modal-header h5').text("Succès!");
-            $('.modal-body').text(data);
+            $('.modal-body').text("Merci, vérifiez vos mails afin de valider votre compte!");
             $('#modal-triggerer').modal('show');
             setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
         },
