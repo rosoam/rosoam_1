@@ -24,7 +24,6 @@ class PostsManager extends Manager
             $query->bindParam(':id_utilisateur',$_SESSION['user_id'], PDO::PARAM_INT);
             $query->execute();
 
-            return $query;
         }
         else
         {
@@ -35,9 +34,78 @@ class PostsManager extends Manager
             $query->bindParam(':limit', $limit, PDO::PARAM_INT);
             $query->execute();
 
-            return $query;
+        }
+        return $query;
+    }
+
+    /**
+     * @param $user_id
+     * @param $article_id
+     * @return bool
+     */
+    public function check_article_rel_user($user_id, $article_id)
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT art.id_article FROM t_article AS art JOIN rel_utilisateur_article AS ua ON ua.fk_article=art.id_article JOIN t_utilisateur as ut ON ua.fk_utilisateur=ut.id_utilisateur WHERE ua.fk_article=:article_id AND ua.fk_utilisateur=:user_id";
+        $query = $db->prepare($req);
+        $query->bindParam(':user_id',$user_id,PDO::PARAM_INT);
+        $query->bindParam(':article_id',$article_id, PDO::PARAM_INT);
+        $query->execute();
+
+        $query->closeCursor();
+
+        if($query->rowCount() === 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
+
+    public function delete_article($article_id)
+    {
+        $db = $this->connection_to_db();
+        $req = "DELETE FROM t_article WHERE t_article.id_article=:article_id";
+        $query = $db->prepare($req);
+        $query->bindParam(':article_id',$article_id, PDO::PARAM_INT);
+        $query->execute();
+
+        $query->closeCursor();
+    }
+
+    public function add_article($titre_article, $auteur_article,$extrait_article,$contenu_article,$couverture_article)
+    {
+        $db = $this->connection_to_db();
+        $req = "INSERT INTO t_article (titre_article, auteur_article, extrait_article, contenu_article, publication_article, couverture_article) VALUES (:titre_article, :auteur_article, :extrait_article, :contenu_article, NOW(), :couverture_article)";
+        $query = $db->prepare($req);
+        $query->bindParam(':titre_article',$titre_article,PDO::PARAM_STR);
+        $query->bindParam(':auteur_article',$auteur_article,PDO::PARAM_STR);
+        $query->bindParam(':extrait_article',$extrait_article,PDO::PARAM_STR);
+        $query->bindParam(':contenu_article',$contenu_article,PDO::PARAM_STR);
+        $query->bindParam(':couverture_article',$couverture_article,PDO::PARAM_STR);
+        $query->execute();
+
+        $query->closeCursor();
+    }
+
+    public function update_article($titre_article, $auteur_article,$extrait_article,$contenu_article,$couverture_article, $article_id)
+    {
+        $db = $this->connection_to_db();
+        $req = "UPDATE t_article SET titre_article=:titre_article, auteur_article=:auteur_article, extrait_article=:extrait_article, contenu_article=:contenu_article, couverture_article=:couverture_article WHERE id_article=:article_id";
+        $query = $db->prepare($req);
+        $query->bindParam(':titre_article',$titre_article,PDO::PARAM_STR);
+        $query->bindParam(':auteur_article',$auteur_article,PDO::PARAM_STR);
+        $query->bindParam(':extrait_article',$extrait_article,PDO::PARAM_STR);
+        $query->bindParam(':contenu_article',$contenu_article,PDO::PARAM_STR);
+        $query->bindParam(':couverture_article',$couverture_article,PDO::PARAM_STR);
+        $query->bindParam(':article_id',$article_id,PDO::PARAM_INT);
+        $query->execute();
+
+        $query->closeCursor();
+    }
+
 
     public function post($slug)
     {

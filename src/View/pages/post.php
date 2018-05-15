@@ -5,6 +5,7 @@
  * Date: 30.04.2018
  * Time: 16:36
  */
+$post_details = $details->post($title);
 $post = $post_details->fetch();
 $title = $post['titre_article'];
 
