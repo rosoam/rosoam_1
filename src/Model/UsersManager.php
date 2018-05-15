@@ -61,6 +61,28 @@ class UsersManager extends Manager
         }
     }
 
+    public function check_confirmed_user($username)
+    {
+        $db = $this->connection_to_db();
+        $req_check_confirmed_user = "SELECT valid_utilisateur FROM t_utilisateur WHERE pseudo_utilisateur=:user OR email_utilisateur=:user";
+        $query = $db->prepare($req_check_confirmed_user);
+        $query->bindParam(':user', $username, PDO::PARAM_STR);
+        $query->execute();
+
+        $user = $query->fetch();
+
+        $query->closeCursor();
+
+        if($user['valid_utilisateur'] === 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function login($user)
     {
         $db = $this->connection_to_db();

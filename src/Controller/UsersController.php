@@ -14,6 +14,13 @@ use Exception;
 class UsersController
 {
 
+    /**
+     * @param $username
+     * @param $email
+     * @param $password
+     * @param $confirm_password
+     * @throws Exception
+     */
     static function subscribe_user($username, $email, $password, $confirm_password)
     {
         if(!isset($_SESSION['username']))
@@ -87,6 +94,7 @@ class UsersController
     /**
      * @param $username -> username ou email envoyé en $_POST via le formulaire
      * @param $password -> mot de passe envoyé en $_POST via le formulaire
+     * @throws Exception -> Exceptions en cas d'erreur!
      *
      * Toutes les étapes nécessaires au login de l'utilisateur sont testé dans cette fonction
      * Si l'user passe toutes les étapes demandées, les CONSTANTES de session seront alors initialisées
@@ -100,14 +108,21 @@ class UsersController
                 $user = new UsersManager();
                 if($user->check_registered_user($username)) // check si l'username ou l'email envoyé est déjà enregistré
                 {
-                    if($user->check_password($username,$password)) // check si le mot de passe correspond
+                    if($user->check_confirmed_user($username))
                     {
-                        // INITIALISATION DES CONSTANTES DE SESSION
-                        $user->login($username);
+                        if($user->check_password($username,$password)) // check si le mot de passe correspond
+                        {
+                            // INITIALISATION DES CONSTANTES DE SESSION
+                            $user->login($username);
+                        }
+                        else
+                        {
+                            throw new Exception("Mot de passe invalide!");
+                        }
                     }
                     else
                     {
-                        throw new Exception("Mot de passe invalide!");
+                        throw new Exception("Utilisateur non confirmé");
                     }
                 }
                 else
@@ -127,6 +142,9 @@ class UsersController
         }
     }
 
+    /**
+     * @throws Exception
+     */
     static function logout()
     {
         if(isset($_SESSION['username']))
