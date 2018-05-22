@@ -18,12 +18,11 @@ class Manager
         return $db;
     }
 
-    protected function bindParamArray($prefix, $values, &$bindArray)
+    protected function bindParamArray($values)
     {
         $str = "";
         foreach($values as $index => $value){
             $str .= "'$value'" . ',';
-            $bindArray[$prefix.$index] = $value;
         }
         return rtrim($str,",");
     }

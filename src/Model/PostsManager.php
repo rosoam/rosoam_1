@@ -159,14 +159,11 @@ class PostsManager extends Manager
     public function get_tags_articles($tags)
     {
         $db = $this->connection_to_db();
-        $bindString = $this->bindParamArray('',$tags,$bindArray);
+        $bindString = $this->bindParamArray($tags);
         $searchIn = " IN($bindString)";
         $req = "SELECT DISTINCT ar.* FROM t_article AS ar JOIN rel_article_tags AS arta ON arta.fk_article = ar.id_article JOIN t_tag AS ta ON arta.fk_tag = ta.id_tag WHERE ta.nom_tag" . $searchIn;
-        //echo $req;
         $query = $db->prepare($req);
         $query->execute();
-
-        //echo $req;
 
         return $query;
     }
