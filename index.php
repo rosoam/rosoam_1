@@ -79,6 +79,14 @@ try
        $controller::get_tags_articles($_POST['tags']);
     });
 
+    $router->post('/categorie_posts', function() use ($controller){
+       $controller::get_categorie_articles($_POST['categorie']);
+    });
+
+    $router->post('/refresh_posts', function() use ($controller){
+       $controller::get_all_posts();
+    });
+
     $router->post('/send-file', function() use ($file){
         $file::send_file();
     });
