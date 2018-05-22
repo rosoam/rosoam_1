@@ -71,6 +71,14 @@ try
         $controller::more_posts($count,$limit);
     });
 
+    $router->post('/auteur_posts', function() use ($controller){
+       $controller::get_auteur_posts($_POST['auteur']);
+    });
+
+    $router->post('/tags_posts', function() use ($controller){
+       $controller::get_tags_articles($_POST['tags']);
+    });
+
     $router->post('/send-file', function() use ($file){
         $file::send_file();
     });
