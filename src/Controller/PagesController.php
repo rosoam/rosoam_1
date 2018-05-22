@@ -28,6 +28,10 @@ class PagesController
 
     static function posts()
     {
+        $post_management = new PostsManager();
+        $blog = $post_management->posts("id_article", 50, false);
+        $fetch_blog = $blog->fetchAll();
+
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/posts.php';
     }
 
@@ -85,18 +89,17 @@ class PagesController
     /**
      *
      */
-    static function more_posts($limit)
+    static function more_posts($count, $limit)
     {
         $post_management = new PostsManager();
         $blog = $post_management->posts("id_article", $limit, false);
         $fetch_blog = $blog->fetchAll();
 
-        $actual_count_blog = $blog->rowCount();
         $number_of_article = $post_management->count_posts();
 
-        if($actual_count_blog > $number_of_article)
+        if($count < $number_of_article)
         {
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/homepage-blog.php';
         }
         else
         {
