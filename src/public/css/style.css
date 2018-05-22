@@ -457,6 +457,44 @@ body.modal-open {
     background-color:#1b1e21;
     color:#fff;
 }
+/* admin */
+#file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+#file + label {
+    color: white;
+    background-color: black;
+    display: inline-block;
+    padding: 20px 30px;
+}
+#file +label:hover {
+    background-color: red;
+}
+#file + label {
+    cursor: pointer;
+}
+#update-profil-picture {
+    display: none;
+}
+.update-profil-picture-zone img {
+    width:100%;
+    margin:15px 0;
+}
+.update-profil-picture-zone label {
+    cursor: pointer;
+}
+.update-profil-picture-spec {
+    font-size: 12px;
+    line-height: 100%;
+    margin-bottom: 5px;
+    border-bottom: 0 !important;
+}
+
 /* footer */
 #footer {
     font-size:16px;

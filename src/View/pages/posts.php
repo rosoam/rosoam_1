@@ -67,7 +67,7 @@ ob_start();
                                 $categories = $post_management->all_categories();
                                 foreach($categories->fetchAll() as $categorie)
                                 {?>
-                                    <li><a href="/categorie/<?= htmlspecialchars($categorie['slug_categorie']); ?>"><?= htmlspecialchars($categorie['nom_categorie']); ?></a></li>
+                                    <li><a class="post-categorie" href="#"><?= htmlspecialchars($categorie['nom_categorie']); ?></a></li>
                                 <?php } ?>
                                 <!-- Generated -->
                                 <!-- Generated -->

@@ -171,10 +171,25 @@ $('.tag_search').click(function(e){
        tags.push($(this).text());
    });
 
-   get_tags_articles(tags);
+   if(tags.length === 0)
+   {
+        get_all_posts();
+   }
+   else
+   {
+        get_tags_articles(tags);
+   }
 });
 
-$('.tag-item').click(function(e){
+$('.post-categorie').click(function(e){
+   e.preventDefault();
+
+   var categorie = $(this).text();
+
+   get_categorie_posts(categorie);
+});
+
+$('.tag-item,.post-categorie').click(function(e){
    e.preventDefault();
 });
 
@@ -197,7 +212,53 @@ function get_tags_articles(tags)
             $('.modal-header h5').text("Erreur!");
             $('.modal-body').text(xhr.responseText);
             $('#modal-triggerer').modal('show');
-            //setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
+        }
+    });
+}
+
+function get_categorie_posts(categorie)
+{
+    $.ajax
+    ({
+        url:'/categorie_posts',
+        type: 'POST',
+        dataType: 'html',
+        data:{categorie:categorie},
+        success: function(data)
+        {
+            $('.all-posts.the-blog').fadeOut(300,function(){
+                $('.all-posts.the-blog').html(data);
+            }).fadeIn();
+        },
+        error: function(xhr, textStatus)
+        {
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
+        }
+    });
+}
+
+function get_all_posts()
+{
+    $.ajax
+    ({
+        url:'/refresh_posts',
+        type: 'POST',
+        success: function(data)
+        {
+            $('.all-posts.the-blog').fadeOut(300,function(){
+                $('.all-posts.the-blog').html(data);
+            }).fadeIn();
+        },
+        error: function(xhr, textStatus)
+        {
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
         }
     });
 }

@@ -7,7 +7,6 @@ $(document).ready(function(){
         var $form_email = $('#inscription-form #email').val();
         var $form_password = $('#inscription-form #password').val();
         var $form_confirmPassword = $('#inscription-form #confirmPassword').val();
-h
         subscribe_user($form_username, $form_email, $form_password, $form_confirmPassword);
     });
 
