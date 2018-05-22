@@ -85,12 +85,22 @@ class PagesController
     /**
      *
      */
-    static function more_posts()
+    static function more_posts($limit)
     {
         $post_management = new PostsManager();
-        $blog = $post_management->posts("id_article", 5, false);
+        $blog = $post_management->posts("id_article", $limit, false);
         $fetch_blog = $blog->fetchAll();
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+        $actual_count_blog = $blog->rowCount();
+        $number_of_article = $post_management->count_posts();
+
+        if($actual_count_blog > $number_of_article)
+        {
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+        }
+        else
+        {
+            throw new Exception("Aucun autre article enregistré");
+        }
     }
 }

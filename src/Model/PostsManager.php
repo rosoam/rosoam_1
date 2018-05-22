@@ -12,6 +12,18 @@ use \PDO;
 
 class PostsManager extends Manager
 {
+    public function count_posts()
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT id_article FROM t_article";
+        $query = $db->prepare($req);
+        $query->execute();
+        $count = $query->rowCount();
+        $query->closeCursor();
+
+        return $count;
+    }
+
     public function posts($order_by, $limit, $personal)
     {
         if( $personal === true )

@@ -96,19 +96,27 @@ $("#file-send").submit(function(e){
 
 $('.more-posts').click(function(e){
    e.preventDefault();
-   more_posts();
+    var count = 0;
+   $('.homepage-blog .blog-post.box').each(function(){
+       count++;
+   });
+   count = count + 4;
+   console.log(count);
+   more_posts(count);
+
 });
 
 
 // PARTIALS LOAD
 
-function more_posts()
+function more_posts(limit)
 {
     $.ajax
     ({
         url:'/more_posts',
         type: 'POST',
         dataType: 'html',
+        data:{limit:limit},
         success: function(data)
         {
             $('.homepage-blog').fadeOut(300,function(){

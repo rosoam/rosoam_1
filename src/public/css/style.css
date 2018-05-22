@@ -119,6 +119,10 @@ a, a:hover {
 .nav-item .nav-link {
     font-size:20px;
 }
+#menu img#navbarDropdown {
+    max-width:60px;
+    padding:0;
+}
 /* presentation */
 .space-knight-presentation {
     position: absolute;

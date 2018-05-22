@@ -116,6 +116,7 @@ class UsersManager extends Manager
         $_SESSION['name'] = $user['nom_utilisateur'];
         $_SESSION['family_name'] = $user['nom_famille_utilisateur'];
         $_SESSION['email'] = $user['email_utilisateur'];
+        $_SESSION['image_profil'] = $user['image_profil_utilisateur'];
     }
 
     /**
