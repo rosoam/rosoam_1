@@ -100,23 +100,22 @@ $('.more-posts').click(function(e){
    $('.homepage-blog .blog-post.box').each(function(){
        count++;
    });
-   count = count + 4;
-   console.log(count);
-   more_posts(count);
+   var newLimit = count + 4;
+   more_posts(count,newLimit);
 
 });
 
 
 // PARTIALS LOAD
 
-function more_posts(limit)
+function more_posts(count, limit)
 {
     $.ajax
     ({
         url:'/more_posts',
         type: 'POST',
         dataType: 'html',
-        data:{limit:limit},
+        data:{count:count,limit:limit},
         success: function(data)
         {
             $('.homepage-blog').fadeOut(300,function(){
