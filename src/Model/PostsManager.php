@@ -161,7 +161,7 @@ class PostsManager extends Manager
         $db = $this->connection_to_db();
         $bindString = $this->bindParamArray($tags);
         $searchIn = " IN($bindString)";
-        $req = "SELECT DISTINCT ar.* FROM t_article AS ar JOIN rel_article_tags AS arta ON arta.fk_article = ar.id_article JOIN t_tag AS ta ON arta.fk_tag = ta.id_tag WHERE ta.nom_tag" . $searchIn;
+        $req = "SELECT DISTINCT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS article_publication, couverture_article, slug_article, likes_article FROM t_article AS ar JOIN rel_article_tags AS arta ON arta.fk_article = ar.id_article JOIN t_tag AS ta ON arta.fk_tag = ta.id_tag WHERE ta.nom_tag" . $searchIn;
         $query = $db->prepare($req);
         $query->execute();
 
@@ -230,7 +230,7 @@ class PostsManager extends Manager
     public function get_categorie_articles($nom_categorie)
     {
         $db = $this->connection_to_db();
-        $req_get_articles = "SELECT a.* FROM t_article AS a JOIN rel_article_categorie AS aca ON aca.fk_article=a.id_article JOIN t_categorie as ca ON aca.fk_categorie=ca.id_categorie WHERE ca.nom_categorie=:nom_categorie";
+        $req_get_articles = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS article_publication, couverture_article, slug_article, likes_article FROM t_article AS a JOIN rel_article_categorie AS aca ON aca.fk_article=a.id_article JOIN t_categorie as ca ON aca.fk_categorie=ca.id_categorie WHERE ca.nom_categorie=:nom_categorie";
         $query = $db->prepare($req_get_articles);
         $query->bindParam(':nom_categorie',$nom_categorie, PDO::PARAM_STR);
         $query->execute();

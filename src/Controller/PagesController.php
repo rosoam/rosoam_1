@@ -135,27 +135,43 @@ class PagesController
     static function get_tags_articles($tags)
     {
         $post_management = new PostsManager();
-
-        if(sizeof($tags) === 0)
+        $blog = $post_management->get_tags_articles($tags);
+        $fetch_blog = $blog->fetchAll();
+        $count = $blog->rowCount();
+        if($count > 0)
         {
-            $blog = $post_management->posts('id_article', 50, false);
-            $fetch_blog = $blog->fetchAll();
-
             require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
         }
         else
         {
-            $blog = $post_management->get_tags_articles($tags);
-            $fetch_blog = $blog->fetchAll();
-            $count = $blog->rowCount();
-            if($count > 0)
-            {
-                require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
-            }
-            else
-            {
-                throw new Exception("Tag(s) sélectionné invalide!");
-            }
+            throw new Exception("Tag(s) sélectionné invalide!");
         }
+
+    }
+
+    static function get_categorie_articles($categorie)
+    {
+        $post_management = new PostsManager();
+        $blog = $post_management->get_categorie_articles($categorie);
+        $fetch_blog = $blog->fetchAll();
+        $count = $blog->rowCount();
+
+        if($count > 0)
+        {
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+        }
+        else
+        {
+            throw new Exception("Tag(s) sélectionné invalide!");
+        }
+    }
+
+    static function get_all_posts()
+    {
+        $post_management = new PostsManager();
+        $blog = $post_management->posts('id_article',50,false);
+        $fetch_blog = $blog->fetchAll();
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
     }
 }
