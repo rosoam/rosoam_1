@@ -19,10 +19,6 @@ class PagesController
         $post_management = new PostsManager();
         $blog = $post_management->posts("id_article", 3, false);
         $fetch_blog = $blog->fetchAll();
-
-        $post_teaser = $post_management->posts("id_article", 1, false);
-        $fetch_posts_teaser = $post_teaser->fetchAll();
-
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/homepage.php';
     }
 
@@ -31,6 +27,8 @@ class PagesController
         $post_management = new PostsManager();
         $blog = $post_management->posts("id_article", 50, false);
         $fetch_blog = $blog->fetchAll();
+
+        $fav_blog = $post_management->posts("likes_article",3, false);
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/posts.php';
     }
@@ -104,6 +102,60 @@ class PagesController
         else
         {
             throw new Exception("Aucun autre article enregistré");
+        }
+    }
+
+    static function get_auteur_posts($auteur)
+    {
+        $post_management = new PostsManager();
+
+        if($auteur === "")
+        {
+            $blog = $post_management->posts('id_article', 50, false);
+            $fetch_blog = $blog->fetchAll();
+
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+        }
+        else
+        {
+            $blog = $post_management->get_auteur_posts($auteur);
+            $fetch_blog = $blog->fetchAll();
+            $count = $blog->rowCount();
+            if($count > 0)
+            {
+                require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+            }
+            else
+            {
+                throw new Exception("Cet auteur n'a aucun article, veuillez essayer un nouveau nom d'auteur");
+            }
+        }
+    }
+
+    static function get_tags_articles($tags)
+    {
+        $post_management = new PostsManager();
+
+        if(sizeof($tags) === 0)
+        {
+            $blog = $post_management->posts('id_article', 50, false);
+            $fetch_blog = $blog->fetchAll();
+
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+        }
+        else
+        {
+            $blog = $post_management->get_tags_articles($tags);
+            $fetch_blog = $blog->fetchAll();
+            $count = $blog->rowCount();
+            if($count > 0)
+            {
+                require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+            }
+            else
+            {
+                throw new Exception("Tag sélectionné invalide!");
+            }
         }
     }
 }
