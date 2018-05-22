@@ -66,7 +66,9 @@ try
     });
 
     $router->post('/more_posts', function() use ($controller){
-        $controller::more_posts(intval($_POST['limit']));
+        $count = intval($_POST['count']);
+        $limit = intval($_POST['limit']);
+        $controller::more_posts($count,$limit);
     });
 
     $router->post('/send-file', function() use ($file){
