@@ -21,9 +21,9 @@ ob_start();
                 <div class="col-12 col-md-10">
                     <div class="row post-tags-area">
                         <div class="col-12 tags-carousel">
-                            <!-- Generated from specific pages! -->
-                            <!-- Generated from specific pages! -->
-                            <!-- Generated from specific pages! -->
+                            <!-- Generated -->
+                            <!-- Generated -->
+                            <!-- Generated -->
                             <?php
                             $tags = $post_management->all_tags();
                             $fetch_tags = $tags->fetchAll();
@@ -31,9 +31,9 @@ ob_start();
                             {?>
                                 <div class="tag-item"><p><a href="#"><?= htmlspecialchars($tag['nom_tag']); ?></a></p></div>
                             <?php }?>
-                            <!-- Generated from specific pages! -->
-                            <!-- Generated from specific pages! -->
-                            <!-- Generated from specific pages! -->
+                            <!-- Generated -->
+                            <!-- Generated -->
+                            <!-- Generated -->
                             <a class="tag_search" href="#">search</a>
                         </div>
                     </div>
@@ -60,18 +60,18 @@ ob_start();
                         <h3>Les catégories</h3>
                         <div class="categories">
                             <ul>
-                                <!-- Generated from specific pages! -->
-                                <!-- Generated from specific pages! -->
-                                <!-- Generated from specific pages! -->
+                                <!-- Generated -->
+                                <!-- Generated -->
+                                <!-- Generated -->
                                 <?php
                                 $categories = $post_management->all_categories();
                                 foreach($categories->fetchAll() as $categorie)
                                 {?>
                                     <li><a href="/categorie/<?= htmlspecialchars($categorie['slug_categorie']); ?>"><?= htmlspecialchars($categorie['nom_categorie']); ?></a></li>
                                 <?php } ?>
-                                <!-- Generated from specific pages! -->
-                                <!-- Generated from specific pages! -->
-                                <!-- Generated from specific pages! -->
+                                <!-- Generated -->
+                                <!-- Generated -->
+                                <!-- Generated -->
                             </ul>
                         </div>
                     </div>
@@ -79,9 +79,9 @@ ob_start();
                     <div class="populaires-area">
                         <h3>Les articles populaires</h3>
                         <div class="populaires">
-                            <!-- Generated from specific pages! -->
-                            <!-- Generated from specific pages! -->
-                            <!-- Generated from specific pages! -->
+                            <!-- Generated -->
+                            <!-- Generated -->
+                            <!-- Generated -->
                             <?php
                             $fetch_fav_blog = $fav_blog->fetchAll();
                             foreach($fetch_fav_blog as $fav_article)
@@ -94,9 +94,9 @@ ob_start();
                                     </a>
                                 </div>
                             <?php } ?>
-                        <!-- Generated from specific pages! -->
-                        <!-- Generated from specific pages! -->
-                        <!-- Generated from specific pages! -->
+                        <!-- Generated -->
+                        <!-- Generated -->
+                        <!-- Generated -->
                     </div>
                 </div>
             </div>
