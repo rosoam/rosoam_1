@@ -62,13 +62,13 @@ ob_start();
             <div class="row blog-title-area">
                 <div class="col-12">
                     <h2>Les derniers articles</h2>
-                    <a href="posts.html">Tous les posts!</a>
+                    <a href="/posts">Tous les posts!</a>
                 </div>
             </div>
             <div class="row blog-content-area">
                 <div class="col-12">
                     <div class="blog-area homepage-blog">
-                        <?php require $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php'; ?>
+                        <?php require $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/homepage-blog.php'; ?>
                     </div>
                 </div>
             </div>
