@@ -17,7 +17,7 @@ class PagesController
     static function homepage()
     {
         $post_management = new PostsManager();
-        $blog = $post_management->posts("id_article", 5, false);
+        $blog = $post_management->posts("id_article", 3, false);
         $fetch_blog = $blog->fetchAll();
 
         $post_teaser = $post_management->posts("id_article", 1, false);
@@ -80,5 +80,17 @@ class PagesController
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/confirm-user.php';
 
+    }
+
+    /**
+     *
+     */
+    static function more_posts()
+    {
+        $post_management = new PostsManager();
+        $blog = $post_management->posts("id_article", 5, false);
+        $fetch_blog = $blog->fetchAll();
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
     }
 }

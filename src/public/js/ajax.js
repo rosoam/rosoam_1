@@ -93,3 +93,33 @@ $("#file-send").submit(function(e){
 
     return false;
 });
+
+$('.more-posts').click(function(e){
+   e.preventDefault();
+   more_posts();
+});
+
+
+// PARTIALS LOAD
+
+function more_posts()
+{
+    $.ajax
+    ({
+        url:'/more_posts',
+        type: 'POST',
+        dataType: 'html',
+        success: function(data)
+        {
+            $('.homepage-blog').fadeOut(300,function(){
+               $('.homepage-blog').html(data);
+            }).fadeIn();
+        },
+        error: function(xhr, textStatus)
+        {
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);        }
+    });
+}

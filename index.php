@@ -65,6 +65,10 @@ try
         $user::logout();
     });
 
+    $router->post('/more_posts', function() use ($controller){
+        $controller::more_posts();
+    });
+
     $router->post('/send-file', function() use ($file){
         $file::send_file();
     });
