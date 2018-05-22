@@ -33,7 +33,32 @@ a, a:hover {
     text-decoration:none;
     color:#ffb92c;
 }
-
+body.modal-open {
+    padding-right: 0 !important;
+    overflow-y: scroll;
+}
+.modal {
+    bottom: auto;
+    left: auto;
+    right: 20px;
+    top: 90px;
+    min-width: 250px;
+    max-width: 350px;
+}
+.modal-backdrop.show {
+    opacity: -1;
+    height: 50vh;
+}
+.modal-backdrop {
+    z-index: -1;
+}
+.modal-body {
+    font-size: 15px;
+}
+.modal h5 {
+    margin:0;
+    padding:0;
+}
 /* header */
 #header {
     overflow:hidden;
@@ -376,6 +401,9 @@ a, a:hover {
     height:5px;
     width:100%;
     transition:all .15s;
+}
+.blog-blog-post .categorie {
+    text-transform:uppercase;
 }
 .filtres-area p,
 .filtres-area li {
