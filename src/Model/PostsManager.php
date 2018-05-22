@@ -41,13 +41,23 @@ class PostsManager extends Manager
         else
         {
             $db = $this->connection_to_db();
-            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS article_publication, couverture_article, slug FROM t_article ORDER BY :order ASC LIMIT :limit";
+            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS article_publication, couverture_article, slug_article, likes_article FROM t_article ORDER BY :order ASC LIMIT :limit";
             $query = $db->prepare($req_all_posts);
             $query->bindParam(':order', $order_by, PDO::PARAM_STR);
             $query->bindParam(':limit', $limit, PDO::PARAM_INT);
             $query->execute();
-
         }
+        return $query;
+    }
+
+    public function get_auteur_posts($auteur)
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS article_publication, couverture_article, slug_article, likes_article FROM t_article WHERE auteur_article=:auteur_article";
+        $query = $db->prepare($req);
+        $query->bindParam(':auteur_article',$auteur,PDO::PARAM_STR);
+        $query->execute();
+
         return $query;
     }
 
@@ -94,7 +104,7 @@ class PostsManager extends Manager
         $article_slug = $slugify->slugify($titre_article);
 
         $db = $this->connection_to_db();
-        $req = "INSERT INTO t_article (titre_article, auteur_article, extrait_article, contenu_article, publication_article, couverture_article, slug) VALUES (:titre_article, :auteur_article, :extrait_article, :contenu_article, NOW(), :couverture_article, :slug_article)";
+        $req = "INSERT INTO t_article (titre_article, auteur_article, extrait_article, contenu_article, publication_article, couverture_article, slug_article) VALUES (:titre_article, :auteur_article, :extrait_article, :contenu_article, NOW(), :couverture_article, :slug_article)";
         $query = $db->prepare($req);
         $query->bindParam(':titre_article',$titre_article,PDO::PARAM_STR);
         $query->bindParam(':auteur_article',$auteur_article,PDO::PARAM_STR);
@@ -113,7 +123,7 @@ class PostsManager extends Manager
         $article_slug = $slugify->slugify($titre_article);
 
         $db = $this->connection_to_db();
-        $req = "UPDATE t_article SET titre_article=:titre_article, auteur_article=:auteur_article, extrait_article=:extrait_article, contenu_article=:contenu_article, couverture_article=:couverture_article, slug=:slug_article WHERE id_article=:article_id";
+        $req = "UPDATE t_article SET titre_article=:titre_article, auteur_article=:auteur_article, extrait_article=:extrait_article, contenu_article=:contenu_article, couverture_article=:couverture_article, slug_article=:slug_article WHERE id_article=:article_id";
         $query = $db->prepare($req);
         $query->bindParam(':titre_article',$titre_article,PDO::PARAM_STR);
         $query->bindParam(':auteur_article',$auteur_article,PDO::PARAM_STR);
@@ -131,9 +141,41 @@ class PostsManager extends Manager
     public function post($slug)
     {
         $db = $this->connection_to_db();
-        $req_post = "SELECT * FROM t_article WHERE slug=:slug";
+        $req_post = "SELECT * FROM t_article WHERE slug_article=:slug";
         $query = $db->prepare($req_post);
         $query->bindParam(':slug',$slug, PDO::PARAM_STR);
+        $query->execute();
+
+        return $query;
+    }
+
+    /*
+     * TAGS FUNCTIONS
+     * TAGS FUNCTIONS
+     * TAGS FUNCTIONS
+     */
+    // SELECT DISTINCT ar.* FROM t_article AS ar JOIN rel_article_tags AS arta ON arta.fk_article = ar.id_article JOIN t_tag AS ta ON arta.fk_tag = ta.id_tag WHERE ta.nom_tag IN("front-end", "back-end")
+
+    public function get_tags_articles($tags)
+    {
+        $db = $this->connection_to_db();
+        $bindString = $this->bindParamArray('',$tags,$bindArray);
+        $searchIn = " IN($bindString)";
+        $req = "SELECT DISTINCT ar.* FROM t_article AS ar JOIN rel_article_tags AS arta ON arta.fk_article = ar.id_article JOIN t_tag AS ta ON arta.fk_tag = ta.id_tag WHERE ta.nom_tag" . $searchIn;
+        //echo $req;
+        $query = $db->prepare($req);
+        $query->execute();
+
+        //echo $req;
+
+        return $query;
+    }
+
+    public function all_tags()
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT nom_tag, slug_tag FROM t_tag";
+        $query = $db->prepare($req);
         $query->execute();
 
         return $query;
@@ -161,10 +203,16 @@ class PostsManager extends Manager
         return $query;
     }
 
+    /*
+     * CATEGORIES FUNCTIONS
+     * CATEGORIES FUNCTIONS
+     * CATEGORIES FUNCTIONS
+     */
+
     public function all_categories()
     {
         $db = $this->connection_to_db();
-        $req = "SELECT nom_categorie FROM t_categorie";
+        $req = "SELECT nom_categorie, slug_categorie FROM t_categorie";
         $query = $db->prepare($req);
         $query->execute();
 
@@ -182,7 +230,6 @@ class PostsManager extends Manager
         return $query;
     }
 
-    // -> ajax fonction
     public function get_categorie_articles($nom_categorie)
     {
         $db = $this->connection_to_db();

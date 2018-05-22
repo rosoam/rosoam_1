@@ -15,7 +15,7 @@ if(count($fetch_posts_teaser) > 0)
     { ?>
         <div class="article-box">
             <img src="<?= htmlspecialchars($post['couverture_article']) ?>" alt="image de couverture, article : <?= htmlspecialchars($post['titre_article']) ?>" class="article-couverture">
-            <a href="/posts/<?= htmlspecialchars($post['slug']) ?>">
+            <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>">
                 <div class="article-header">
                     <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
                 </div>

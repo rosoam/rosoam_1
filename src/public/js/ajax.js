@@ -130,3 +130,74 @@ function more_posts(count, limit)
             setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);        }
     });
 }
+
+// /auteur_posts
+
+$('.get-auteur-posts').click(function(e){
+   e.preventDefault();
+   var auteur = $('.auteurs-area form #auteur').val();
+
+   auteur_posts(auteur);
+});
+
+function auteur_posts(auteur)
+{
+    $.ajax
+    ({
+        url:'/auteur_posts',
+        type: 'POST',
+        dataType: 'html',
+        data:{auteur:auteur},
+        success: function(data)
+        {
+            $('.all-posts.the-blog').fadeOut(300,function(){
+                $('.all-posts.the-blog').html(data);
+            }).fadeIn();
+        },
+        error: function(xhr, textStatus)
+        {
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);        }
+    });
+}
+
+$('.tag_search').click(function(e){
+   e.preventDefault();
+   var tags = [];
+
+   $('.tag-item.active').each(function(){
+       tags.push($(this).text());
+   });
+
+   get_tags_articles(tags);
+});
+
+$('.tag-item').click(function(e){
+   e.preventDefault();
+});
+
+function get_tags_articles(tags)
+{
+    $.ajax
+    ({
+        url:'/tags_posts',
+        type: 'POST',
+        dataType: 'html',
+        data:{tags:tags},
+        success: function(data)
+        {
+            $('.all-posts.the-blog').fadeOut(300,function(){
+                $('.all-posts.the-blog').html(data);
+            }).fadeIn();
+        },
+        error: function(xhr, textStatus)
+        {
+            $('.modal-header h5').text("Erreur!");
+            $('.modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            //setTimeout(function(){ $('#modal-triggerer').modal('hide'); },3000);
+        }
+    });
+}

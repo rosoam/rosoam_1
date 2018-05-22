@@ -10,11 +10,11 @@
 foreach ($fetch_blog as $post)
 { ?>
 <div class="blog blog-blog-post ">
-    <a href="/posts/<?= htmlspecialchars($post['slug']) ?>" class="blog-post-link">
+    <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link">
         <img src="<?php if($post['couverture_article'] === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($post['couverture_article']); }; ?>" class="blog-post-couverture" alt="couverture de l'article">
     </a>
     <div class="blog-blog-post-body">
-        <a href="/posts/<?= htmlspecialchars($post['slug']) ?>" class="blog-post-link"></a>
+        <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link"></a>
         <span class="blog-blog-infos"><span class="categorie">
             <?php
                 $categories = $post_management->categories($post['id_article']);

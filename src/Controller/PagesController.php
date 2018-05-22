@@ -154,7 +154,7 @@ class PagesController
             }
             else
             {
-                throw new Exception("Tag sélectionné invalide!");
+                throw new Exception("Tag(s) sélectionné invalide!");
             }
         }
     }

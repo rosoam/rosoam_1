@@ -24,33 +24,20 @@ ob_start();
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>HELLO WORLD</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>THIS IS A TAG</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>HELLO WORLD</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>HELLO WORLD</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>HELLO WORLD</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>THIS IS A TAG</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>HELLO WORLD</p></div>
-                            <div class="tag-item"><p>tag1</p></div>
-                            <div class="tag-item"><p>THIS IS A TAG</p></div>
+                            <?php
+                            $tags = $post_management->all_tags();
+                            $fetch_tags = $tags->fetchAll();
+                            foreach($fetch_tags as $tag)
+                            {?>
+                                <div class="tag-item"><p><a href="#"><?= htmlspecialchars($tag['nom_tag']); ?></a></p></div>
+                            <?php }?>
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
+                            <a class="tag_search" href="#">search</a>
                         </div>
                     </div>
-                    <div class="all-posts">
+                    <div class="all-posts the-blog">
                         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php'; ?>
                     </div>
                 </div>
@@ -60,10 +47,10 @@ ob_start();
                             <h3>Auteur</h3>
                             <div class="form-row">
                                 <div class="col-12 col-lg-8">
-                                    <input type="text" class="form-control" placeholder="Auteur">
+                                    <input type="text" id="auteur" class="form-control" placeholder="Auteur">
                                 </div>
                                 <div class="col-12 col-lg-4">
-                                    <button type="submit" class="btn btn-primary form-control" placeholder="Look!">Look!</button>
+                                    <button type="submit" class="btn btn-primary form-control get-auteur-posts" placeholder="Look!">Look!</button>
                                 </div>
                             </div>
                         </form>
@@ -80,7 +67,7 @@ ob_start();
                                 $categories = $post_management->all_categories();
                                 foreach($categories->fetchAll() as $categorie)
                                 {?>
-                                    <li><?= $categorie['nom_categorie']; ?></li>
+                                    <li><a href="/categorie/<?= htmlspecialchars($categorie['slug_categorie']); ?>"><?= htmlspecialchars($categorie['nom_categorie']); ?></a></li>
                                 <?php } ?>
                                 <!-- Generated from specific pages! -->
                                 <!-- Generated from specific pages! -->
@@ -95,28 +82,18 @@ ob_start();
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
-                            <div class="item-populaire">
-                                <a href="#">
-                                    <p>
-                                        <b>Hello worldworldworl world worldworld</b> - <span class="likes">1232 <i class="fa fa-heart"></i></span> <br> <span>FEB 7, BY ROMARIO</span>
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="item-populaire">
-                                <a href="#">
-                                    <p>
-                                        <b>Hello worldworldworl world worldworld</b> - <span class="likes">1232 <i class="fa fa-heart"></i></span> <br> <span>FEB 7, BY ROMARIO</span>
-                                    </p>
-                                </a>
-                            </div>
-                            <div class="item-populaire">
-                                <a href="#">
-                                    <p>
-                                        <b>Hello worldworldworl world worldworld</b> - <span class="likes">1232 <i class="fa fa-heart"></i></span> <br> <span>FEB 7, BY ROMARIO</span>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
+                            <?php
+                            $fetch_fav_blog = $fav_blog->fetchAll();
+                            foreach($fetch_fav_blog as $fav_article)
+                            {?>
+                                <div class="item-populaire">
+                                    <a href="<?= htmlspecialchars($fav_article['slug_article']); ?>">
+                                        <p>
+                                            <b><?= htmlspecialchars($fav_article['titre_article']); ?></b> - <span class="likes"><?= htmlspecialchars($fav_article['likes_article']); ?> <i class="fa fa-heart"></i></span> <br> <span> <?= htmlspecialchars($fav_article['article_publication']); ?>, BY <?= htmlspecialchars($fav_article['auteur_article']); ?></span>
+                                        </p>
+                                    </a>
+                                </div>
+                            <?php } ?>
                         <!-- Generated from specific pages! -->
                         <!-- Generated from specific pages! -->
                         <!-- Generated from specific pages! -->
