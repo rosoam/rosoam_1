@@ -21,7 +21,7 @@
 
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Questrial|Raleway|Asap+Condensed" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed|Pavanam" rel="stylesheet">
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="/src/public/css/bootstrap.min.css">
 
@@ -32,6 +32,7 @@
 
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/menu.php';  ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/header.php'; ?>
 <div class="modal fade" id="modal-triggerer" tabindex="-1" role="dialog" aria-labelledby="modal-triggerer-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -48,6 +49,7 @@
     </div>
 </div>
 <?= $template_page_content ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/footer.php'; ?>
 <!-- jquery -->
 <script src="/src/public/js/jquery-3.3.1.min.js"></script>
 

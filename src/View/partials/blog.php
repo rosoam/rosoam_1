@@ -9,53 +9,24 @@
 <?php
 foreach ($fetch_blog as $post)
 { ?>
-<div class="article-box">
-    <img src="<?php if($post['couverture_article'] === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($post['couverture_article']); }; ?>" alt="image de couverture, article : <?= htmlspecialchars($post['titre_article']) ?>" class="article-couverture">
-    <a href="/posts/<?= htmlspecialchars($post['slug']) ?>">
-        <div class="article-header">
-            <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
+    <div class="blog-post box">
+        <img src="<?php if($post['couverture_article'] === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($post['couverture_article']); }; ?>" class="blog-post-couverture" alt="couverture de l'article <?= htmlspecialchars($post['titre_article']) ?>">
+        <a href="/posts/<?= htmlspecialchars($post['slug']) ?>" class="blog-post-link">
+            <div class="blog-post-header">
+                <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
+            </div>
+            <div class="blog-post-body">
+
+            </div>
+            <div class="blog-post-footer">
+
+            </div>
+        </a>
+        <div class="blog-post-likes">
+            <i class="fa fa-heart"></i>
+            <span class="number-of-likes">12</span>
         </div>
-        <div class="article-tags">
-            <?php
-            $tags_post = $post_management->tags($post['id_article']);
-            $fetch_tags = $tags_post->fetchAll();
-            $count = 0;
-            if(count($fetch_tags) > 0)
-            {
-                foreach($fetch_tags as $tag)
-                {
-                    $count++;
-                    ?>
-                    <p>Tag n<?= $count ?> :<?= $tag['nom_tag'] ?></p>
-                <?php }
-                $tags_post->closeCursor();
-            }
-            else
-            {?>
-                <p>Aucun tag</p>
-            <?php }
-            ?>
-        </div>
-        <div class="article-categorie">
-            <?php
-            $categorie_post = $post_management->categories($post['id_article']);
-            $fetch_categorie = $categorie_post->fetchAll();
-            if(count($fetch_categorie) > 0)
-            {
-                foreach($fetch_categorie as $categorie)
-                {?>
-                    <p>categorie :<?= $categorie['nom_categorie'] ?></p>
-                <?php }
-                $categorie_post->closeCursor();
-            }
-            else
-            {?>
-                <p>Aucune catégorie</p>
-            <?php }
-            ?>
-        </div>
-    </a>
-</div>
+    </div>
 <?php }
 $blog->closeCursor();
 ?>

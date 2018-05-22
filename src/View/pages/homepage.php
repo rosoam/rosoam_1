@@ -10,63 +10,75 @@ $title = "Bienvenue sur la homepage de mon site internet!";
 
 ob_start();
 ?>
-<section id="header-section">
-    <div class="header-content">
-        <div class="container">
-            <div class="row">
+    <section id="presentation" class="presentation-section section">
+        <div class="presentation-container container">
+            <div class="row presentation-title-area">
                 <div class="col-12">
-                    <h1>Hello World, welcome to my website!</h1>
+                    <h1>Welcome!</h1>
+                </div>
+            </div>
+            <div class="row presentation-content-area">
+                <div class="col-12 col-md-7">
+                    <p>
+                        Bienvenue sur mon projet pour le module 104! J'ai trouvé intéressant d'essayer de comprendre le fonctionnement "interne" d'un blog.
+                        Ce qui m'a logiquement dirigé sur la base de création de ce mini-blog! J'espère sincèrement que vous apprécierez le travail fourni,
+                        car j'y ai passé énormément de temps! En passant par la conception de base d'un projet PHP, à la conception du modèle MVC,
+                        celui-ci a été spécialement conçu pour être facil d'utilisation et compréhensible pour toute personne voulant reprendre le projet!
+                    </p>
+                </div>
+                <div class="col-12 col-md-5">
+                    <img src="../src/public/img/Outer-space-knight-vector-3.png" alt="space knight 2" class="space-knight-presentation img">
                 </div>
             </div>
         </div>
-    </div>
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/teaser-last-news.php'; ?>
-</section>
-<section id="presentation" class="presentation-section section">
-    <div class="presentation-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 presentation-title-area">
-                    <h2>Welcome!</h2>
+    </section>
+
+    <section id="ressources" class="ressources-section section">
+        <div class="ressources-container container">
+            <div class="row ressources-title-area text-center">
+                <div class="col-12">
+                    <h2>Mes ressources</h2>
                 </div>
-                <div class="col-12 presentation-text-area">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non porta libero.
-                    Phasellus suscipit non turpis in tempus. Vestibulum imperdiet elit non tortor consectetur elementum.
-                    Phasellus dignissim iaculis metus. Maecenas urna libero, dapibus eu neque non, pretium varius dolor.
-                    Donec sollicitudin sem nibh, et mattis quam venenatis ac. Nam in libero at lacus porttitor vehicula
-                    non sed lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
-                    egestas. Praesent porta iaculis purus. Vestibulum mattis enim eu magna auctor feugiat. Nullam
-                    pellentesque, elit ut tincidunt iaculis, diam urna hendrerit quam, a dictum sapien risus sed risus.
-                    Pellentesque a nibh id nibh pharetra congue euismod vel dolor. Quisque vel mattis dolor. </p>
+            </div>
+            <div class="row ressources-content-area">
+                <div class="col-12 col-md-3">
+                    <img src="../src/public/img/codepen_png.png" alt="logo code pen" class="img img-fluid logo-ressources code-pen">
+                </div>
+                <div class="col-12 col-md-3">
+                    <img src="../src/public/img/Stack_Overflow_logo.svg" alt="logo stack overflow" class="img img-fluid logo-ressources stack-overflow">
+                </div>
+                <div class="col-12 col-md-3">
+                    <img src="../src/public/img/codecademy_svg.svg" alt="logo codeacademy" class="img img-fluid logo-ressources codeacademy">
+                </div>
+                <div class="col-12 col-md-3">
+                    <img src="../src/public/img/github_svg.svg" alt="logo github" class="img img-fluid logo-ressources github">
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<section id="blog" class="blog-section section">
-    <div class="container">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 blog-title-area">
-                    <h2>Blog</h2>
-                    <a href="/posts" class="text-right">Tous les posts</a>
+    </section>
+
+    <section id="blog" class="blog-section section">
+        <div class="blog-container container">
+            <div class="row blog-title-area">
+                <div class="col-12">
+                    <h2>Les derniers articles</h2>
+                    <a href="posts.html">Tous les posts!</a>
                 </div>
             </div>
-            <div class="row">
+            <div class="row blog-content-area">
                 <div class="col-12">
-                    <div class="blog-area ajax-container">
+                    <div class="blog-area homepage-blog">
                         <?php require $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php'; ?>
                     </div>
                 </div>
             </div>
+            <div class="row blog-more-post-area">
+                <div class="col-12 text-center">
+                    <a href="#" class="more-posts"><span>More posts!</span></a>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
-<section style="height:100vh;">
-    <a href="/file-send">
-        hello
-    </a>
-</section>
+    </section>
 <?php
 $content = ob_get_clean();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-homepage.php';

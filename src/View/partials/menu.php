@@ -6,47 +6,56 @@
  * Time: 17:58
  */
 ?>
-<section id="menu-section">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/"><img alt="logo du site" class="logo" src="https://via.placeholder.com/200x70.png"></a>
+<section id="menu" class="menu-section">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="menu-container container">
+            <!-- warning src link -->
+            <a class="navbar-brand" href="#"><img src="../src/public/img/logo_1.svg" alt="logo" class="logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    <!-- Generated from specific pages! -->
+                    <!-- Generated from specific pages! -->
+                    <!-- Generated from specific pages! -->
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/a-propos">À propos</a>
+                        <a class="nav-link" href="a-propos.html">À propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/posts">les posts</a>
+                        <a class="nav-link" href="posts.html">Le blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Prenez-contact</a>
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <!-- Generated from specific pages! -->
+                    <!-- Generated from specific pages! -->
+                    <!-- Generated from specific pages! -->
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="connect.html">Se connecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inscription.html">S'inscrire</a>
                     </li>
                 </ul>
-                <?php if(isset($_SESSION['username']))
-                { ?>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="https://res.cloudinary.com/rosoam/image/upload/v1520204756/romario_profil.png" alt="user image" class="user-img">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/admin">Admin page</a>
-                                <a class="dropdown-item logout" href="#">Se déconnecter</a>
-                            </div>
-                        </li>
-                    </ul>
-                <?php } else
-                { ?>
-                    <a href="/admin/">Login</a> - <a href="/subscribe/">Sign in</a>
-                <?php }?>
+
+                <!-- <span class="nav-item dropdown menu-dropdown-parent">
+                    <img src="https://via.placeholder.com/75x75" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Page admin</a>
+                        <a class="dropdown-item" href="#">Paramètres</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Se déconnecter</a>
+                    </div>
+                </span> -->
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 </section>
