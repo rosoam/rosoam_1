@@ -42,7 +42,7 @@ class PagesController
 
     static function admin()
     {
-        $new_posts_teaser = new PostsManager();
+        $post_management = new PostsManager();
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/admin.php';
     }
@@ -57,16 +57,6 @@ class PagesController
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/subscribe.php';
     }
 
-    static function send_file()
-    {
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/file-send.php';
-    }
-
-    /**
-     * @param $id
-     * @param $validation_code
-     * @throws \Exception
-     */
     static function validate_user($id, $validation_code)
     {
         $user = new UsersManager();
@@ -84,9 +74,6 @@ class PagesController
 
     }
 
-    /**
-     *
-     */
     static function more_posts($count, $limit)
     {
         $post_management = new PostsManager();
@@ -166,12 +153,26 @@ class PagesController
         }
     }
 
-    static function get_all_posts()
+    static function refresh_all_posts()
     {
         $post_management = new PostsManager();
         $blog = $post_management->posts('id_article',50,false);
         $fetch_blog = $blog->fetchAll();
 
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+    }
+
+    static function refresh_personal_posts()
+    {
+        if(isset($_SESSION['username']))
+        {
+            $post_management = new PostsManager();
+
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/user-blog.php';
+        }
+        else
+        {
+            throw new Exception("Vous devez être connecté pour faire cette action");
+        }
     }
 }
