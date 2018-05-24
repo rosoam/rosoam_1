@@ -30,7 +30,7 @@ class PostsManager extends Manager
         if( $personal === true )
         {
             $db = $this->connection_to_db();
-            $req_all_posts = "SELECT a.* FROM t_article AS a JOIN rel_utilisateur_article AS ua ON ua.fk_article=a.id_article JOIN t_utilisateur AS u ON ua.fk_utilisateur=u.id_utilisateur WHERE ua.fk_utilisateur=:id_utilisateur ORDER BY :order ASC LIMIT :limit";
+            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS article_publication, couverture_article, slug_article, likes_article FROM t_article AS a JOIN rel_utilisateur_article AS ua ON ua.fk_article=a.id_article JOIN t_utilisateur AS u ON ua.fk_utilisateur=u.id_utilisateur WHERE ua.fk_utilisateur=:id_utilisateur ORDER BY :order ASC LIMIT :limit";
             $query = $db->prepare($req_all_posts);
             $query->bindParam(':order', $order_by, PDO::PARAM_STR);
             $query->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -98,6 +98,26 @@ class PostsManager extends Manager
         $query->closeCursor();
     }
 
+    public function is_utilisateur_article($id_article, $id_utilisateur)
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT id_article FROM t_article AS ar JOIN rel_utilisateur_article AS utar ON utar.fk_article=ar.id_article JOIN t_utilisateur AS ut ON utar.fk_utilisateur=ut.id_utilisateur WHERE utar.fk_article=:id_article AND utar.fk_utilisateur=:id_utilisateur";
+        $query = $db->prepare($req);
+        $query->bindParam(':id_article',$id_article,PDO::PARAM_INT);
+        $query->bindParam(':id_utilisateur',$id_utilisateur,PDO::PARAM_INT);
+        $query->execute();
+        $query->closeCursor();
+
+        if($query->rowCount() === 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function add_article($titre_article, $auteur_article,$extrait_article,$contenu_article,$couverture_article)
     {
         $slugify = new Slugify();
@@ -115,6 +135,41 @@ class PostsManager extends Manager
         $query->execute();
 
         $query->closeCursor();
+
+        $last_id = $db->lastInsertId();
+
+        $this->make_utilsateur_article_relation($last_id, $_SESSION['user_id']);
+    }
+
+    private function make_utilsateur_article_relation($id_article, $id_utilisateur)
+    {
+        $db = $this->connection_to_db();
+        $req = "INSERT INTO rel_utilisateur_article (fk_article, fk_utilisateur) VALUES (:id_article, :id_utilisateur)";
+        $query = $db->prepare($req);
+        $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
+        $query->bindParam(':id_utilisateur',$id_utilisateur,PDO::PARAM_INT);
+        $query->execute();
+
+        $query->closeCursor();
+    }
+
+    public function is_title_unique($title)
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT id_article FROM t_article WHERE t_article.titre_article=:title";
+        $query = $db->prepare($req);
+        $query->bindParam(':title',$title, PDO::PARAM_STR);
+        $query->execute();
+        $query->closeCursor();
+
+        if($query->rowCount() > 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     public function update_article($titre_article, $auteur_article,$extrait_article,$contenu_article,$couverture_article, $article_id)
