@@ -40,72 +40,95 @@ ob_start();
         <div class="container">
             <div class="row">
                 <div class="col-3">
-                    <p>col 3</p>
+                    <h2>Votre espace</h2>
+                    <div class="admin-menu-area">
+                        <ul class="admin-menu">
+                            <li class="admin-menu-item">
+                                <a href="#" class="admin-menu-link-item">
+                                    Page d'administration
+                                </a>
+                            </li>
+                            <li class="admin-menu-item">
+                                <a href="#" class="admin-menu-link-item">
+                                    Gérer vos articles
+                                </a>
+                            </li>
+                            <li class="admin-menu-item">
+                                <a href="#" class="admin-menu-link-item">
+                                    Gérer votre profil
+                                </a>
+                            </li>
+                            <li class="admin-menu-item">
+                                <a href="#" class="admin-menu-link-item">
+                                    Changer votre mot de passe
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-9">
-                    <p>col 9</p>
-                    <div class="public-profil-area">
-                        <div class="public-profil-title-area">
-                            <h2>Votre profil public</h2>
-                        </div>
-                        <div class="public-profil-text-area">
-                            <form class="update-public-profil-form" id="public-profil-form">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <p>col 9</p>
-                                        <div class="form-group">
-                                            <label for="update-name">Prénom</label>
-                                            <input type="text" class="form-control" id="update-name" placeholder="Prénom">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="update-family-name">Nom de famille</label>
-                                            <input type="text" class="form-control" id="update-family-name" placeholder="Nom de famille">
+                <div class="col-9 admin-main-area">
+                    <?php //require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/manage-profil.php'; ?>
+
+                    <div class="modal fade" id="add-article-modal" tabindex="-1" role="dialog" aria-labelledby="add-article-modal" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-triggerer-title">Créer un article</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="add-post-formulaire" id="add-post-form">
+                                        <div class="form-row">
+                                            <div class="form-group col-8">
+                                                <label for="add-post-titre-article">Titre de l'article*</label>
+                                                <input type="text" class="form-control" id="add-post-titre-article" placeholder="Titre de l'article" required>
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <label for="add-post-auteur-article">Auteur de l'article*</label>
+                                                <input type="text" class="form-control" id="add-post-auteur-article" placeholder="L'auteur de cet article" value="<?= $_SESSION['username']; ?>" required>
+                                            </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-8">
-                                                <label for="update-adresse">Adresse</label>
-                                                <input type="text" class="form-control" id="update-adresse" placeholder="Adresse">
+                                            <div class="form-group col-8">
+                                                <label for="add-post-extrait-article">Le teaser de votre article*</label>
+                                                <input type="text" class="form-control" id="add-post-extrait-article" placeholder="Cet article est vraiment génial, il ne faut pas le rater!" required>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="update-npa">NPA</label>
-                                                <input type="text" class="form-control" id="update-npa" placeholder="Numéro postal">
+                                            <div class="form-group col-4">
+                                                <label for="post-couverture">Image de couverture</label>
+                                                <input type="file" id="add-post-couverture" class="form-control inputfile" name="add-post-couverture" data-multiple-caption="{count} files selected">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="update-country">Pays</label>
-                                            <input type="text" class="form-control" id="update-country" placeholder="Pays">
+                                            <label for="add-post-contenu-article">Votre contenu*</label>
+                                            <textarea id="add-post-contenu-article" class="form-control" ></textarea>
                                         </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <p>col 3</p>
-                                        <div class="form-group update-profil-picture-zone">
-                                            <label for="update-profil-picture">
-                                                <span>Photo de profil</span>
-                                                <img src="/src/public/uploads/binaire_hexa.png" id="test">
-                                            </label>
-                                            <input type="file" class="form-control" id="update-profil-picture">
-                                            <p class="update-profil-picture-spec">
-                                                <strong>Taille conseillée :</strong> 400x400px
-                                            </p>
-                                            <p class="update-profil-picture-spec">
-                                                <strong>Format de fichiers :</strong> jpg, jpeg, png, gif!
-                                            </p>
-                                            <p class="update-profil-picture-spec">
-                                                <strong>Taille max:</strong> 1MB!
-                                            </p>
-                                            <p><?= substr(md5(mt_rand()),0,30); ?></p>
-                                        </div>
-                                    </div>
+                                        <button class="add-post-submit">Créer l'article</button>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row manage-articles-title-area">
+                        <div class="col-12">
+                            <h2>Managez vos articles!</h2>
+                        </div>
+                    </div>
+                    <div class="row manage-articles-content-area">
+                        <div class="col-12 user-articles-zone">
+                            <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/user-blog.php'; ?>
+                        </div>
+                        <div class="col-12 add-article-area">
+                            <div class="add-article-zone">
+                                <a href="#" class="add-posts" data-toggle="modal" data-target="#add-article-modal" ><span>Créer un article?</span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="container">
-            <?php require $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/user-blog.php'; ?>
-        </div> -->
     </div>
     <?php } ?>
 <?php
