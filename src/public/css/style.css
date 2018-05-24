@@ -37,7 +37,10 @@ body.modal-open {
     padding-right: 0 !important;
     overflow-y: scroll;
 }
-.modal {
+.modal-lg {
+    max-width:1000px;
+}
+#modal-triggerer {
     bottom: auto;
     left: auto;
     right: 20px;
@@ -46,7 +49,7 @@ body.modal-open {
     max-width: 350px;
 }
 .modal-backdrop.show {
-    opacity: -1;
+    opacity: 0;
     height: 50vh;
 }
 .modal-backdrop {
@@ -262,8 +265,19 @@ body.modal-open {
     height:600px;
 }
 .blog-post .blog-post-couverture {
+    width:800px;
+    height:auto;
+}
+.blog-post:first-of-type .blog-post-couverture {
+    height:100%;
+    width:auto;
+}
+.blog-post:nth-of-type(2) .blog-post-couverture,
+.blog-post:nth-of-type(3) .blog-post-couverture {
     width:100%;
     height:auto;
+}
+.blog-post .blog-post-couverture {
     opacity:0.8;
 }
 .blog-post .blog-post-couverture {
@@ -319,7 +333,7 @@ body.modal-open {
 .blog-more-post-area > div {
     padding:30px 0 0;
 }
-.more-posts {
+.more-posts, .add-posts {
     padding: 15px 30px;
     display: inline-block;
     background-color: #2b2d42;
@@ -328,17 +342,17 @@ body.modal-open {
     overflow: hidden;
     position:relative;
 }
-.more-posts span {
+.more-posts span, .add-posts span {
     position:relative;
     z-index:3;
 }
-.more-posts:hover {
+.more-posts:hover, .add-posts:hover {
     color:#fff;
 }
-.more-posts:hover:after {
+.more-posts:hover:after, .add-posts:hover:after {
     bottom:0;
 }
-.more-posts:after {
+.more-posts:after, .add-posts:after {
     content:"";
     position:absolute;
     bottom:-100%;
@@ -458,6 +472,11 @@ body.modal-open {
     color:#fff;
 }
 /* admin */
+.admin-menu-area .admin-menu {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
 #file {
     width: 0.1px;
     height: 0.1px;
@@ -494,7 +513,15 @@ body.modal-open {
     margin-bottom: 5px;
     border-bottom: 0 !important;
 }
-
+/* admin blog */
+.user-blog {
+    position:relative;
+}
+.user-blog .btn-danger{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
 /* footer */
 #footer {
     font-size:16px;
@@ -523,7 +550,13 @@ body.modal-open {
     padding: 1px 0;
     color:#fff;
 }
-
+/* tinymce */
+#mceu_31, .mce-notification {
+    display:none;
+}
+form .mce-container #add-post-contenu-article_ifr {
+    height:250px!important;
+}
 /* subfooter */
 .subfooter {
     position:absolute;
