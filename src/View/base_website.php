@@ -53,6 +53,7 @@
 <!-- jquery -->
 <script src="/src/public/js/jquery-3.3.1.min.js"></script>
 
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=x4qs0xygpeomyfpnfq0c4k5r4won9rcc7egvxs1ejbg5mxqg"></script>
 <!-- bootstrap script -->
 <script src="/src/public/js/bootstrap.min.js"></script>
 
