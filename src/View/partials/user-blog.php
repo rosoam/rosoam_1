@@ -7,42 +7,45 @@
  */
 ?>
 <?php
-$posts_teaser = $new_posts_teaser->posts("id_article", 5, true);
-$fetch_posts_teaser = $posts_teaser->fetchAll();
-if(count($fetch_posts_teaser) > 0)
-{
-    foreach ($fetch_posts_teaser as $post)
-    { ?>
-        <div class="article-box">
-            <img src="<?= htmlspecialchars($post['couverture_article']) ?>" alt="image de couverture, article : <?= htmlspecialchars($post['titre_article']) ?>" class="article-couverture">
-            <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>">
-                <div class="article-header">
-                    <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
-                </div>
-                <div class="article-tags">
-                    <?php
-                    $tags_post = $new_posts_teaser->tags($post['id_article']);
-                    $fetch_tags = $tags_post->fetchAll();
-                    if(count($fetch_tags) > 0)
-                    {
-                        foreach($fetch_tags as $tag)
-                        {?>
-                            <p><?= $tag['nom_tag'] ?></p>
-                        <?php }
-                        $tags_post->closeCursor();
-                    }
-                    else
-                    {?>
-                        <p>Aucun tag</p>
-                    <?php }
-                    ?>
-                </div>
+$blog       = $post_management->posts("id_article", 5, true);
+$fetch_blog = $blog->fetchAll();
+if (count($fetch_blog) > 0) {
+    foreach ($fetch_blog as $post) {
+        ?>
+        <div class="blog user-blog blog-blog-post ">
+            <button class="delete-post btn btn-danger" id="<?= htmlspecialchars($post['id_article']) ?>">Effacer</button>
+            <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link">
+                <img src="<?php
+                if ($post['couverture_article'] === "") {
+                    echo "https://via.placeholder.com/800x600.png?text=BLOG";
+                } else {
+                    echo htmlspecialchars($post['couverture_article']);
+                };
+                ?>" class="blog-post-couverture" alt="couverture de l'article">
             </a>
+            <div class="blog-blog-post-body">
+                <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link"></a>
+                <span class="blog-blog-infos"><span class="categorie">
+            <?php
+            $categories = $post_management->categories($post['id_article']);
+            $categorie  = $categories->fetch();
+            $count      = $categories->rowCount();
+            if ($count > 0) {
+                echo htmlspecialchars($categorie['nom_categorie']);
+            } else {
+                echo "Aucune categorie";
+            }
+            $categories->closeCursor();
+            ?></span> | <?= htmlspecialchars($post['article_publication']) ?> BY <?= htmlspecialchars($post['auteur_article']); ?></span><br>
+                <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
+            </div>
         </div>
-    <?php }
-} else
-{ ?>
+        <?php
+    }
+} else {
+    ?>
     <p>Vous n'avez aucun article</p>
-<?php }
-$posts_teaser->closeCursor();
+    <?php
+}
+$blog->closeCursor();
 ?>
