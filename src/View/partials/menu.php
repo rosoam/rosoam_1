@@ -24,13 +24,13 @@
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/a-propos">À propos</a>
+                        <!--<a class="nav-link" href="/a-propos">À propos</a>-->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/posts">Le blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        <!--<a class="nav-link" href="/contact">Contact</a>-->
                     </li>
                     <!-- Generated -->
                     <!-- Generated -->
@@ -44,7 +44,7 @@
 " class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/admin">Page admin</a>
-                        <a class="dropdown-item" href="/admin">Paramètres</a>
+                        <!--<a class="dropdown-item" href="/admin">Paramètres</a>-->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item logout" href="#">Se déconnecter</a>
                     </div>

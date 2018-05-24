@@ -31,16 +31,16 @@
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="a-propos.html">À propos</a>
+                                <!-- <a class="nav-link" href="a-propos.html">À propos</a> -->
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="posts.html">Le blog</a>
+                                <a class="nav-link" href="/posts">Le blog</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Contact</a>
+                                <!-- <a class="nav-link" href="contact.html">Contact</a>-->
                             </li>
                             <!-- Generated from specific pages! -->
                             <!-- Generated from specific pages! -->
