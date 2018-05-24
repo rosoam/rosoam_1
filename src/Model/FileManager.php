@@ -11,9 +11,11 @@ namespace App\Model;
 class FileManager
 {
 
-    public function send_img()
+    public function downdload_couverture_article($file)
     {
-        move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/src/public/uploads/' . basename($_FILES['file']['name']));
-        echo "L'envoi a bien été effectué !";
+        $destination = $_SERVER['DOCUMENT_ROOT'] . '/src/public/uploads/couvertures-articles/' . basename($file['name']);
+        move_uploaded_file($file['tmp_name'], $destination);
+
+        return '/src/public/uploads/couvertures-articles/' . basename($file['name']);
     }
 }
