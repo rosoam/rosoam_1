@@ -12,14 +12,14 @@ require 'vendor/autoload.php';
 
 use App\Controller\PagesController;
 use App\Controller\UsersController;
-use App\Controller\FileController;
+use App\Controller\PostsController;
 
 try
 {
     $router = new App\Router\Router($_GET['url']);
     $controller = new PagesController();
     $user = new UsersController();
-    $file = new FileController();
+    $post = new PostsController();
 
     $router->get('/', function() use ($controller) {
         $controller::homepage();
@@ -38,16 +38,11 @@ try
     });
 
     $router->get('/validate_user/:id/:validation_code', function($id, $validation_code) use ($controller){
-        // validation de l'url cliqué depuis l'email
         $controller::validate_user($id, $validation_code);
     });
 
     $router->get('/posts/:slug', function($slug) use ($controller) {
         $controller::post($slug);
-    });
-
-    $router->get('/file-send', function() use ($controller) {
-        $controller::send_file();
     });
 
 
@@ -84,14 +79,20 @@ try
     });
 
     $router->post('/refresh_posts', function() use ($controller){
-       $controller::get_all_posts();
+       $controller::refresh_all_posts();
     });
 
-    $router->post('/send-file', function() use ($file){
-        $file::send_file();
+    $router->post('/refresh_personal_posts', function() use ($controller){
+        $controller::refresh_personal_posts();
     });
 
+    $router->post('/add_post', function() use ($post){
+        $post::add_post($_POST['titre_article'],$_POST['auteur_article'],$_POST['extrait_article'],$_POST['contenu_article'],$_FILES['file']);
+    });
 
+    $router->post('/delete_post', function() use ($post){
+        $post::delete_post($_POST['id_article'],$_SESSION['user_id']);
+    });
 
     $router->run();
 } catch(Exception $e)
@@ -99,7 +100,3 @@ try
     echo $e->getMessage();
     header("HTTP/1.1 404 Not Found");
 }
-
-//$router->get('/posts/:id-:slug', function($id, $slug) use ($router) { echo $router->url('Posts#show', ['id' => 23, 'slug' => 'salut-les-gens']); }, 'posts.show')->with('id', '[0-9]+')->with('slug', '([a-z\-0-9]+)');
-//$router->get('/posts/:id', "Posts#show");
-//$router->post('/posts/:id', function($id){ echo 'Poster pour l\'article ' . $id . '<pre>' . print_r($_POST, true) . '</pre>' ; });
