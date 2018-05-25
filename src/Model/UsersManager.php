@@ -82,7 +82,9 @@ class UsersManager extends Manager
                                     FROM
                                         t_utilisateur
                                     WHERE
-                                        pseudo_utilisateur = : USER OR email_utilisateur = : USER";
+                                        pseudo_utilisateur =:user 
+                                    OR 
+                                        email_utilisateur =:user";
         $query = $db->prepare($req_check_confirmed_user);
         $query->bindParam(':user', $username, PDO::PARAM_STR);
         $query->execute();
