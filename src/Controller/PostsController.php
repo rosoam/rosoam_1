@@ -76,7 +76,7 @@ class PostsController
 
             if(isset($couverture_article) && $couverture_article['error'] == 0)
             {
-                if($couverture_article['size'] <= 1000000)
+                if($couverture_article['size'] <= 2000000)
                 {
                     $infosfichier = pathinfo($couverture_article['name']);
                     $extension_fichier = $infosfichier['extension'];
