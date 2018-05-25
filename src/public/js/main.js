@@ -5,11 +5,50 @@ $(document).ready(function () {
     $('#inscription-submit').click(function (e) {
         e.preventDefault();
 
+        var error_message = "Erreur les champs suivants sont vides: ";
         var $form_username = $('#inscription-form #username').val();
         var $form_email = $('#inscription-form #email').val();
         var $form_password = $('#inscription-form #password').val();
         var $form_confirmPassword = $('#inscription-form #confirmPassword').val();
-        subscribe_user($form_username, $form_email, $form_password, $form_confirmPassword);
+
+        if($form_username === "")
+        {
+            error_message += "username, ";
+            errors++;
+        }
+
+        if($form_email === "")
+        {
+            error_message += "email, ";
+            errors++;
+        }
+
+        if($form_password === "")
+        {
+            error_message += "password, ";
+            errors++;
+        }
+
+        if($form_confirmPassword === "")
+        {
+            error_message += "second password.";
+            errors++;
+        }
+
+        if(errors > 0)
+        {
+            $('#modal-triggerer .modal-header h5').text("Erreur!");
+            $('#modal-triggerer .modal-body').text(error_message);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function () {
+                $('#modal-triggerer').modal('hide');
+            }, 3000);
+        }
+        else
+        {
+            subscribe_user($form_username, $form_email, $form_password, $form_confirmPassword);
+        }
+        errors = 0;
     });
 
     $('#connect-submit').click(function (e) {
