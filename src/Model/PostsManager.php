@@ -139,6 +139,8 @@ class PostsManager extends Manager
         $last_id = $db->lastInsertId();
 
         $this->make_utilsateur_article_relation($last_id, $_SESSION['user_id']);
+
+        return $last_id;
     }
 
     private function make_utilsateur_article_relation($id_article, $id_utilisateur)
