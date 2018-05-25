@@ -522,6 +522,20 @@ body.modal-open {
     top:10px;
     right:10px;
 }
+/* post */
+.post-couverture-zone {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+.post-couverture-zone .post-couverture {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    height: auto;
+}
 /* footer */
 #footer {
     font-size:16px;
