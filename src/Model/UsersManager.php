@@ -77,7 +77,12 @@ class UsersManager extends Manager
     public function check_confirmed_user($username)
     {
         $db = $this->connection_to_db();
-        $req_check_confirmed_user = "SELECT valid_utilisateur FROM t_utilisateur WHERE pseudo_utilisateur=:user OR email_utilisateur=:user";
+        $req_check_confirmed_user = "SELECT
+                                        valid_utilisateur
+                                    FROM
+                                        t_utilisateur
+                                    WHERE
+                                        pseudo_utilisateur = : USER OR email_utilisateur = : USER";
         $query = $db->prepare($req_check_confirmed_user);
         $query->bindParam(':user', $username, PDO::PARAM_STR);
         $query->execute();
@@ -116,7 +121,7 @@ class UsersManager extends Manager
         $_SESSION['name'] = $user['nom_utilisateur'];
         $_SESSION['family_name'] = $user['nom_famille_utilisateur'];
         $_SESSION['email'] = $user['email_utilisateur'];
-        $_SESSION['image_profil'] = $user['image_profil_utilisateur'];
+        //$_SESSION['image_profil'] = $user['image_profil_utilisateur'];
     }
 
     /**
