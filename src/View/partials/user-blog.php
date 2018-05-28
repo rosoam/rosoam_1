@@ -7,9 +7,8 @@
  */
 ?>
 <?php
-$blog       = $post_management->posts("id_article", 5, true);
 $fetch_blog = $blog->fetchAll();
-if (count($fetch_blog) > 0) {
+if ($blog->rowCount() > 0) {
     foreach ($fetch_blog as $post) {
         ?>
         <div class="blog user-blog blog-blog-post ">
@@ -27,10 +26,9 @@ if (count($fetch_blog) > 0) {
                 <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link"></a>
                 <span class="blog-blog-infos"><span class="categorie">
             <?php
-            $categories = $post_management->categories($post['id_article']);
+            $categories = $this->_post->categories($post['id_article']);
             $categorie  = $categories->fetch();
-            $count      = $categories->rowCount();
-            if ($count > 0) {
+            if ($categories->rowCount() > 0) {
                 echo htmlspecialchars($categorie['nom_categorie']);
             } else {
                 echo "Aucune categorie";

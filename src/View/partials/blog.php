@@ -7,7 +7,6 @@
  */
 ?>
 <?php
-$blog = $this->_post->posts("id_article",50,false);
 $fetch_blog = $blog->fetchAll();
 foreach ($fetch_blog as $post)
 { ?>

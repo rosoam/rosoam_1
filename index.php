@@ -30,19 +30,19 @@ try
     });
 
     $router->get('/admin', function() use ($controller) {
-        $controller::admin();
+        $controller->admin();
     });
 
     $router->get('/subscribe', function() use ($controller) {
-        $controller::subscribe();
+        $controller->subscribe();
     });
 
     $router->get('/validate_user/:id/:validation_code', function($id, $validation_code) use ($controller){
-        $controller::validate_user($id, $validation_code);
+        $controller->validate_user($id, $validation_code);
     });
 
     $router->get('/posts/:slug', function($slug) use ($controller) {
-        $controller::post($slug);
+        $controller->post($slug);
     });
 
 
@@ -62,11 +62,11 @@ try
     $router->post('/more_posts', function() use ($controller){
         $count = intval($_POST['count']);
         $limit = intval($_POST['limit']);
-        $controller::more_posts($count,$limit);
+        $controller->more_posts($count,$limit);
     });
 
     $router->post('/auteur_posts', function() use ($controller){
-       $controller::get_auteur_posts($_POST['auteur']);
+       $controller->get_auteur_posts($_POST['auteur']);
     });
 
     $router->post('/tags_posts', function() use ($controller){
@@ -74,11 +74,11 @@ try
     });
 
     $router->post('/categorie_posts', function() use ($controller){
-       $controller::get_categorie_articles($_POST['categorie']);
+       $controller->get_categorie_articles($_POST['categorie']);
     });
 
     $router->post('/refresh_posts', function() use ($controller){
-       $controller::refresh_all_posts();
+       $controller->refresh_all_posts();
     });
 
     $router->post('/refresh_personal_posts', function() use ($controller){
