@@ -83,17 +83,17 @@ ob_start();
                                         <div class="form-row">
                                             <div class="form-group col-8">
                                                 <label for="add-post-titre-article">Titre de l'article*</label>
-                                                <input type="text" class="form-control" id="add-post-titre-article" placeholder="Titre de l'article" required>
+                                                <input type="text" class="form-control" id="add-post-titre-article" placeholder="Titre de l'article">
                                             </div>
                                             <div class="form-group col-4">
                                                 <label for="add-post-auteur-article">Auteur de l'article*</label>
-                                                <input type="text" class="form-control" id="add-post-auteur-article" placeholder="L'auteur de cet article" value="<?= $_SESSION['username']; ?>" required>
+                                                <input type="text" class="form-control" id="add-post-auteur-article" placeholder="L'auteur de cet article" value="<?= $_SESSION['username']; ?>">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-8">
                                                 <label for="add-post-extrait-article">Le teaser de votre article*</label>
-                                                <input type="text" class="form-control" id="add-post-extrait-article" placeholder="Cet article est vraiment génial, il ne faut pas le rater!" required>
+                                                <input type="text" class="form-control" id="add-post-extrait-article" placeholder="Cet article est vraiment génial, il ne faut pas le rater!">
                                             </div>
                                             <div class="form-group col-4">
                                                 <label for="post-couverture">Image de couverture</label>

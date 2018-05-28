@@ -22,11 +22,11 @@ try
     $post = new PostsController();
 
     $router->get('/', function() use ($controller) {
-        $controller::homepage();
+        $controller->homepage();
     });
 
     $router->get('/posts', function() use ($controller) {
-        $controller::posts();
+        $controller->posts();
     });
 
     $router->get('/admin', function() use ($controller) {
@@ -48,16 +48,15 @@ try
 
 
     $router->post('/subscribe_user', function() use ($user) {
-        $user::validate_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
-        //$user::subscribe_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
+        $user->validate_user($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
     });
 
     $router->post('/login_user', function() use ($user) {
-        $user::login_user($_POST['username'],$_POST['password']);
+        $user->login_user($_POST['username'],$_POST['password']);
     });
 
     $router->post('/logout', function() use ($user){
-        $user::logout();
+        $user->logout();
     });
 
     $router->post('/more_posts', function() use ($controller){
@@ -71,7 +70,7 @@ try
     });
 
     $router->post('/tags_posts', function() use ($controller){
-       $controller::get_tags_articles($_POST['tags']);
+       $controller->get_tags_articles($_POST['tags']);
     });
 
     $router->post('/categorie_posts', function() use ($controller){
@@ -87,11 +86,11 @@ try
     });
 
     $router->post('/add_post', function() use ($post){
-        $post::add_post($_POST['titre_article'],$_POST['auteur_article'],$_POST['extrait_article'],$_POST['contenu_article'],$_FILES['file']);
+        $post->add_post($_POST['titre_article'],$_POST['auteur_article'],$_POST['extrait_article'],$_POST['contenu_article'],$_FILES['file']);
     });
 
     $router->post('/delete_post', function() use ($post){
-        $post::delete_post($_POST['id_article'],$_SESSION['user_id']);
+        $post->delete_post($_POST['id_article'],$_SESSION['user_id']);
     });
 
     $router->run();

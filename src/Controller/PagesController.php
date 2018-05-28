@@ -8,28 +8,32 @@
 
 namespace App\Controller;
 
+use App\Model\SecurityManager;
 use App\Model\PostsManager;
 use App\Model\UsersManager;
 use Exception;
 
 class PagesController
 {
-    static function homepage()
+
+    private $_post;
+    private $_user;
+    private $_security;
+
+    public function __construct()
     {
-        $post_management = new PostsManager();
-        $blog = $post_management->posts("id_article", 3, false);
-        $fetch_blog = $blog->fetchAll();
+        $this->_post = new PostsManager();
+        $this->_user = new UsersManager();
+        $this->_security = new SecurityManager();
+    }
+
+    public function homepage()
+    {
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/homepage.php';
     }
 
-    static function posts()
+    public function posts()
     {
-        $post_management = new PostsManager();
-        $blog = $post_management->posts("id_article", 50, false);
-        $fetch_blog = $blog->fetchAll();
-
-        $fav_blog = $post_management->posts("likes_article",3, false);
-
         require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/posts.php';
     }
 
@@ -119,15 +123,13 @@ class PagesController
         }
     }
 
-    static function get_tags_articles($tags)
+    public function get_tags_articles($tags)
     {
-        $post_management = new PostsManager();
-        $blog = $post_management->get_tags_articles($tags);
-        $fetch_blog = $blog->fetchAll();
+        $blog = $this->_post->get_tags_articles($tags);
         $count = $blog->rowCount();
         if($count > 0)
         {
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/tags_blog.php';
         }
         else
         {

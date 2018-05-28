@@ -8,67 +8,32 @@
 
 namespace App\Controller;
 
+use App\Model\SecurityManager;
 use App\Model\UsersManager;
 use Exception;
 
 class UsersController
 {
+    private $_security;
+    private $_user;
 
-    /**
-     * @param $username
-     * @param $email
-     * @param $password
-     * @param $confirm_password
-     * @throws Exception
-     */
-    static function subscribe_user($username, $email, $password, $confirm_password)
+    public function __construct()
     {
-        if(!isset($_SESSION['username']))
-        {
-            if(!empty($username) && !empty($email) && !empty($password) && !empty($confirm_password))
-            {
-                if($password === $confirm_password)
-                {
-                    $user = new UsersManager();
-                    if($user->check_subscribed_user($username,$email))
-                    {
-                        $user->subscribe($username, $email, $password);
-                        echo "Merci de votre inscription";
-                    }
-                    else
-                    {
-                        throw new Exception("Username ou email déjà enregistré");
-                    }
-                }
-                else
-                {
-                    throw new Exception("Mots de passe, pas identiques");
-                }
-            }
-            else
-            {
-                throw new Exception("Tous les champs ne sont pas remplis");
-            }
-        }
-        else
-        {
-            throw new Exception("Vous êtes déjà connecté");
-        }
+        $this->_security = new SecurityManager();
+        $this->_user = new UsersManager();
     }
 
-    static function validate_user($username, $email, $password, $confirm_password)
+    public function validate_user($username, $email, $password, $confirm_password)
     {
-        if(!isset($_SESSION['username']))
+        if(!$this->_security->section_active())
         {
-            if(!empty($username) && !empty($email) && !empty($password) && !empty($confirm_password))
+            if($this->_security->check_empty($_POST))
             {
                 if($password === $confirm_password)
                 {
-                    $user = new UsersManager();
-                    if($user->check_subscribed_user($username,$email))
+                    if($this->_user->check_subscribed_user($username,$email))
                     {
-                        $send_mail = new UsersManager();
-                        $send_mail->validate_user($username,$email, $password);
+                        $this->_user->validate_user($username,$email,$password);
                     }
                     else
                     {
@@ -99,19 +64,18 @@ class UsersController
      * Toutes les étapes nécessaires au login de l'utilisateur sont testé dans cette fonction
      * Si l'user passe toutes les étapes demandées, les CONSTANTES de session seront alors initialisées
      */
-    static function login_user($username, $password)
+    public function login_user($username, $password)
     {
-        if(!isset($_SESSION['username'])) // check d'abord si un user n'est pas déjà connecté..
+        if(!$this->_security->section_active()) // check d'abord si un user n'est pas déjà connecté..
         {
-            if(!empty($username) && !empty($password)) // check si les valeurs envoyées ne sont pas vides
+            if($this->_security->check_empty($_POST)) // check si les valeurs envoyées ne sont pas vides
             {
-                $user = new UsersManager();
-                if($user->check_registered_user($username)) // check si l'username ou l'email envoyé est déjà enregistré
+                if($this->_user->check_registered_user($username)) // check si l'username ou l'email envoyé est déjà enregistré
                 {
-                    if($user->check_password($username,$password)) // check si le mot de passe correspond
+                    if($this->_user->check_password($username,$password)) // check si le mot de passe correspond
                     {
                         // INITIALISATION DES CONSTANTES DE SESSION
-                        $user->login($username);
+                        $this->_user->login($username);
                     }
                     else
                     {
@@ -138,12 +102,11 @@ class UsersController
     /**
      * @throws Exception
      */
-    static function logout()
+    public function logout()
     {
-        if(isset($_SESSION['username']))
+        if($this->_security->section_active())
         {
-            $user = new UsersManager();
-            $user->log_out();
+            $this->_user->log_out();
             echo 'Vous êtes bien déconnnecté';
         }
         else

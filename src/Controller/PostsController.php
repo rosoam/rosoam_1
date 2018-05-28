@@ -10,18 +10,30 @@ namespace App\Controller;
 
 use App\Model\FileManager;
 use App\Model\PostsManager;
+use App\Model\SecurityManager;
 use Exception;
 
 class PostsController
 {
-    static function delete_post($id_article,$id_utilisateur)
+
+    private $_file;
+    private $_post;
+    private $_security;
+
+    public function __construct()
     {
-        if(isset($_SESSION['username']))
+        $this->_file = new FileManager();
+        $this->_post = new PostsManager();
+        $this->_security = new SecurityManager();
+    }
+
+    public function delete_post($id_article,$id_utilisateur)
+    {
+        if($this->_security->section_active())
         {
-            $post = new PostsManager();
-            if($post->is_utilisateur_article($id_article,$id_utilisateur))
+            if( $this->_post->is_utilisateur_article($id_article,$id_utilisateur))
             {
-                $post->delete_article($id_article);
+                $this->_post->delete_article($id_article);
             }
             else
             {
@@ -34,81 +46,49 @@ class PostsController
         }
     }
 
-    static function add_post($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article)
+    public function add_post($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article)
     {
-        if(isset($_SESSION['username']))
+        if($this->_security->section_active())
         {
-            $empty_fields_error = "Le(s) champ(s) suivant(s) est/sont vide(s) :";
-            $error = 0;
-
-            if(empty($titre_article))
+            if($this->_security->check_empty($_POST))
             {
-                //throw new Exception("Champs titre vide!");
-                $empty_fields_error .= "titre, ";
-                $error++;
-            }
-
-            if(empty($auteur_article))
-            {
-                //throw new Exception("Champs auteur vide!");
-                $empty_fields_error .= "auteur, ";
-                $error++;
-            }
-
-            if(empty($extrait_article))
-            {
-                //throw new Exception("Champs extrait vide!");
-                $empty_fields_error .= "extrait, ";
-                $error++;
-            }
-
-            if(empty($contenu_article))
-            {
-                //throw new Exception("Champs contenu vide!");
-                $empty_fields_error .= "contenu.";
-                $error++;
-            }
-
-            if($error > 0)
-            {
-                throw new Exception($empty_fields_error);
-            }
-
-            if(isset($couverture_article) && $couverture_article['error'] == 0)
-            {
-                if($couverture_article['size'] <= 2000000)
+                if(isset($couverture_article) && $couverture_article['error'] == 0)
                 {
-                    $infosfichier = pathinfo($couverture_article['name']);
-                    $extension_fichier = $infosfichier['extension'];
-                    $extensions_autorisees = ["jpg","jpeg","png","gif"];
-
-                    if(in_array($extension_fichier, $extensions_autorisees))
+                    if($couverture_article['size'] <= 2000000)
                     {
-                        $post = new PostsManager();
+                        $infosfichier = pathinfo($couverture_article['name']);
+                        $extension_fichier = $infosfichier['extension'];
+                        $extensions_autorisees = ["jpg","jpeg","png","gif"];
 
-                        if($post->is_title_unique($titre_article))
+                        if(in_array($extension_fichier, $extensions_autorisees))
                         {
-                            $file = new FileManager();
-                            $post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $file->downdload_couverture_article($couverture_article));
+                            if($this->_post->is_title_unique($titre_article))
+                            {
+                                $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article));
+                            }
+                            else
+                            {
+                                throw new Exception("Désolé, un autre article possède le même titre que le vôtre, veuillez changer le titre de votre article");
+                            }
                         }
                         else
                         {
-                            throw new Exception("Désolé, un autre article possède le même titre que le vôtre, veuillez changer le titre de votre article");
+                            throw new Exception("Extension du fichier envoyé invalide");
                         }
                     }
                     else
                     {
-                        throw new Exception("Extension du fichier envoyé invalide");
+                        throw new Exception("Fichier trop volumineux");
                     }
                 }
                 else
                 {
-                    throw new Exception("Fichier trop volumineux");
+                    throw new Exception("Erreur, avec le fichier!");
                 }
             }
             else
             {
-                throw new Exception("Erreur, avec le fichier!");
+                throw new Exception("Tous les champs ne sont pas remplis");
             }
         }
         else

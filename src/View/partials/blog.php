@@ -7,6 +7,8 @@
  */
 ?>
 <?php
+$blog = $this->_post->posts("id_article",50,false);
+$fetch_blog = $blog->fetchAll();
 foreach ($fetch_blog as $post)
 { ?>
 <div class="blog blog-blog-post ">
@@ -17,7 +19,7 @@ foreach ($fetch_blog as $post)
         <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link"></a>
         <span class="blog-blog-infos"><span class="categorie">
             <?php
-                $categories = $post_management->categories($post['id_article']);
+                $categories = $this->_post->categories($post['id_article']);
                 $categorie = $categories->fetch();
                 $count = $categories->rowCount();
                 if($count > 0)

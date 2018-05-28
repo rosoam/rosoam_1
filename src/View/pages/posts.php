@@ -25,7 +25,7 @@ ob_start();
                             <!-- Generated -->
                             <!-- Generated -->
                             <?php
-                            $tags = $post_management->all_tags();
+                            $tags = $this->_post->all_tags();
                             $fetch_tags = $tags->fetchAll();
                             foreach($fetch_tags as $tag)
                             {?>
@@ -64,7 +64,7 @@ ob_start();
                                 <!-- Generated -->
                                 <!-- Generated -->
                                 <?php
-                                $categories = $post_management->all_categories();
+                                $categories = $this->_post->all_categories();
                                 foreach($categories->fetchAll() as $categorie)
                                 {?>
                                     <li><a class="post-categorie" href="#"><?= htmlspecialchars($categorie['nom_categorie']); ?></a></li>
@@ -83,6 +83,7 @@ ob_start();
                             <!-- Generated -->
                             <!-- Generated -->
                             <?php
+                            $fav_blog = $this->_post->posts("likes_article",3,false);
                             $fetch_fav_blog = $fav_blog->fetchAll();
                             foreach($fetch_fav_blog as $fav_article)
                             {?>
