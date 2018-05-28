@@ -8,20 +8,8 @@
 
 namespace App\Controller;
 
-use App\Model\SecurityManager;
-use App\Model\UsersManager;
-use Exception;
-
-class UsersController
+class UsersController extends MainController
 {
-    private $_security;
-    private $_user;
-
-    public function __construct()
-    {
-        $this->_security = new SecurityManager();
-        $this->_user = new UsersManager();
-    }
 
     public function validate_user($username, $email, $password, $confirm_password)
     {
@@ -37,33 +25,25 @@ class UsersController
                     }
                     else
                     {
-                        throw new Exception("Username ou email déjà enregistré");
+                        $this->controllerException("Username ou email déjà enregistré");
                     }
                 }
                 else
                 {
-                    throw new Exception("Mots de passe, pas identiques");
+                    $this->controllerException("Mots de passe, pas identiques");
                 }
             }
             else
             {
-                throw new Exception("Tous les champs ne sont pas remplis");
+                $this->controllerException("Tous les champs ne sont pas remplis");
             }
         }
         else
         {
-            throw new Exception("Vous êtes déjà connecté");
+            $this->controllerException("Vous êtes déjà connecté");
         }
     }
 
-    /**
-     * @param $username -> username ou email envoyé en $_POST via le formulaire
-     * @param $password -> mot de passe envoyé en $_POST via le formulaire
-     * @throws Exception -> Exceptions en cas d'erreur!
-     *
-     * Toutes les étapes nécessaires au login de l'utilisateur sont testé dans cette fonction
-     * Si l'user passe toutes les étapes demandées, les CONSTANTES de session seront alors initialisées
-     */
     public function login_user($username, $password)
     {
         if(!$this->_security->section_active()) // check d'abord si un user n'est pas déjà connecté..
@@ -79,29 +59,25 @@ class UsersController
                     }
                     else
                     {
-                        throw new Exception("Mot de passe invalide!");
+                        $this->controllerException("Mot de passe invalide");
                     }
                 }
                 else
                 {
-                    throw new Exception("Pseudo ou e-mail invalide");
+                    $this->controllerException("Pseudo ou email invalide");
                 }
-
             }
             else
             {
-                throw new Exception("Tous les champs ne sont pas remplis");
+                $this->controllerException("Tous les champs ne sont pas remplis");
             }
         }
         else
         {
-            throw new Exception("Vous êtes déjà connecté");
+            $this->controllerException("Vous êtes déjà connecté");
         }
     }
 
-    /**
-     * @throws Exception
-     */
     public function logout()
     {
         if($this->_security->section_active())
@@ -111,7 +87,7 @@ class UsersController
         }
         else
         {
-            throw new Exception("Vous n'êtes pas connecté");
+            $this->controllerException("Vous n'êtes pas connecté");
         }
     }
 

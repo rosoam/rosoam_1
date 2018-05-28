@@ -82,7 +82,7 @@ try
     });
 
     $router->post('/refresh_personal_posts', function() use ($controller){
-        $controller::refresh_personal_posts();
+        $controller->refresh_personal_posts();
     });
 
     $router->post('/add_post', function() use ($post){

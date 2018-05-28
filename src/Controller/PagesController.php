@@ -8,24 +8,8 @@
 
 namespace App\Controller;
 
-use App\Model\SecurityManager;
-use App\Model\PostsManager;
-use App\Model\UsersManager;
-use Exception;
-
-class PagesController
+class PagesController extends MainController
 {
-
-    private $_post;
-    private $_user;
-    private $_security;
-
-    public function __construct()
-    {
-        $this->_post = new PostsManager();
-        $this->_user = new UsersManager();
-        $this->_security = new SecurityManager();
-    }
 
     public function homepage()
     {
@@ -55,7 +39,7 @@ class PagesController
 
     public function subscribe()
     {
-        if(!$this->_security->section_active())
+        if($this->_security->section_active())
         {
             header('Location: /');
             return false;
@@ -88,7 +72,7 @@ class PagesController
         }
         else
         {
-            throw new Exception("Aucun autre article enregistré");
+            $this->controllerException("Aucun autre article enregistré");
         }
     }
 
@@ -110,7 +94,7 @@ class PagesController
             }
             else
             {
-                throw new Exception("Cet auteur n'a aucun article, veuillez essayer un nouveau nom d'auteur");
+                $this->controllerException("Cet auteur n'a aucun article, veuillez essayer un nouveau nom d'auteur");
             }
         }
     }
@@ -125,7 +109,7 @@ class PagesController
         }
         else
         {
-            throw new Exception("Tag(s) sélectionné invalide!");
+            $this->controllerException("Tag(s) sélectionné invalide!");
         }
     }
 
@@ -139,7 +123,7 @@ class PagesController
         }
         else
         {
-            throw new Exception("Tag(s) sélectionné invalide!");
+            $this->controllerException("Tag(s) sélectionné invalide!");
         }
     }
 
@@ -160,7 +144,7 @@ class PagesController
         }
         else
         {
-            throw new Exception("Vous devez être connecté pour faire cette action");
+            $this->controllerException("Vous devez être connecté pour faire cette action");
         }
     }
 }
