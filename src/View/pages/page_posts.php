@@ -28,8 +28,10 @@ ob_start();
                             $tags = $this->_post->all_tags();
                             $fetch_tags = $tags->fetchAll();
                             foreach($fetch_tags as $tag)
-                            {?>
-                                <div class="tag-item"><p><a href="#"><?= htmlspecialchars($tag['nom_tag']); ?></a></p></div>
+                            {
+                                $tag = new \App\Entities\Tag($tag);
+                                ?>
+                                <div class="tag-item"><p><a href="#"><?= htmlspecialchars($tag->getNom()); ?></a></p></div>
                             <?php }?>
                             <!-- Generated -->
                             <!-- Generated -->
@@ -65,9 +67,11 @@ ob_start();
                                 <!-- Generated -->
                                 <?php
                                 $categories = $this->_post->all_categories();
-                                foreach($categories->fetchAll() as $categorie)
-                                {?>
-                                    <li><a class="post-categorie" href="#"><?= htmlspecialchars($categorie['nom_categorie']); ?></a></li>
+                                foreach($categories->fetchAll(PDO::FETCH_ASSOC) as $categorie)
+                                {
+                                   $categorie = new \App\Entities\Categorie($categorie);
+                                    ?>
+                                    <li><a class="post-categorie" href="#"><?= htmlspecialchars($categorie->getNom()); ?></a></li>
                                 <?php } ?>
                                 <!-- Generated -->
                                 <!-- Generated -->
@@ -84,13 +88,15 @@ ob_start();
                             <!-- Generated -->
                             <?php
                             $fav_blog = $this->_post->posts("likes_article",3,false);
-                            $fetch_fav_blog = $fav_blog->fetchAll();
+                            $fetch_fav_blog = $fav_blog->fetchAll(PDO::FETCH_ASSOC);
                             foreach($fetch_fav_blog as $fav_article)
-                            {?>
+                            {
+                                $article = new \App\Entities\Post($fav_article);
+                                ?>
                                 <div class="item-populaire">
-                                    <a href="<?= htmlspecialchars($fav_article['slug_article']); ?>">
+                                    <a href="/posts/<?= htmlspecialchars($article->getSlug()); ?>">
                                         <p>
-                                            <b><?= htmlspecialchars($fav_article['titre_article']); ?></b> - <span class="likes"><?= htmlspecialchars($fav_article['likes_article']); ?> <i class="fa fa-heart"></i></span> <br> <span> <?= htmlspecialchars($fav_article['article_publication']); ?>, BY <?= htmlspecialchars($fav_article['auteur_article']); ?></span>
+                                            <b><?= htmlspecialchars($article->getTitre()); ?></b> - <span class="likes"><?= htmlspecialchars($article->getLikes()); ?> <i class="fa fa-heart"></i></span> <br> <span> <?= htmlspecialchars($article->getPublication()); ?>, BY <?= htmlspecialchars($article->getAuteur()); ?></span>
                                         </p>
                                     </a>
                                 </div>
@@ -105,4 +111,4 @@ ob_start();
     </section>
 <?php
 $content = ob_get_clean();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-post.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template_post.php';
