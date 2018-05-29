@@ -81,4 +81,4 @@ ob_start();
     </section>
 <?php
 $content = ob_get_clean();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-homepage.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template_homepage.php';

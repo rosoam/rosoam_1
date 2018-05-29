@@ -133,4 +133,4 @@ ob_start();
     <?php } ?>
 <?php
 $content = ob_get_clean();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template-admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/template/template_admin.php';

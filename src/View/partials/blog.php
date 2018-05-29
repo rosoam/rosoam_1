@@ -30,7 +30,7 @@ foreach ($fetch_blog as $post)
                     echo "Aucune categorie";
                 }
                 $categories->closeCursor();
-            ?></span> | <?= htmlspecialchars($post['article_publication'])  ?> BY <?= htmlspecialchars($post['auteur_article']); ?></span><br>
+            ?></span> | <?= htmlspecialchars($post['publication_article'])  ?> BY <?= htmlspecialchars($post['auteur_article']); ?></span><br>
         <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
     </div>
 </div>

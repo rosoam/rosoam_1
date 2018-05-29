@@ -14,27 +14,27 @@ class PagesController extends MainController
     public function homepage()
     {
         $blog = $this->_post->posts("id_article", 3, false);
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/homepage.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/page_homepage.php';
     }
 
     public function posts()
     {
         $blog = $this->_post->posts("id_article",50,false);
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/posts.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/page_posts.php';
     }
 
     public function post($title)
     {
         $post_details = $this->_post->post($title);
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/post.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/page_post.php';
     }
 
     public function admin()
     {
         $blog = $this->_post->posts('id_article',50,true);
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/admin.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/page_admin.php';
     }
 
     public function subscribe()
@@ -44,7 +44,7 @@ class PagesController extends MainController
             header('Location: /');
             return false;
         }
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/subscribe.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/page_subscribe.php';
     }
 
     public function validate_user($id, $validation_code)
@@ -58,7 +58,7 @@ class PagesController extends MainController
             $message = "Oh Oh, un petit problème s'est déroulé, votre lien de confirmation est invalide!";
         }
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/confirm-user.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/page_confirm-user.php';
 
     }
 

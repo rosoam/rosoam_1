@@ -57,7 +57,7 @@ class Post
 
     public function getContenu()
     {
-        return $this->$this->_contenu;
+        return $this->_contenu;
     }
 
     public function getPublication()

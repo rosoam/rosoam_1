@@ -41,7 +41,7 @@ class PostsManager extends Manager
         else
         {
             $db = $this->connection_to_db();
-            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS article_publication, couverture_article, slug_article, likes_article FROM t_article ORDER BY :order ASC LIMIT :limit";
+            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article ORDER BY :order ASC LIMIT :limit";
             $query = $db->prepare($req_all_posts);
             $query->bindParam(':order', $order_by, PDO::PARAM_STR);
             $query->bindParam(':limit', $limit, PDO::PARAM_INT);

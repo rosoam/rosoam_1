@@ -62,7 +62,7 @@ class Router
         }
 
         header("HTTP/1.1 404 Not Found");
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/404.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/pages/page_404.php';
         //throw new RouterException('No routes matches');
     }
 
