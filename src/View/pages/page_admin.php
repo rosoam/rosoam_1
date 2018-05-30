@@ -104,6 +104,51 @@ ob_start();
                                             <label for="add-post-contenu-article">Votre contenu*</label>
                                             <textarea id="add-post-contenu-article" class="form-control" ></textarea>
                                         </div>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modal-triggerer-title">Ajouter des tags & catégories (facultatif)</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="add-post-carac" id="add-post-carac">
+                                                <div class="row post-tags-area">
+                                                    <div class="col-12 tags-carousel">
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                        <?php
+                                                        $tags = $this->_post->all_tags();
+                                                        $fetch_tags = $tags->fetchAll();
+                                                        foreach($fetch_tags as $tag)
+                                                        {
+                                                            $this->newTag($tag);
+                                                            ?>
+                                                            <div class="tag-item"><p><a href="#"><?= htmlspecialchars($this->_tag->getNom()); ?></a></p></div>
+                                                        <?php }?>
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                    </div>
+                                                </div>
+                                                <div class="row post-categories-area">
+                                                    <div class="col-12 categories-carousel">
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                        <?php
+                                                        $categories = $this->_post->all_categories();
+                                                        $fetch_categories = $categories->fetchAll();
+                                                        foreach($fetch_categories as $categorie)
+                                                        {
+                                                            $this->newCategorie($categorie);
+                                                            ?>
+                                                            <div class="categorie-item"><p><a href="#"><?= htmlspecialchars($this->_categorie->getNom()); ?></a></p></div>
+                                                        <?php }?>
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                        <!-- Generated -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <button class="add-post-submit">Créer l'article</button>
                                     </form>
                                 </div>

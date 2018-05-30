@@ -81,6 +81,10 @@ $(document).ready(function () {
         switchActiveClass($(this));
     });
 
+    $('.categorie-item').click(function () {
+        onlyActiveClass($(this));
+    });
+
     tinymce.init({
         selector: 'textarea#add-post-contenu-article',
         plugins: "autolink",
@@ -102,6 +106,9 @@ $(document).ready(function () {
         var extrait_article = $('#add-post-extrait-article').val().trim();
         var contenu_article = tinyMCE.activeEditor.getContent();
         var couverture_article = $('.add-post-formulaire input[type=file]')[0].files[0];
+
+        var tags = [];
+        var categories = [];
 
         var error_message = "Erreur: ";
 
@@ -141,11 +148,24 @@ $(document).ready(function () {
         } else {
             var add_post_datas = new FormData();
 
+            $('.tag-item.active').each(function(){
+               tags.push($(this).text());
+            });
+
+            $('.categorie-item.active').each(function(){
+               categories.push($(this).text());
+            });
+
             add_post_datas.append('titre_article', titre_article);
             add_post_datas.append('auteur_article', auteur_article);
             add_post_datas.append('extrait_article', extrait_article);
             add_post_datas.append('contenu_article', contenu_article);
             add_post_datas.append('file', couverture_article);
+
+            add_post_datas.append('tags', tags);
+            add_post_datas.append('categories',categories);
+
+            //alert(tags);
 
             add_post(add_post_datas);
         }
@@ -169,7 +189,7 @@ $(document).ready(function () {
         get_categorie_posts(categorie);
     });
 
-    $('.tag-item,.post-categorie').click(function (e) {
+    $('.tag-item,.post-categorie, .categorie-item').click(function (e) {
         e.preventDefault();
     });
 
@@ -248,4 +268,17 @@ function switchActiveClass(element) {
     } else {
         element.addClass('active');
     }
+}
+
+function onlyActiveClass(element){
+    var element = $(element);
+    var elmClass = element.attr('class');
+
+    var elements = $('.'+elmClass);
+
+    elements.each(function(){
+       $(this).removeClass('active');
+    });
+
+    element.hasClass('active') ? element.removeClass('active') : element.addClass('active');
 }

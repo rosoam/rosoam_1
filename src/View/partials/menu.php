@@ -37,7 +37,7 @@
                     <!-- Generated -->
                 </ul>
 
-                <?php if(isset($_SESSION['username']))
+                <?php if($this->_security->section_active())
                 {?>
                 <span class="nav-item dropdown menu-dropdown-parent">
                     <img src="<?php echo isset($_SESSION['image_profil']) ? htmlspecialchars($_SESSION['image_profil']) : "https://via.placeholder.com/75x75"; ?>

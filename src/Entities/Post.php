@@ -23,15 +23,15 @@ class Post
 
     public function __construct($datas)
     {
-        $this->_id =            $datas['id_article'];
-        $this->_titre =         $datas['titre_article'];
-        $this->_auteur =        $datas['auteur_article'];
-        $this->_extrait =       $datas['extrait_article'];
-        $this->_contenu =       $datas['contenu_article'];
-        $this->_publication =   $datas['publication_article'];
-        $this->_couverture =    $datas['couverture_article'];
-        $this->_slug =          $datas['slug_article'];
-        $this->_likes =         $datas['likes_article'];
+        $this->setId($datas['id_article']);
+        $this->setTitre($datas['titre_article']);
+        $this->setAuteur($datas['auteur_article']);
+        $this->setExtrait($datas['extrait_article']);
+        $this->setContenu($datas['contenu_article']);
+        $this->setPublication($datas['publication_article']);
+        $this->setCouverture($datas['couverture_article']);
+        $this->setSlug($datas['slug_article']);
+        $this->setLikes($datas['likes_article']);
     }
 
     // FUNCTIONS GETTERS

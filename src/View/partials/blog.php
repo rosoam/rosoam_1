@@ -9,29 +9,31 @@
 <?php
 $fetch_blog = $blog->fetchAll();
 foreach ($fetch_blog as $post)
-{ ?>
+{
+    $this->newPost($post);
+    ?>
 <div class="blog blog-blog-post ">
-    <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link">
-        <img src="<?php if($post['couverture_article'] === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($post['couverture_article']); }; ?>" class="blog-post-couverture" alt="couverture de l'article">
+    <a href="/posts/<?= htmlspecialchars($this->_article->getSlug()) ?>" class="blog-post-link">
+        <img src="<?php if($this->_article->getCouverture() === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($this->_article->getCouverture()); }; ?>" class="blog-post-couverture" alt="couverture de l'article">
     </a>
     <div class="blog-blog-post-body">
-        <a href="/posts/<?= htmlspecialchars($post['slug_article']) ?>" class="blog-post-link"></a>
+        <a href="/posts/<?= htmlspecialchars($this->_article->getSlug()) ?>" class="blog-post-link"></a>
         <span class="blog-blog-infos"><span class="categorie">
             <?php
                 $categories = $this->_post->categories($post['id_article']);
-                $categorie = $categories->fetch();
+                $this->newCategorie($categories->fetch());
                 $count = $categories->rowCount();
                 if($count > 0)
                 {
-                    echo htmlspecialchars($categorie['nom_categorie']);
+                    echo htmlspecialchars($this->_categorie->getNom());
                 }
                 else
                 {
                     echo "Aucune categorie";
                 }
                 $categories->closeCursor();
-            ?></span> | <?= htmlspecialchars($post['publication_article'])  ?> BY <?= htmlspecialchars($post['auteur_article']); ?></span><br>
-        <h3><?= htmlspecialchars($post['titre_article']) ?></h3>
+            ?></span> | <?= htmlspecialchars($this->_article->getPublication())  ?> BY <?= htmlspecialchars($this->_article->getAuteur()) ?></span><br>
+        <h3><?= htmlspecialchars($this->_article->getTitre()) ?></h3>
     </div>
 </div>
 <?php }

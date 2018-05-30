@@ -33,9 +33,8 @@ a, a:hover {
     text-decoration:none;
     color:#ffb92c;
 }
-body.modal-open {
-    padding-right: 0 !important;
-    overflow-y: scroll;
+body.modal-open #menu  {
+    padding-right: 17px;
 }
 .modal-lg {
     max-width:1000px;
@@ -450,24 +449,24 @@ body.modal-open {
 .item-populaire .likes .fa-heart {
     color:red;
 }
-.tags-carousel {
+.tags-carousel, .categories-carousel {
     display:flex;
     padding-bottom:20px;
     flex-wrap:wrap;
 }
-.tag-item {
+.tag-item, .categorie-item {
     margin-right:10px;
     padding:5px 10px;
     background-color:rgba(0,0,0,0.1);
     margin-bottom:10px;
     cursor:pointer;
 }
-.tag-item p {
+.tag-item p, .categorie-item p {
     padding:0;
     margin:0;
     font-size:15px;
 }
-.tag-item.active {
+.tag-item.active, .categorie-item.active {
     background-color:#1b1e21;
     color:#fff;
 }
@@ -521,6 +520,10 @@ body.modal-open {
     position:absolute;
     top:10px;
     right:10px;
+}
+/* admin modal */
+#add-article-modal{
+    z-index:9999;
 }
 /* post */
 .post-couverture-zone {

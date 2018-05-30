@@ -24,15 +24,15 @@ class Utilisateur
 
     public function __construct($datas)
     {
-        $this->_id =                $datas['id_utilisateur'];
-        $this->_pseudo =            $datas['pseudo_utilisateur'];
-        $this->_email =             $datas['email_utilisateur'];
-        $this->_password =          $datas['password_utilisateur'];
-        $this->_nom =               $datas['nom_utilisateur'];
-        $this->_nomFamille =        $datas['nom_famille_utilisateur'];
-        $this->_valid =             $datas['valid_utilisateur'];
-        $this->_validationCode =    $datas['validation_code_utilisateur'];
-        $this->_imageProfil =       $datas['image_profil_utilisateur'];
+        $this->setId($datas['id_utilisateur']);
+        $this->setPseudo($datas['pseudo_utilisateur']);
+        $this->setEmail($datas['email_utilisateur']);
+        $this->setPassword($datas['password_utilisateur']);
+        $this->setNom($datas['nom_utilisateur']);
+        $this->setNomFamille($datas['nom_famille_utilisateur']);
+        $this->setValid($datas['valid_utilisateur']);
+        $this->setValidationCode($datas['validation_code_utilisateur']);
+        $this->setImageProfil($datas['image_profil_utilisateur']);
     }
 
     // FUNCTIONS GETTERS

@@ -30,11 +30,11 @@ class PostsController extends MainController
         }
     }
 
-    public function add_post($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article)
+    public function add_post($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article, $tags, $categorie)
     {
         if($this->_security->section_active())
         {
-            if($this->_security->check_empty($_POST))
+            if($this->_security->check_empty([$titre_article,$auteur_article,$extrait_article,$contenu_article]))
             {
                 if(isset($couverture_article) && $couverture_article['error'] == 0)
                 {
@@ -48,7 +48,26 @@ class PostsController extends MainController
                         {
                             if($this->_post->is_title_unique($titre_article))
                             {
-                                $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article));
+                                if(empty($tags)){
+                                    if(empty($categorie))
+                                    {
+                                        // les deux sont vides
+                                        echo 'les deux sont vides';
+                                        $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),$tags, $categorie, false, false);
+                                        return true;
+                                    }
+                                    // tags vides
+                                    $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),$tags, $categorie, false, true);
+                                    return true;
+                                }
+                                else if (empty($categorie))
+                                {
+                                    $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),$tags, $categorie, true, false);
+                                }
+                                else
+                                {
+                                    $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),$tags, $categorie, true, true);
+                                }
                             }
                             else
                             {

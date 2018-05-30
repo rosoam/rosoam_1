@@ -6,9 +6,7 @@
  * Time: 16:36
  */
 
-use App\Entities\Post;
-
-$post = new Post($post_details->fetch(PDO::FETCH_ASSOC));
+$this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
 ob_start();
 ?>
     <div class="post-section section">
@@ -16,27 +14,27 @@ ob_start();
             <div class="post-couverture-area row">
                 <div class="col-12 post-couverture-zone">
                     <img src="<?php
-                    if ($post->getCouverture() === "") {
+                    if ($this->_article->getCouverture() === "") {
                         echo "https://via.placeholder.com/800x600.png?text=BLOG";
                     } else {
-                        echo htmlspecialchars($post->getCouverture());
+                        echo htmlspecialchars($this->_article->getCouverture());
                     };
                     ?>" class="post-couverture">
                 </div>
             </div>
             <div class="post-title-area row">
                 <div class="col-12">
-                    <h2><?= htmlspecialchars($post->getTitre()) ?></h2>
+                    <h2><?= htmlspecialchars($this->_article->getTitre()) ?></h2>
                 </div>
             </div>
             <div class="post-extrait-area row">
                 <div class="col-12">
-                    <p><b><?= htmlspecialchars($post->getExtrait()) ?></b></p>
+                    <p><b><?= htmlspecialchars($this->_article->getExtrait()) ?></b></p>
                 </div>
             </div>
             <div class="post-contenu-area row">
                 <div class="col-12">
-                    <?= htmlspecialchars_decode($post->getContenu()); ?>
+                    <?= htmlspecialchars_decode($this->_article->getContenu()); ?>
                 </div>
             </div>
         </div>

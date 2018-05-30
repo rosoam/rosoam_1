@@ -17,9 +17,9 @@ class Categorie
 
     public function __construct($datas)
     {
-        $this->_id =        $datas['id_categorie'];
-        $this->_nom =       $datas['nom_categorie'];
-        $this->_slug =      $datas['slug_categorie'];
+        $this->setId($datas['id_categorie']);
+        $this->setNom($datas['nom_categorie']);
+        $this->setSlug($datas['slug_categorie']);
     }
 
     // FUNCTIONS GETTERS

@@ -17,9 +17,9 @@ class Tag
 
     public function __construct($datas)
     {
-        $this->_id =        $datas['id_tag'];
-        $this->_nom =       $datas['nom_tag'];
-        $this->_slug =      $datas['slug_tag'];
+        $this->setId($datas['id_tag']);
+        $this->setNom($datas['nom_tag']);
+        $this->setSlug($datas['slug_tag']);
     }
 
     // FUNCTIONS GETTERS

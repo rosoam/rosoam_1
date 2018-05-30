@@ -29,9 +29,9 @@ ob_start();
                             $fetch_tags = $tags->fetchAll();
                             foreach($fetch_tags as $tag)
                             {
-                                $tag = new \App\Entities\Tag($tag);
+                                $this->newTag($tag);
                                 ?>
-                                <div class="tag-item"><p><a href="#"><?= htmlspecialchars($tag->getNom()); ?></a></p></div>
+                                <div class="tag-item"><p><a href="#"><?= htmlspecialchars($this->_tag->getNom()); ?></a></p></div>
                             <?php }?>
                             <!-- Generated -->
                             <!-- Generated -->
@@ -69,9 +69,9 @@ ob_start();
                                 $categories = $this->_post->all_categories();
                                 foreach($categories->fetchAll(PDO::FETCH_ASSOC) as $categorie)
                                 {
-                                   $categorie = new \App\Entities\Categorie($categorie);
+                                   $this->newCategorie($categorie);
                                     ?>
-                                    <li><a class="post-categorie" href="#"><?= htmlspecialchars($categorie->getNom()); ?></a></li>
+                                    <li><a class="post-categorie" href="#"><?= htmlspecialchars($this->_categorie->getNom()); ?></a></li>
                                 <?php } ?>
                                 <!-- Generated -->
                                 <!-- Generated -->
@@ -91,12 +91,12 @@ ob_start();
                             $fetch_fav_blog = $fav_blog->fetchAll(PDO::FETCH_ASSOC);
                             foreach($fetch_fav_blog as $fav_article)
                             {
-                                $article = new \App\Entities\Post($fav_article);
+                                $this->newPost($fav_article);
                                 ?>
                                 <div class="item-populaire">
-                                    <a href="/posts/<?= htmlspecialchars($article->getSlug()); ?>">
+                                    <a href="/posts/<?= htmlspecialchars($this->_article->getSlug()); ?>">
                                         <p>
-                                            <b><?= htmlspecialchars($article->getTitre()); ?></b> - <span class="likes"><?= htmlspecialchars($article->getLikes()); ?> <i class="fa fa-heart"></i></span> <br> <span> <?= htmlspecialchars($article->getPublication()); ?>, BY <?= htmlspecialchars($article->getAuteur()); ?></span>
+                                            <b><?= htmlspecialchars($this->_article->getTitre()); ?></b> - <span class="likes"><?= htmlspecialchars($this->_article->getLikes()); ?> <i class="fa fa-heart"></i></span> <br> <span> <?= htmlspecialchars($this->_article->getPublication()); ?>, BY <?= htmlspecialchars($this->_article->getAuteur()); ?></span>
                                         </p>
                                     </a>
                                 </div>

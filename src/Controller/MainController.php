@@ -39,6 +39,26 @@ class MainController
         $this->_security =          new SecurityManager();
     }
 
+    protected function newPost($post)
+    {
+        $this->_article = new Post($post);
+    }
+
+    protected function newTag($tag)
+    {
+        $this->_tag = new Tag($tag);
+    }
+
+    protected function newCategorie($categorie)
+    {
+        $this->_categorie = new Categorie($categorie);
+    }
+
+    protected function newUtilisateur($utilisateur)
+    {
+        $this->_utilisater = new Utilisateur($utilisateur);
+    }
+
     protected function controllerException($exception)
     {
         throw new Exception($exception);
