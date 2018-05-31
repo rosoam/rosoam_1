@@ -1,8 +1,8 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     var errors = 0;
 
-    $('#inscription-submit').click(function (e) {
+    $('#inscription-submit').click(function(e) {
         e.preventDefault();
 
         var error_message = "Erreur les champs suivants sont vides: ";
@@ -11,47 +11,40 @@ $(document).ready(function () {
         var $form_password = $('#inscription-form #password').val();
         var $form_confirmPassword = $('#inscription-form #confirmPassword').val();
 
-        if($form_username === "")
-        {
+        if ($form_username === "") {
             error_message += "username, ";
             errors++;
         }
 
-        if($form_email === "")
-        {
+        if ($form_email === "") {
             error_message += "email, ";
             errors++;
         }
 
-        if($form_password === "")
-        {
+        if ($form_password === "") {
             error_message += "password, ";
             errors++;
         }
 
-        if($form_confirmPassword === "")
-        {
+        if ($form_confirmPassword === "") {
             error_message += "second password.";
             errors++;
         }
 
-        if(errors > 0)
-        {
+        if (errors > 0) {
             $('#modal-triggerer .modal-header h5').text("Erreur!");
             $('#modal-triggerer .modal-body').text(error_message);
             $('#modal-triggerer').modal('show');
-            setTimeout(function () {
+            setTimeout(function() {
                 $('#modal-triggerer').modal('hide');
             }, 3000);
-        }
-        else
-        {
+        } else {
             subscribe_user($form_username, $form_email, $form_password, $form_confirmPassword);
         }
         errors = 0;
     });
 
-    $('#connect-submit').click(function (e) {
+    $('#connect-submit').click(function(e) {
         e.preventDefault();
 
         var $form_username = $('#connection-form #username').val();
@@ -60,28 +53,28 @@ $(document).ready(function () {
         login_user($form_username, $form_password);
     });
 
-    $('.logout').click(function (e) {
+    $('.logout').click(function(e) {
         e.preventDefault();
         logout();
     });
 
-    $('#update-profil-picture').on('change', function () {
+    $('#update-profil-picture').on('change', function() {
         readURL(this);
     });
 
     resizeHeader();
     resizeBlogBoxes();
 
-    $(window).resize(function () {
+    $(window).resize(function() {
         resizeBlogBoxes();
         resizeHeader();
     });
 
-    $('.tag-item').click(function () {
+    $('.tag-item').click(function() {
         switchActiveClass($(this));
     });
 
-    $('.categorie-item').click(function () {
+    $('.categorie-item').click(function() {
         onlyActiveClass($(this));
     });
 
@@ -91,13 +84,13 @@ $(document).ready(function () {
         plugins: "link",
     });
 
-    $(document).on('focusin', function (e) {
+    $(document).on('focusin', function(e) {
         if ($(e.target).closest(".mce-window").length) {
             e.stopImmediatePropagation();
         }
     });
 
-    $('.add-post-submit').click(function (e) {
+    $('.add-post-submit').click(function(e) {
 
         e.preventDefault();
 
@@ -142,18 +135,18 @@ $(document).ready(function () {
             $('#modal-triggerer .modal-header h5').text("Erreur!");
             $('#modal-triggerer .modal-body').text(error_message);
             $('#modal-triggerer').modal('show');
-            setTimeout(function () {
+            setTimeout(function() {
                 $('#modal-triggerer').modal('hide');
             }, 3000);
         } else {
             var add_post_datas = new FormData();
 
-            $('.tag-item.active').each(function(){
-               tags.push($(this).text());
+            $('.tag-item.active').each(function() {
+                tags.push($(this).text());
             });
 
-            $('.categorie-item.active').each(function(){
-               categories.push($(this).text());
+            $('.categorie-item.active').each(function() {
+                categories.push($(this).text());
             });
 
             add_post_datas.append('titre_article', titre_article);
@@ -163,7 +156,7 @@ $(document).ready(function () {
             add_post_datas.append('file', couverture_article);
 
             add_post_datas.append('tags', tags);
-            add_post_datas.append('categories',categories);
+            add_post_datas.append('categories', categories);
 
             //alert(tags);
 
@@ -174,14 +167,14 @@ $(document).ready(function () {
         errors = 0;
     });
 
-    $(document).on('click', '.delete-post', function (e) {
+    $(document).on('click', '.delete-post', function(e) {
         e.preventDefault();
         var article_id = parseInt($(this).attr('id'));
 
         delete_post(article_id);
     });
 
-    $('.post-categorie').click(function (e) {
+    $('.post-categorie').click(function(e) {
         e.preventDefault();
 
         var categorie = $(this).text();
@@ -189,21 +182,21 @@ $(document).ready(function () {
         get_categorie_posts(categorie);
     });
 
-    $('.tag-item,.post-categorie, .categorie-item').click(function (e) {
+    $('.tag-item,.post-categorie, .categorie-item').click(function(e) {
         e.preventDefault();
     });
 
-    $('.get-auteur-posts').click(function (e) {
+    $('.get-auteur-posts').click(function(e) {
         e.preventDefault();
         var auteur = $('.auteurs-area form #auteur').val();
 
         auteur_posts(auteur);
     });
 
-    $('.more-posts').click(function (e) {
+    $('.more-posts').click(function(e) {
         e.preventDefault();
         var count = 0;
-        $('.homepage-blog .blog-post.box').each(function () {
+        $('.homepage-blog .blog-post.box').each(function() {
             count++;
         });
         var newLimit = count + 4;
@@ -211,11 +204,11 @@ $(document).ready(function () {
 
     });
 
-    $('.tag_search').click(function (e) {
+    $('.tag_search').click(function(e) {
         e.preventDefault();
         var tags = [];
 
-        $('.tag-item.active').each(function () {
+        $('.tag-item.active').each(function() {
             tags.push($(this).text());
         });
 
@@ -232,13 +225,66 @@ $(document).ready(function () {
         delay: 200,
         origin: 'bottom'
     });
+
+    var tags = [];
+
+    $('.tags-item').on('change paste keyup', function(e) {
+        if (e.keyCode == 32) {
+
+            var valeurs = $(this).val();
+            var arrayValeurs = valeurs.split(' ');
+            var arrayLastValeur = arrayValeurs[arrayValeurs.length - 2];
+
+            var regex = /(^#[a-zA-Z0-9_]{1,50})/g;
+
+            var text = $('.cloud-tags').html();
+            //console.log(text);
+
+            if (arrayLastValeur.match(regex)) {
+                //console.log(arrayLastValeur);
+
+                var valToPush = arrayLastValeur.replace('#', '');
+                if ($.inArray(valToPush, tags) !== -1) {
+                    console.log('deja dedans');
+                } else {
+                    tags.push(valToPush);
+
+                    var tagsLasItem = tags[tags.length - 1];
+
+                    $('.cloud-tags').fadeOut(100, function() {
+                        $('.cloud-tags').html(text = text + '<span class="tag-choose"> <span class="tag">' + tagsLasItem + '</span><span class="tag-choose-close">&times;</span></span>');
+                    }).fadeIn(500);
+
+                }
+            }
+            $(this).val('');
+        }
+    });
+
+    $(document).on('click', '.tag-choose-close', function(e) {
+        var text = $(this).siblings('.tag').text();
+
+        tags = $.grep(tags, function(value) {
+            return value != text;
+        });
+
+        $('.cloud-tags').html('');
+
+        var cloudArea = $('.cloud-tags').html();
+
+        for (var i = 0; i < tags.length; i++) {
+            $('.cloud-tags').html(cloudArea = cloudArea + '<span class="tag-choose"> <span class="tag">' + tags[i] + '</span><span class="tag-choose-close">&times;</span></span>');
+        }
+
+    });
+
 });
 
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function(e) {
             $('#test').attr('src', e.target.result);
         };
 
@@ -270,14 +316,14 @@ function switchActiveClass(element) {
     }
 }
 
-function onlyActiveClass(element){
+function onlyActiveClass(element) {
     var element = $(element);
     var elmClass = element.attr('class');
 
-    var elements = $('.'+elmClass);
+    var elements = $('.' + elmClass);
 
-    elements.each(function(){
-       $(this).removeClass('active');
+    elements.each(function() {
+        $(this).removeClass('active');
     });
 
     element.hasClass('active') ? element.removeClass('active') : element.addClass('active');
