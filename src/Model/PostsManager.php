@@ -30,9 +30,8 @@ class PostsManager extends Manager
         if( $personal === true )
         {
             $db = $this->connection_to_db();
-            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article AS a JOIN rel_utilisateur_article AS ua ON ua.fk_article=a.id_article JOIN t_utilisateur AS u ON ua.fk_utilisateur=u.id_utilisateur WHERE ua.fk_utilisateur=:id_utilisateur ORDER BY :order ASC LIMIT :limit";
+            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article AS a JOIN rel_utilisateur_article AS ua ON ua.fk_article=a.id_article JOIN t_utilisateur AS u ON ua.fk_utilisateur=u.id_utilisateur WHERE ua.fk_utilisateur=:id_utilisateur ORDER BY $order_by DESC LIMIT :limit";
             $query = $db->prepare($req_all_posts);
-            $query->bindParam(':order', $order_by, PDO::PARAM_STR);
             $query->bindParam(':limit', $limit, PDO::PARAM_INT);
             $query->bindParam(':id_utilisateur',$_SESSION['user_id'], PDO::PARAM_INT);
             $query->execute();
@@ -41,9 +40,8 @@ class PostsManager extends Manager
         else
         {
             $db = $this->connection_to_db();
-            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article ORDER BY :order ASC LIMIT :limit";
+            $req_all_posts = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article ORDER BY $order_by DESC LIMIT :limit";
             $query = $db->prepare($req_all_posts);
-            $query->bindParam(':order', $order_by, PDO::PARAM_STR);
             $query->bindParam(':limit', $limit, PDO::PARAM_INT);
             $query->execute();
         }
@@ -303,7 +301,7 @@ class PostsManager extends Manager
     public function all_tags()
     {
         $db = $this->connection_to_db();
-        $req = "SELECT nom_tag, slug_tag FROM t_tag";
+        $req = "SELECT * FROM t_tag";
         $query = $db->prepare($req);
         $query->execute();
 
@@ -313,7 +311,7 @@ class PostsManager extends Manager
     public function tags($id_article)
     {
         $db = $this->connection_to_db();
-        $req_tags = "SELECT ta.nom_tag FROM t_tag AS ta JOIN rel_article_tags AS ata ON ata.fk_tag=ta.id_tag JOIN t_article AS ar ON ata.fk_article=ar.id_article WHERE ata.fk_article=:id_article";
+        $req_tags = "SELECT * FROM t_tag AS ta JOIN rel_article_tags AS ata ON ata.fk_tag=ta.id_tag JOIN t_article AS ar ON ata.fk_article=ar.id_article WHERE ata.fk_article=:id_article";
         $query = $db->prepare($req_tags);
         $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
         $query->execute();
@@ -341,7 +339,7 @@ class PostsManager extends Manager
     public function all_categories()
     {
         $db = $this->connection_to_db();
-        $req = "SELECT nom_categorie, slug_categorie FROM t_categorie";
+        $req = "SELECT * FROM t_categorie";
         $query = $db->prepare($req);
         $query->execute();
 
@@ -351,7 +349,7 @@ class PostsManager extends Manager
     public function categories($id_article)
     {
         $db = $this->connection_to_db();
-        $req_categories = "SELECT ca.nom_categorie FROM t_categorie AS ca JOIN rel_article_categorie as aca ON aca.fk_categorie=ca.id_categorie JOIN t_article AS ar ON aca.fk_article= ar.id_article WHERE aca.fk_article=:id_article";
+        $req_categories = "SELECT * FROM t_categorie AS ca JOIN rel_article_categorie as aca ON aca.fk_categorie=ca.id_categorie JOIN t_article AS ar ON aca.fk_article= ar.id_article WHERE aca.fk_article=:id_article";
         $query = $db->prepare($req_categories);
         $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
         $query->execute();
