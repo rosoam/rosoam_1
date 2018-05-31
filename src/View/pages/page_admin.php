@@ -117,17 +117,6 @@ ob_start();
 
                                                         <div class="cloud-tags"></div>
                                                         <input type="text" class="tags-item" id="tags-item">
-
-
-                                                        <?php/*
-                                                        $tags = $this->_post->all_tags();
-                                                        $fetch_tags = $tags->fetchAll();
-                                                        foreach($fetch_tags as $tag)
-                                                        {
-                                                            $this->newTag($tag);
-                                                            ?>
-                                                            <div class="tag-item"><p><a href="#"><?= htmlspecialchars($this->_tag->getNom()); ?></a></p></div>
-                                                        <?php }*/?>
                                                         <!-- Generated -->
                                                         <!-- Generated -->
                                                         <!-- Generated -->

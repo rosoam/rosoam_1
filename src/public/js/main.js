@@ -90,9 +90,63 @@ $(document).ready(function() {
         }
     });
 
-    $('.add-post-submit').click(function(e) {
+
+
+    var frontendTags = [];
+
+    $('.tags-item').on('change paste keyup', function(e) {
+        if (e.keyCode == 32) {
+
+            var valeurs = $(this).val();
+            var arrayValeurs = valeurs.split(' ');
+            var arrayLastValeur = arrayValeurs[arrayValeurs.length - 2];
+
+            var regex = /(^#[a-zA-Z0-9_]{1,50})/g;
+
+            var text = $('.cloud-tags').html();
+            //console.log(text);
+
+            if (arrayLastValeur.match(regex)) {
+                //console.log(arrayLastValeur);
+
+                var valToPush = arrayLastValeur.replace('#', '');
+                if ($.inArray(valToPush, frontendTags) !== -1) {
+                    console.log('deja dedans');
+                } else {
+                    frontendTags.push(valToPush);
+
+                    var tagsLasItem = frontendTags[frontendTags.length - 1];
+
+                    $('.cloud-tags').fadeOut(100, function() {
+                        $('.cloud-tags').html(text = text + '<span class="tag-choose"> <span class="tag">' + tagsLasItem + '</span><span class="tag-choose-close">&times;</span></span>');
+                    }).fadeIn(500);
+
+                }
+            }
+            $(this).val('');
+        }
+    });
+
+    $(document).on('click', '.tag-choose-close', function(e) {
+        var text = $(this).siblings('.tag').text();
+
+        frontendTags = $.grep(frontendTags, function(value) {
+            return value != text;
+        });
+
+        $('.cloud-tags').html('');
+
+        var cloudArea = $('.cloud-tags').html();
+
+        for (var i = 0; i < frontendTags.length; i++) {
+            $('.cloud-tags').html(cloudArea = cloudArea + '<span class="tag-choose"> <span class="tag">' + frontendTags[i] + '</span><span class="tag-choose-close">&times;</span></span>');
+        }
+    });
+
+    $(document).on('click','.add-post-submit', function(e) {
 
         e.preventDefault();
+        console.log(frontendTags);
 
         var titre_article = $('#add-post-titre-article').val().trim();
         var auteur_article = $('#add-post-auteur-article').val().trim();
@@ -100,8 +154,8 @@ $(document).ready(function() {
         var contenu_article = tinyMCE.activeEditor.getContent();
         var couverture_article = $('.add-post-formulaire input[type=file]')[0].files[0];
 
-        var tags = [];
-        var categories = [];
+        var categories = $('.categorie-item.active').text();
+        console.log(categories.length);
 
         var error_message = "Erreur: ";
 
@@ -141,22 +195,14 @@ $(document).ready(function() {
         } else {
             var add_post_datas = new FormData();
 
-            $('.tag-item.active').each(function() {
-                tags.push($(this).text());
-            });
-
-            $('.categorie-item.active').each(function() {
-                categories.push($(this).text());
-            });
-
             add_post_datas.append('titre_article', titre_article);
             add_post_datas.append('auteur_article', auteur_article);
             add_post_datas.append('extrait_article', extrait_article);
             add_post_datas.append('contenu_article', contenu_article);
             add_post_datas.append('file', couverture_article);
 
-            add_post_datas.append('tags', tags);
-            add_post_datas.append('categories', categories);
+            add_post_datas.append('tags', frontendTags);
+            add_post_datas.append('categorie', categories);
 
             //alert(tags);
 
@@ -224,58 +270,6 @@ $(document).ready(function() {
         duration: 1000,
         delay: 200,
         origin: 'bottom'
-    });
-
-    var tags = [];
-
-    $('.tags-item').on('change paste keyup', function(e) {
-        if (e.keyCode == 32) {
-
-            var valeurs = $(this).val();
-            var arrayValeurs = valeurs.split(' ');
-            var arrayLastValeur = arrayValeurs[arrayValeurs.length - 2];
-
-            var regex = /(^#[a-zA-Z0-9_]{1,50})/g;
-
-            var text = $('.cloud-tags').html();
-            //console.log(text);
-
-            if (arrayLastValeur.match(regex)) {
-                //console.log(arrayLastValeur);
-
-                var valToPush = arrayLastValeur.replace('#', '');
-                if ($.inArray(valToPush, tags) !== -1) {
-                    console.log('deja dedans');
-                } else {
-                    tags.push(valToPush);
-
-                    var tagsLasItem = tags[tags.length - 1];
-
-                    $('.cloud-tags').fadeOut(100, function() {
-                        $('.cloud-tags').html(text = text + '<span class="tag-choose"> <span class="tag">' + tagsLasItem + '</span><span class="tag-choose-close">&times;</span></span>');
-                    }).fadeIn(500);
-
-                }
-            }
-            $(this).val('');
-        }
-    });
-
-    $(document).on('click', '.tag-choose-close', function(e) {
-        var text = $(this).siblings('.tag').text();
-
-        tags = $.grep(tags, function(value) {
-            return value != text;
-        });
-
-        $('.cloud-tags').html('');
-
-        var cloudArea = $('.cloud-tags').html();
-
-        for (var i = 0; i < tags.length; i++) {
-            $('.cloud-tags').html(cloudArea = cloudArea + '<span class="tag-choose"> <span class="tag">' + tags[i] + '</span><span class="tag-choose-close">&times;</span></span>');
-        }
-
     });
 
 });

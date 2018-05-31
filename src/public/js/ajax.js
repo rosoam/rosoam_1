@@ -184,8 +184,15 @@ function add_post(add_post_datas) {
         type: 'POST',
         data: add_post_datas,
         success: function (data) {
-            $('#add-article-modal').modal('hide');
-            refresh_personal_posts();
+            /*$('#add-article-modal').modal('hide');
+            refresh_personal_posts();*/
+
+            $('#modal-triggerer .modal-header h5').text("Erreur!");
+            $('#modal-triggerer .modal-body').text(data);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function () {
+                $('#modal-triggerer').modal('hide');
+            }, 3000);
         },
         cache: false,
         contentType: false,

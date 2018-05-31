@@ -143,6 +143,11 @@ class PostsManager extends Manager
             // relier le tags à l'article (dernier id)
             foreach($tags as $tag)
             {
+
+                if(!$this->tag_exist($tag))
+                {
+                    $this->create_tag($tag);
+                }
                 $this->make_tag_article_relation($tag, $last_id);
             }
         }
@@ -152,6 +157,41 @@ class PostsManager extends Manager
             // relier la catégorie à l'article (dernier id)
             $this->make_categorie_article_relation($categorie, $last_id);
         }
+    }
+
+    public function create_tag($tag)
+    {
+        $slugify = new Slugify();
+        $slug_tag = $slugify->slugify($tag);
+
+        $db = $this->connection_to_db();
+        $req = "INSERT INTO t_tag (nom_tag, slug_tag) VALUES (:nom_tag, :slug_tag)";
+        $query = $db->prepare($req);
+        $query->bindParam(':nom_tag',$tag, PDO::PARAM_STR);
+        $query->bindParam(':slug_tag',$slug_tag, PDO::PARAM_STR);
+        $query->execute();
+
+        $query->closeCursor();
+    }
+
+    public function tag_exist($tag)
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT id_tag FROM t_tag WHERE t_tag.nom_tag=:nom_tag";
+        $query = $db->prepare($req);
+        $query->bindParam(':nom_tag',$tag, PDO::PARAM_STR);
+        $query->execute();
+
+        if($query->rowCount() === 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+        $query->closeCursor();
     }
 
     public function make_categorie_article_relation($nom_categorie, $id_article)

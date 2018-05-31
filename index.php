@@ -86,7 +86,7 @@ try
     });
 
     $router->post('/add_post', function() use ($post){
-        $post->add_post($_POST['titre_article'],$_POST['auteur_article'],$_POST['extrait_article'],$_POST['contenu_article'],$_FILES['file'], explode(',',$_POST['tags']),$_POST['categories']);
+        $post->add_post($_POST['titre_article'],$_POST['auteur_article'],$_POST['extrait_article'],$_POST['contenu_article'],$_FILES['file'], $_POST['tags'],$_POST['categorie']);
     });
 
     $router->post('/delete_post', function() use ($post){

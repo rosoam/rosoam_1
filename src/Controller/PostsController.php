@@ -52,7 +52,6 @@ class PostsController extends MainController
                                     if(empty($categorie))
                                     {
                                         // les deux sont vides
-                                        echo 'les deux sont vides';
                                         $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),$tags, $categorie, false, false);
                                         return true;
                                     }
@@ -62,11 +61,11 @@ class PostsController extends MainController
                                 }
                                 else if (empty($categorie))
                                 {
-                                    $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),$tags, $categorie, true, false);
+                                    $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),explode(',',$tags), $categorie, true, false);
                                 }
                                 else
                                 {
-                                    $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),$tags, $categorie, true, true);
+                                    $this->_post->add_article($titre_article, $auteur_article,$extrait_article,$contenu_article, $this->_file->downdload_couverture_article($couverture_article),explode(',',$tags), $categorie, true, true);
                                 }
                             }
                             else
