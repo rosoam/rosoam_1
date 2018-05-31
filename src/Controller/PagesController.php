@@ -99,6 +99,34 @@ class PagesController extends MainController
         }
     }
 
+    public function get_post_to_update($id_post, $id_utilisateur)
+    {
+        if($this->_security->section_active())
+        {
+            if(!empty($id_post))
+            {
+                if($this->_post->is_utilisateur_article($id_post, $id_utilisateur))
+                {
+                    $post_details = $this->_post->post_by_id($id_post);
+
+                    require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/update-article-form.php';
+                }
+                else
+                {
+                    $this->controllerException("Cet article ne vous appartient pas, vous ne pouvez pas faire ça!");
+                }
+            }
+            else
+            {
+                $this->controllerException("Aucun id envoyé, veuillez vérifier les informations du post sélectionné");
+            }
+        }
+        else
+        {
+            $this->controllerException("Vous n'êtes pas connecté, vous ne pouvez pas faire cette action");
+        }
+    }
+
     public function get_tags_articles($tags)
     {
         $blog = $this->_post->get_tags_articles($tags);

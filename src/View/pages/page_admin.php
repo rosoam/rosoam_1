@@ -68,6 +68,21 @@ ob_start();
                 </div>
                 <div class="col-9 admin-main-area">
                     <?php //require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/manage-profil.php'; ?>
+                    <!-- update-article-modal -->
+                    <div class="modal fade" id="update-article-modal" tabindex="-1" role="dialog" aria-labelledby="update-article-modal" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-triggerer-title">Modifier un article</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="update-form-container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="modal fade" id="add-article-modal" tabindex="-1" role="dialog" aria-labelledby="add-article-modal" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -111,15 +126,8 @@ ob_start();
                                             <div class="add-post-carac" id="add-post-carac">
                                                 <div class="row post-tags-area">
                                                     <div class="col-12 tags-carousel">
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
-
+                                                        <input type="text" class="tags-item" id="tags-item" placeholder="Pour enregistrer un tag, commencez votre mot par #. Essayez!">
                                                         <div class="cloud-tags"></div>
-                                                        <input type="text" class="tags-item" id="tags-item">
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
                                                     </div>
                                                 </div>
                                                 <div class="row post-categories-area">

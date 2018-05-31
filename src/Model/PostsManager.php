@@ -319,6 +319,17 @@ class PostsManager extends Manager
         return $query;
     }
 
+    public function post_by_id($id_article)
+    {
+        $db = $this->connection_to_db();
+        $req_post = "SELECT * FROM t_article WHERE id_article=:id_article";
+        $query = $db->prepare($req_post);
+        $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query;
+    }
+
     /*
      * TAGS FUNCTIONS
      * TAGS FUNCTIONS

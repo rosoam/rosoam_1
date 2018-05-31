@@ -36,9 +36,10 @@ a, a:hover {
 body.modal-open #menu  {
     padding-right: 17px;
 }
+/*
 .modal-lg {
     max-width:1000px;
-}
+}*/
 #modal-triggerer {
     bottom: auto;
     left: auto;
@@ -47,13 +48,14 @@ body.modal-open #menu  {
     min-width: 250px;
     max-width: 350px;
 }
+/*
 .modal-backdrop.show {
     opacity: 0;
     height: 50vh;
 }
 .modal-backdrop {
     z-index: -1;
-}
+}*/
 .modal-body {
     font-size: 15px;
 }
@@ -124,7 +126,7 @@ body.modal-open #menu  {
     top:0;
     left:0;
     width:100%;
-    z-index:9999;
+    z-index:100;
 }
 .menu-dropdown-parent {
     cursor:pointer;
@@ -529,10 +531,15 @@ body.modal-open #menu  {
 .user-blog {
     position:relative;
 }
-.user-blog .btn-danger{
+.user-blog .delete-post{
     position:absolute;
     top:10px;
     right:10px;
+}
+.user-blog .update-post {
+    position: absolute;
+    top: 60px;
+    right: 10px;
 }
 /* admin modal */
 #add-article-modal{
@@ -617,8 +624,7 @@ form .mce-container #add-post-contenu-article_ifr {
     padding: 10px 20px;
     background-color:#218838;
     color:#fff;
-    margin-right:10px;
-    margin-bottom : 20px;
+    margin:10px 10px 10px 0;
 }
 .tag-choose-close{
     position: absolute;

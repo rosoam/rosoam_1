@@ -14,6 +14,7 @@ if ($blog->rowCount() > 0) {
         ?>
         <div class="blog user-blog blog-blog-post ">
             <button class="delete-post btn btn-danger" id="<?= htmlspecialchars($this->_article->getId()) ?>">Effacer</button>
+            <button class="update-post btn btn-info" id="<?= htmlspecialchars($this->_article->getId()) ?>" data-toggle="modal" data-target="#update-article-modal" >Update</button>
             <a href="/posts/<?= htmlspecialchars($this->_article->getSlug()) ?>" class="blog-post-link">
                 <img src="<?php
                 if ($this->_article->getCouverture() === "") {

@@ -93,6 +93,10 @@ try
         $post->delete_post($_POST['id_article'],$_SESSION['user_id']);
     });
 
+    $router->post('/get_update_form', function() use ($controller){
+        $controller->get_post_to_update($_POST['id_article'], $_SESSION['user_id']);
+    });
+
     $router->run();
 } catch(Exception $e)
 {

@@ -229,6 +229,28 @@ function delete_post(id_article) {
     });
 }
 
+function get_update_form(id_article)
+{
+    $.ajax({
+        url: '/get_update_form',
+        type: 'POST',
+        data: {
+            id_article: id_article
+        },
+        success: function (data) {
+            $('.update-form-container').html(data);
+        },
+        error: function (xhr, textStatus) {
+            $('#modal-triggerer .modal-header h5').text("Erreur!");
+            $('#modal-triggerer .modal-body').text(xhr.responseText);
+            $('#modal-triggerer').modal('show');
+            setTimeout(function () {
+                $('#modal-triggerer').modal('hide');
+            }, 3000);
+        }
+    });
+}
+
 /*
     -- -- -- -- refresh fonctions -- -- -- --
     -- -- -- -- refresh fonctions -- -- -- --

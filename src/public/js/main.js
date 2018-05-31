@@ -220,6 +220,13 @@ $(document).ready(function() {
         delete_post(article_id);
     });
 
+    $(document).on('click', '.update-post',function(e){
+        e.preventDefault();
+        var article_id = parseInt($(this).attr('id'));
+
+        get_update_form(article_id);
+    });
+
     $('.post-categorie').click(function(e) {
         e.preventDefault();
 
