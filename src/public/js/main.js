@@ -26,6 +26,10 @@ $(document).ready(function() {
         onlyActiveClass($(this));
     });
 
+    $('.tag-item').click(function() {
+        $(this).toggleClass('active');
+    });
+
     // HOMEPAGE
 
     // Fonction pour load + d'article dans la homepage
