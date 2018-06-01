@@ -1,7 +1,51 @@
 $(document).ready(function() {
 
+    // GLOBAL
+
+    // prevent default de button / a et autres.
+    $('.tag-item,.post-categorie, .categorie-item').click(function(e) {
+        e.preventDefault();
+    });
+
+    window.sr = ScrollReveal();
+    sr.reveal('.logo-ressources', {
+        duration: 1000,
+        delay: 200,
+        origin: 'bottom'
+    });
+
+    resizeHeader();
+    resizeBlogBoxes();
+
+    $(window).resize(function() {
+        resizeBlogBoxes();
+        resizeHeader();
+    });
+
+    $('.categorie-item').click(function() {
+        onlyActiveClass($(this));
+    });
+
+    // HOMEPAGE
+
+    // Fonction pour load + d'article dans la homepage
+    $('.more-posts').click(function(e) {
+        e.preventDefault();
+        var count = 0;
+        $('.homepage-blog .blog-post.box').each(function() {
+            count++;
+        });
+        var newLimit = count + 4;
+        more_posts(count, newLimit);
+
+    });
+
+
+    // USER FONCTIONS
+
     var errors = 0;
 
+    // Fonction qui inscrit un utilisateur
     $('#inscription-submit').click(function(e) {
         e.preventDefault();
 
@@ -44,6 +88,7 @@ $(document).ready(function() {
         errors = 0;
     });
 
+    // Fonction qui connecte un utilisateur enregistré
     $('#connect-submit').click(function(e) {
         e.preventDefault();
 
@@ -53,91 +98,39 @@ $(document).ready(function() {
         login_user($form_username, $form_password);
     });
 
+    // Fonction logout lorsque l'utilisateur se déconnecte
     $('.logout').click(function(e) {
         e.preventDefault();
         logout();
     });
 
+    /*
+    * Inutile pour le moment
     $('#update-profil-picture').on('change', function() {
         readURL(this);
     });
+    */
 
-    resizeHeader();
-    resizeBlogBoxes();
 
-    $(window).resize(function() {
-        resizeBlogBoxes();
-        resizeHeader();
+    //ADMIN PAGE
+
+    // Fonction qui permet de delete un post via son id
+    $(document).on('click', '.delete-post', function(e) {
+        e.preventDefault();
+        var article_id = parseInt($(this).attr('id'));
+
+        delete_post(article_id);
     });
 
-    $('.tag-item').click(function() {
-        switchActiveClass($(this));
-    });
-
-    $('.categorie-item').click(function() {
-        onlyActiveClass($(this));
-    });
-
-
-    var frontendTags = [];
-
-    $('.tags-item').on('change paste keyup', function(e) {
-        if (e.keyCode == 32) {
-
-            var valeurs = $(this).val();
-            var arrayValeurs = valeurs.split(' ');
-            var arrayLastValeur = arrayValeurs[arrayValeurs.length - 2];
-
-            var regex = /(^#[a-zA-Z0-9_]{1,50})/g;
-
-            var text = $('.cloud-tags').html();
-            //console.log(text);
-
-            if (arrayLastValeur.match(regex)) {
-                //console.log(arrayLastValeur);
-
-                var valToPush = arrayLastValeur.replace('#', '');
-                if ($.inArray(valToPush, frontendTags) !== -1) {
-                    console.log('deja dedans');
-                } else {
-                    frontendTags.push(valToPush);
-
-                    var tagsLasItem = frontendTags[frontendTags.length - 1];
-
-                    $('.cloud-tags').fadeOut(100, function() {
-                        $('.cloud-tags').html(text = text + '<span class="tag-choose"> <span class="tag">' + tagsLasItem + '</span><span class="tag-choose-close">&times;</span></span>');
-                    }).fadeIn(500);
-
-                }
-            }
-            $(this).val('');
-        }
-    });
-
-    $(document).on('click', '.tag-choose-close', function(e) {
-        var text = $(this).siblings('.tag').text();
-
-        frontendTags = $.grep(frontendTags, function(value) {
-            return value != text;
-        });
-
-        $('.cloud-tags').html('');
-
-        var cloudArea = $('.cloud-tags').html();
-
-        for (var i = 0; i < frontendTags.length; i++) {
-            $('.cloud-tags').html(cloudArea = cloudArea + '<span class="tag-choose"> <span class="tag">' + frontendTags[i] + '</span><span class="tag-choose-close">&times;</span></span>');
-        }
-    });
-
-    $(document).on('click','.add-posts',function(e){
+    // Fait apparaitre le formulaire pour add un article
+    $(document).on('click', '.add-posts', function(e) {
         tinymceAddForm();
     });
 
-    $(document).on('click','.add-post-submit', function(e) {
+    // Fonction add d'un article !
+    $(document).on('click', '.add-post-submit', function(e) {
 
         e.preventDefault();
-        console.log(frontendTags);
 
         var titre_article = $('#add-post-titre-article').val().trim();
         var auteur_article = $('#add-post-auteur-article').val().trim();
@@ -146,7 +139,6 @@ $(document).ready(function() {
         var couverture_article = $('.add-post-formulaire input[type=file]')[0].files[0];
 
         var categories = $('.categorie-item.active').text();
-        console.log(categories.length);
 
         var error_message = "Erreur: ";
 
@@ -204,20 +196,74 @@ $(document).ready(function() {
         errors = 0;
     });
 
-    $(document).on('click', '.delete-post', function(e) {
-        e.preventDefault();
-        var article_id = parseInt($(this).attr('id'));
 
-        delete_post(article_id);
+
+    /*
+    FONCTION DE CREATION DE TAGS DANS LE FORMULAIRE D'AJOUT D'ARTICLE
+     */
+    var frontendTags = [];
+
+    $('.tags-item').on('change paste keyup', function(e) {
+        if (e.keyCode == 32) {
+
+            var valeurs = $(this).val();
+            var arrayValeurs = valeurs.split(' ');
+            var arrayLastValeur = arrayValeurs[arrayValeurs.length - 2];
+
+            var regex = /(^#[a-zA-Z0-9_]{1,50})/g;
+
+            var text = $('.cloud-tags').html();
+
+            if (arrayLastValeur.match(regex)) {
+
+                var valToPush = arrayLastValeur.replace('#', '');
+                if ($.inArray(valToPush, frontendTags) !== -1) {} else {
+                    frontendTags.push(valToPush);
+
+                    var tagsLasItem = frontendTags[frontendTags.length - 1];
+
+                    $('.cloud-tags').fadeOut(100, function() {
+                        $('.cloud-tags').html(text = text + '<span class="tag-choose"> <span class="tag">' + tagsLasItem + '</span><span class="tag-choose-close">&times;</span></span>');
+                    }).fadeIn(500);
+
+                }
+            }
+            $(this).val('');
+        }
     });
 
-    $(document).on('click', '.update-post',function(e){
+    $(document).on('click', '.tag-choose-close', function(e) {
+        var text = $(this).siblings('.tag').text();
+
+        frontendTags = $.grep(frontendTags, function(value) {
+            return value != text;
+        });
+
+        $('.cloud-tags').html('');
+
+        var cloudArea = $('.cloud-tags').html();
+
+        for (var i = 0; i < frontendTags.length; i++) {
+            $('.cloud-tags').html(cloudArea = cloudArea + '<span class="tag-choose"> <span class="tag">' + frontendTags[i] + '</span><span class="tag-choose-close">&times;</span></span>');
+        }
+    });
+    /*
+    FONCTION DE CREATION DE TAGS DANS LE FORMULAIRE D'AJOUT D'ARTICLE
+    */
+
+    // Fonction qui load le formulaire correspondant au post selectionné
+    $(document).on('click', '.update-post', function(e) {
         e.preventDefault();
         var article_id = parseInt($(this).attr('id'));
 
         get_update_form(article_id);
     });
 
+
+
+    // PAGE DES POSTS
+
+    // Fonction qui permet de filtrer les articles via la catégorie sélectionnée
     $('.post-categorie').click(function(e) {
         e.preventDefault();
 
@@ -226,10 +272,7 @@ $(document).ready(function() {
         get_categorie_posts(categorie);
     });
 
-    $('.tag-item,.post-categorie, .categorie-item').click(function(e) {
-        e.preventDefault();
-    });
-
+    // Fonction qui permet de filtrer les articles via l'auteur entré dans l'input
     $('.get-auteur-posts').click(function(e) {
         e.preventDefault();
         var auteur = $('.auteurs-area form #auteur').val();
@@ -237,17 +280,7 @@ $(document).ready(function() {
         auteur_posts(auteur);
     });
 
-    $('.more-posts').click(function(e) {
-        e.preventDefault();
-        var count = 0;
-        $('.homepage-blog .blog-post.box').each(function() {
-            count++;
-        });
-        var newLimit = count + 4;
-        more_posts(count, newLimit);
-
-    });
-
+    // Fonction qui permet de filtrer les articles via les tags entrés dans l'array en paramètre
     $('.tag_search').click(function(e) {
         e.preventDefault();
         var tags = [];
@@ -261,13 +294,6 @@ $(document).ready(function() {
         } else {
             get_tags_articles(tags);
         }
-    });
-
-    window.sr = ScrollReveal();
-    sr.reveal('.logo-ressources', {
-        duration: 1000,
-        delay: 200,
-        origin: 'bottom'
     });
 
 });
@@ -297,15 +323,6 @@ function resizeBlogBoxes() {
 function resizeHeader() {
     var menuHeight = $('#menu').height();
     $('#header').css('margin-top', menuHeight);
-}
-
-function switchActiveClass(element) {
-    var element = $(element);
-    if (element.hasClass('active')) {
-        element.removeClass('active');
-    } else {
-        element.addClass('active');
-    }
 }
 
 function onlyActiveClass(element) {
