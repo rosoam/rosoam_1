@@ -43,13 +43,12 @@ $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
                 <div class="row post-tags-area">
                     <div class="col-12 tags-carousel">
                         <input type="text" class="update-tags-item" id="update-tags-item" placeholder="Pour enregistrer un tag, commencez votre mot par #. Essayez!">
-                        <div class="cloud-tags">
+                        <div class="update-cloud-tags">
                         <?php
 
                         $tags = $this->_post->tags($this->_article->getId());
                         if($tags->rowCount() > 0)
                         {?>
-                            <span>Vos tags :</span>
                             <?php $fetch_tags = $tags->fetchAll();
                             foreach($fetch_tags as $tag)
                             {

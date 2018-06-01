@@ -613,12 +613,12 @@ form .mce-container #add-post-contenu-article_ifr {
 }
 
 /* test tags */
-.tags-item {
+.tags-item, .update-tags-item {
     width:100%;
     padding:10px 15px;
 }
 
-.tag-choose {
+.tag-choose, .update-tag-choose {
     position: relative;
     display:inline-block;
     padding: 10px 20px;
@@ -626,7 +626,7 @@ form .mce-container #add-post-contenu-article_ifr {
     color:#fff;
     margin:10px 10px 10px 0;
 }
-.tag-choose-close{
+.tag-choose-close, .update-tag-choose-close{
     position: absolute;
     top: 2px;
     right: 4px;

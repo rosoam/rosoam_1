@@ -78,19 +78,6 @@ $(document).ready(function() {
         onlyActiveClass($(this));
     });
 
-    tinymce.init({
-        selector: 'textarea#add-post-contenu-article',
-        plugins: "autolink",
-        plugins: "link",
-    });
-
-    $(document).on('focusin', function(e) {
-        if ($(e.target).closest(".mce-window").length) {
-            e.stopImmediatePropagation();
-        }
-    });
-
-
 
     var frontendTags = [];
 
@@ -141,6 +128,10 @@ $(document).ready(function() {
         for (var i = 0; i < frontendTags.length; i++) {
             $('.cloud-tags').html(cloudArea = cloudArea + '<span class="tag-choose"> <span class="tag">' + frontendTags[i] + '</span><span class="tag-choose-close">&times;</span></span>');
         }
+    });
+
+    $(document).on('click','.add-posts',function(e){
+        tinymceAddForm();
     });
 
     $(document).on('click','.add-post-submit', function(e) {
@@ -328,4 +319,40 @@ function onlyActiveClass(element) {
     });
 
     element.hasClass('active') ? element.removeClass('active') : element.addClass('active');
+}
+
+function tinymceUpdateForm() {
+    tinymce.remove(); // nous avons besoin de cette fonction car le textarea demandé est généré via ajax
+    tinymce.init({
+        selector: 'textarea#update-post-contenu-article',
+        plugins: "autolink",
+        plugins: "link",
+        theme: "modern",
+        width: "100%",
+        height: 300,
+    });
+
+    $(document).on('focusin', function(e) {
+        if ($(e.target).closest(".mce-window").length) {
+            e.stopImmediatePropagation();
+        }
+    });
+}
+
+function tinymceAddForm() {
+    tinymce.remove();
+    tinymce.init({
+        selector: 'textarea#add-post-contenu-article',
+        plugins: "autolink",
+        plugins: "link",
+        theme: "modern",
+        width: "100%",
+        height: 300,
+    });
+
+    $(document).on('focusin', function(e) {
+        if ($(e.target).closest(".mce-window").length) {
+            e.stopImmediatePropagation();
+        }
+    });
 }

@@ -241,6 +241,7 @@ function get_update_form(id_article)
         },
         success: function (data) {
             $('.update-form-container').html(data);
+            tinymceUpdateForm();
         },
         error: function (xhr, textStatus) {
             $('#modal-triggerer .modal-header h5').text("Erreur!");
