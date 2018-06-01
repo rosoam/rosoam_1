@@ -99,7 +99,7 @@ class PagesController extends MainController
         }
     }
 
-    public function get_post_to_update($id_post, $id_utilisateur)
+    public function get_form_to_update_post($id_post, $id_utilisateur)
     {
         if($this->_security->section_active())
         {

@@ -13,6 +13,11 @@ use Cocur\Slugify\Slugify;
 
 class PostsManager extends Manager
 {
+
+
+    /**
+     * @return int -> fonction qui compte combien il y a d'articles enregistrés
+     */
     public function count_posts()
     {
         $db = $this->connection_to_db();
@@ -25,6 +30,13 @@ class PostsManager extends Manager
         return $count;
     }
 
+
+    /**
+     * @param $order_by -> retourne tous les posts // personnels ou non personnels, avec ordre et limite en paramètre
+     * @param $limit
+     * @param $personal
+     * @return bool|\PDOStatement
+     */
     public function posts($order_by, $limit, $personal)
     {
         if( $personal === true )
@@ -48,29 +60,34 @@ class PostsManager extends Manager
         return $query;
     }
 
-    public function get_auteur_posts($auteur)
+
+    /**
+     * @param $auteur_article -> retourne tous les article d'un auteur, via auteur_article
+     * @return bool|\PDOStatement
+     */
+    public function get_auteur_posts($auteur_article)
     {
         $db = $this->connection_to_db();
         $req = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article WHERE auteur_article=:auteur_article";
         $query = $db->prepare($req);
-        $query->bindParam(':auteur_article',$auteur,PDO::PARAM_STR);
+        $query->bindParam(':auteur_article',$auteur_article,PDO::PARAM_STR);
         $query->execute();
 
         return $query;
     }
 
     /**
-     * @param $user_id
-     * @param $article_id
+     * @param $id_utilisateur
+     * @param $id_article
      * @return bool
      */
-    public function check_article_rel_user($user_id, $article_id)
+    public function check_article_rel_user($id_utilisateur, $id_article)
     {
         $db = $this->connection_to_db();
-        $req = "SELECT art.id_article FROM t_article AS art JOIN rel_utilisateur_article AS ua ON ua.fk_article=art.id_article JOIN t_utilisateur as ut ON ua.fk_utilisateur=ut.id_utilisateur WHERE ua.fk_article=:article_id AND ua.fk_utilisateur=:user_id";
+        $req = "SELECT art.id_article FROM t_article AS art JOIN rel_utilisateur_article AS ua ON ua.fk_article=art.id_article JOIN t_utilisateur as ut ON ua.fk_utilisateur=ut.id_utilisateur WHERE ua.fk_article=:id_article AND ua.fk_utilisateur=:id_utilisateur";
         $query = $db->prepare($req);
-        $query->bindParam(':user_id',$user_id,PDO::PARAM_INT);
-        $query->bindParam(':article_id',$article_id, PDO::PARAM_INT);
+        $query->bindParam(':id_utilisateur',$id_utilisateur,PDO::PARAM_INT);
+        $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
         $query->execute();
 
         $query->closeCursor();
@@ -85,17 +102,27 @@ class PostsManager extends Manager
         }
     }
 
-    public function delete_article($article_id)
+
+    /**
+     * @param $id_article -> delete d'un article via son id_article
+     */
+    public function delete_article($id_article)
     {
         $db = $this->connection_to_db();
-        $req = "DELETE FROM t_article WHERE t_article.id_article=:article_id";
+        $req = "DELETE FROM t_article WHERE t_article.id_article=:id_article";
         $query = $db->prepare($req);
-        $query->bindParam(':article_id',$article_id, PDO::PARAM_INT);
+        $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
         $query->execute();
 
         $query->closeCursor();
     }
 
+
+    /**
+     * @param $id_article -> check si l'article appartient à un utilisateur, via leur id respectifs
+     * @param $id_utilisateur
+     * @return bool
+     */
     public function is_utilisateur_article($id_article, $id_utilisateur)
     {
         $db = $this->connection_to_db();
@@ -116,7 +143,22 @@ class PostsManager extends Manager
         }
     }
 
-    public function add_article($titre_article, $auteur_article,$extrait_article,$contenu_article,$couverture_article, $tags, $categorie, $haveTags, $haveCat)
+
+    /**
+     *
+     * FONCTION DE CREATION D'UN ARTICLE
+     *
+     * @param $titre_article
+     * @param $auteur_article
+     * @param $extrait_article
+     * @param $contenu_article
+     * @param $couverture_article
+     * @param $tags
+     * @param $categorie
+     * @param $haveTags
+     * @param $haveCat
+     */
+    public function add_article($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article, $tags, $categorie, $haveTags, $haveCat)
     {
         $slugify = new Slugify();
         $article_slug = $slugify->slugify($titre_article);
@@ -159,6 +201,10 @@ class PostsManager extends Manager
         }
     }
 
+
+    /**
+     * @param $tag -> création d'un tag via son nom_tag
+     */
     public function create_tag($tag)
     {
         $slugify = new Slugify();
@@ -174,12 +220,17 @@ class PostsManager extends Manager
         $query->closeCursor();
     }
 
-    public function tag_exist($tag)
+
+    /**
+     * @param $nom_tag -> check si un tag existe deja, via son nom_tag
+     * @return bool
+     */
+    public function tag_exist($nom_tag)
     {
         $db = $this->connection_to_db();
         $req = "SELECT id_tag FROM t_tag WHERE t_tag.nom_tag=:nom_tag";
         $query = $db->prepare($req);
-        $query->bindParam(':nom_tag',$tag, PDO::PARAM_STR);
+        $query->bindParam(':nom_tag',$nom_tag, PDO::PARAM_STR);
         $query->execute();
 
         if($query->rowCount() === 1)
@@ -194,6 +245,11 @@ class PostsManager extends Manager
         $query->closeCursor();
     }
 
+
+    /**
+     * @param $nom_categorie -> crée une liaison entre une catégorie et un article via leur id respectif
+     * @param $id_article
+     */
     public function make_categorie_article_relation($nom_categorie, $id_article)
     {
         $db = $this->connection_to_db();
@@ -206,6 +262,11 @@ class PostsManager extends Manager
         $query->closeCursor();
     }
 
+
+    /**
+     * @param $nom_tag -> crée une liaison entre tag et article via leur id respectif
+     * @param $id_article
+     */
     public function make_tag_article_relation($nom_tag, $id_article)
     {
         $db = $this->connection_to_db();
@@ -218,6 +279,11 @@ class PostsManager extends Manager
         $query->closeCursor();
     }
 
+
+    /**
+     * @param $id_article -> crée une liaison entre utilisateur et article avec leur id respectif
+     * @param $id_utilisateur
+     */
     private function make_utilisateur_article_relation($id_article, $id_utilisateur)
     {
         $db = $this->connection_to_db();
@@ -230,12 +296,17 @@ class PostsManager extends Manager
         $query->closeCursor();
     }
 
-    public function is_cat_unique($cat)
+
+    /**
+     * @param $nom_categorie -> check si la catégorie est unique via son nom_categorie
+     * @return bool
+     */
+    public function is_cat_unique($nom_categorie)
     {
         $db = $this->connection_to_db();
-        $req = "SELECT id_categorie FROM t_categorie WHERE t_categorie.nom_categorie=:nomCat";
+        $req = "SELECT id_categorie FROM t_categorie WHERE t_categorie.nom_categorie=:nom_categorie";
         $query = $db->prepare($req);
-        $query->bindParam(':nomCat',$cat, PDO::PARAM_STR);
+        $query->bindParam(':nom_categorie',$nom_categorie, PDO::PARAM_STR);
         $query->execute();
         $query->closeCursor();
 
@@ -249,12 +320,16 @@ class PostsManager extends Manager
         }
     }
 
-    public function is_tag_unique($tag)
+    /**
+     * @param $nom_tag -> check si le tag est unique via son nom_tag
+     * @return bool
+     */
+    public function is_tag_unique($nom_tag)
     {
         $db = $this->connection_to_db();
-        $req = "SELECT id_tag FROM t_tag WHERE t_tag.nom_tag=:nomTag";
+        $req = "SELECT id_tag FROM t_tag WHERE t_tag.nom_tag=:nom_tag";
         $query = $db->prepare($req);
-        $query->bindParam(':nomTag',$tag, PDO::PARAM_STR);
+        $query->bindParam(':nom_tag',$nom_tag, PDO::PARAM_STR);
         $query->execute();
         $query->closeCursor();
 
@@ -268,12 +343,16 @@ class PostsManager extends Manager
         }
     }
 
-    public function is_title_unique($title)
+    /**
+     * @param $titre_article -> check si l'article est unique, via son titre_article
+     * @return bool
+     */
+    public function is_title_unique($titre_article)
     {
         $db = $this->connection_to_db();
-        $req = "SELECT id_article FROM t_article WHERE t_article.titre_article=:title";
+        $req = "SELECT id_article FROM t_article WHERE t_article.titre_article=:titre_article";
         $query = $db->prepare($req);
-        $query->bindParam(':title',$title, PDO::PARAM_STR);
+        $query->bindParam(':titre_article',$titre_article, PDO::PARAM_STR);
         $query->execute();
         $query->closeCursor();
 
@@ -287,27 +366,10 @@ class PostsManager extends Manager
         }
     }
 
-    public function update_article($titre_article, $auteur_article,$extrait_article,$contenu_article,$couverture_article, $article_id)
-    {
-        $slugify = new Slugify();
-        $article_slug = $slugify->slugify($titre_article);
-
-        $db = $this->connection_to_db();
-        $req = "UPDATE t_article SET titre_article=:titre_article, auteur_article=:auteur_article, extrait_article=:extrait_article, contenu_article=:contenu_article, couverture_article=:couverture_article, slug_article=:slug_article WHERE id_article=:article_id";
-        $query = $db->prepare($req);
-        $query->bindParam(':titre_article',$titre_article,PDO::PARAM_STR);
-        $query->bindParam(':auteur_article',$auteur_article,PDO::PARAM_STR);
-        $query->bindParam(':extrait_article',$extrait_article,PDO::PARAM_STR);
-        $query->bindParam(':contenu_article',$contenu_article,PDO::PARAM_STR);
-        $query->bindParam(':couverture_article',$couverture_article,PDO::PARAM_STR);
-        $query->bindParam(':slug_article',$article_slug,PDO::PARAM_STR);
-        $query->bindParam(':article_id',$article_id,PDO::PARAM_INT);
-        $query->execute();
-
-        $query->closeCursor();
-    }
-
-
+    /**
+     * @param $slug -> Cette fonction retourne le contenu d'un post via son slug (url)
+     * @return bool|\PDOStatement
+     */
     public function post($slug)
     {
         $db = $this->connection_to_db();
@@ -319,6 +381,42 @@ class PostsManager extends Manager
         return $query;
     }
 
+
+    /**
+     * FONCTION UPDATE D'UN ARTICLE
+     *
+     * @param $titre_article
+     * @param $auteur_article
+     * @param $extrait_article
+     * @param $contenu_article
+     * @param $couverture_article
+     * @param $id_article
+     */
+    public function update_article($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article, $id_article)
+    {
+        $slugify = new Slugify();
+        $article_slug = $slugify->slugify($titre_article);
+
+        $db = $this->connection_to_db();
+        $req = "UPDATE t_article SET titre_article=:titre_article, auteur_article=:auteur_article, extrait_article=:extrait_article, contenu_article=:contenu_article, couverture_article=:couverture_article, slug_article=:slug_article WHERE id_article=:id_article";
+        $query = $db->prepare($req);
+        $query->bindParam(':titre_article',$titre_article,PDO::PARAM_STR);
+        $query->bindParam(':auteur_article',$auteur_article,PDO::PARAM_STR);
+        $query->bindParam(':extrait_article',$extrait_article,PDO::PARAM_STR);
+        $query->bindParam(':contenu_article',$contenu_article,PDO::PARAM_STR);
+        $query->bindParam(':couverture_article',$couverture_article,PDO::PARAM_STR);
+        $query->bindParam(':slug_article',$article_slug,PDO::PARAM_STR);
+        $query->bindParam(':id_article',$id_article,PDO::PARAM_INT);
+        $query->execute();
+
+        $query->closeCursor();
+    }
+
+
+    /**
+     * @param $id_article -> Cette fonction retourne le contenu d'un post via son id
+     * @return bool|\PDOStatement
+     */
     public function post_by_id($id_article)
     {
         $db = $this->connection_to_db();
@@ -335,8 +433,15 @@ class PostsManager extends Manager
      * TAGS FUNCTIONS
      * TAGS FUNCTIONS
      */
-    // SELECT DISTINCT ar.* FROM t_article AS ar JOIN rel_article_tags AS arta ON arta.fk_article = ar.id_article JOIN t_tag AS ta ON arta.fk_tag = ta.id_tag WHERE ta.nom_tag IN("front-end", "back-end")
 
+
+    /**
+     * @param $tags -> cette fonctions retourne les articles reliés aux tags envoyé en paramètre
+     * @return bool|\PDOStatement
+     *
+     * @function bindParamArray viens de la classe parente -> Manager, cette fonction permet de préparer les
+     * éléments du tableau (en paramètre) pour les ajuster correctement à la requête ( ils vont dans le IN() )
+     */
     public function get_tags_articles($tags)
     {
         $db = $this->connection_to_db();
@@ -349,6 +454,11 @@ class PostsManager extends Manager
         return $query;
     }
 
+
+    /**
+     * Cette fonction nous retourne tous les tags, sans distinction
+     * @return bool|\PDOStatement
+     */
     public function all_tags()
     {
         $db = $this->connection_to_db();
@@ -359,6 +469,11 @@ class PostsManager extends Manager
         return $query;
     }
 
+
+    /**
+     * @param $id_article -> Cette fonction nous retourne les tags d'un article (via id_article)
+     * @return bool|\PDOStatement
+     */
     public function tags($id_article)
     {
         $db = $this->connection_to_db();
@@ -370,6 +485,11 @@ class PostsManager extends Manager
         return $query;
     }
 
+
+    /**
+     * @param $nom_tag ->
+     * @return bool|\PDOStatement
+
     public function get_tags_article($nom_tag)
     {
         $db = $this->connection_to_db();
@@ -380,6 +500,7 @@ class PostsManager extends Manager
 
         return $query;
     }
+     */
 
     /*
      * CATEGORIES FUNCTIONS
@@ -387,6 +508,10 @@ class PostsManager extends Manager
      * CATEGORIES FUNCTIONS
      */
 
+    /**
+     * Cette function retourne toutes les catégories sans distinction
+     * @return bool|\PDOStatement
+     */
     public function all_categories()
     {
         $db = $this->connection_to_db();
@@ -397,6 +522,11 @@ class PostsManager extends Manager
         return $query;
     }
 
+
+    /**
+     * @param $id_article -> Cette fonction retourne les catégories reliées à un article (via id_article)
+     * @return bool|\PDOStatement
+     */
     public function categories($id_article)
     {
         $db = $this->connection_to_db();
@@ -408,6 +538,11 @@ class PostsManager extends Manager
         return $query;
     }
 
+
+    /**
+     * @param $nom_categorie -> Cette fonctionre retourne tous les articles reliés à une catégorie (via nom_categorie)
+     * @return bool|\PDOStatement
+     */
     public function get_categorie_articles($nom_categorie)
     {
         $db = $this->connection_to_db();

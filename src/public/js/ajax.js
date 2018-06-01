@@ -231,6 +231,8 @@ function delete_post(id_article) {
 
 function get_update_form(id_article)
 {
+    $('.update-form-container').html("<img src='/src/public/img/ajax_loader_1.1.gif' class='update-form-loader'>");
+
     $.ajax({
         url: '/get_update_form',
         type: 'POST',
