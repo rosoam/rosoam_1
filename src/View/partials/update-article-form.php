@@ -78,7 +78,19 @@ $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
                         else
                         { ?>
                             <p>Cet article n'a pas de catégories définie <a href="#" class="change-cat">Modificer la catégorie?</a></p>
-                        <?php } ?>
+                        <?php }
+                        $categorie->closeCursor();
+
+                        $categories = $this->_post->all_categories();
+                        $fetch_categories = $categories->fetchAll();
+                        foreach($fetch_categories as $cat)
+                        {
+                            $this->newCategorie($cat);
+                            ?>
+                                <p><?= $this->_categorie->getNom(); ?></p>
+                        <?php }
+                        $categorie->closeCursor();
+                        ?>
                     </div>
                 </div>
             </div>
