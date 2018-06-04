@@ -252,8 +252,9 @@ $(document).ready(function() {
         }
     });
     /*
-    FONCTION DE CREATION DE TAGS DANS LE FORMULAIRE D'AJOUT D'ARTICLE
+    FONCTION DE CREATION DE TAGS DANS LE FORMULAIRE D'AJOUT D'ARTICLE END
     */
+
 
     // Fonction qui load le formulaire correspondant au post selectionné
     $(document).on('click', '.update-post', function(e) {
@@ -263,6 +264,100 @@ $(document).ready(function() {
         get_update_form(article_id);
     });
 
+
+    $(document).on('change paste keyup','.update-tags-item',function(e){
+        if (e.keyCode == 32) {
+            var valeurs = $(this).val();
+            var arrayValeurs = valeurs.split(' ');
+            var arrayLastValeur = arrayValeurs[arrayValeurs.length - 2];
+
+            var regex = /(^#[a-zA-Z0-9_]{1,50})/g;
+
+            var text = $('.update-cloud-tags').html();
+
+            if (arrayLastValeur.match(regex)) {
+
+                var valToPush = arrayLastValeur.replace('#', '');
+                if ($.inArray(valToPush, frontendTagsUpdate) !== -1) {} else {
+                    frontendTagsUpdate.push(valToPush);
+
+                    var tagsLasItem = frontendTagsUpdate[frontendTagsUpdate.length - 1];
+
+                    $('.update-cloud-tags').fadeOut(100, function() {
+                        $('.update-cloud-tags').html(text = text + '<span class="update-tag-choose"> <span class="update-tag">' + tagsLasItem + '</span><span class="update-tag-choose-close">&times;</span></span>');
+                    }).fadeIn(500);
+
+                }
+            }
+            $(this).val('');
+        }
+    });
+
+    $(document).on('click', '.update-tag-choose-close', function(e) {
+        var text = $(this).siblings('.update-tag').text();
+
+        frontendTagsUpdate = $.grep(frontendTagsUpdate, function(value) {
+            return value != text;
+        });
+
+        $('.update-cloud-tags').html('');
+
+        var cloudArea = $('.update-cloud-tags').html();
+
+        for (var i = 0; i < frontendTagsUpdate.length; i++) {
+            $('.update-cloud-tags').html(cloudArea = cloudArea + '<span class="update-tag-choose"> <span class="update-tag">' + frontendTagsUpdate[i] + '</span><span class="update-tag-choose-close">&times;</span></span>');
+        }
+    });
+
+    $(document).on('click','.update-post-submit', function(e){
+        var update_post_datas = new FormData();
+
+        e.preventDefault();
+        let id_article = parseInt(this.id);
+        let titre_article = $('#update-post-titre-article').val();
+        let auteur_article = $('#update-post-auteur-article').val();
+        let extrait_article = $('#update-post-extrait-article').val();
+        let contenu_article = tinyMCE.activeEditor.getContent();
+        let couverture_article = $('.update-post-formulaire input[type=file]')[0].files[0];
+
+        let tags = frontendTagsUpdate;
+        let nom_categorie = $('.update-choose-categorie').text();
+
+        update_post_datas.append('id_article',id_article);
+        update_post_datas.append('titre_article',titre_article);
+        update_post_datas.append('auteur_article',auteur_article);
+        update_post_datas.append('extrait_article',extrait_article);
+        update_post_datas.append('contenu_article',contenu_article);
+        update_post_datas.append('couverture_article',couverture_article);
+
+        update_post_datas.append('tags',tags);
+        update_post_datas.append('nom_categorie',nom_categorie);
+
+        console.log(tags);
+    });
+
+    function check(id_article,nom_categorie)
+    {
+        $.ajax({
+            url: '/check',
+            type: 'POST',
+            data: {
+                id_article: id_article,
+                nom_categorie: nom_categorie
+            },
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr, textStatus) {
+                $('#modal-triggerer .modal-header h5').text("Erreur!");
+                $('#modal-triggerer .modal-body').text('not ok');
+                $('#modal-triggerer').modal('show');
+                setTimeout(function () {
+                    $('#modal-triggerer').modal('hide');
+                }, 3000);
+            }
+        });
+    }
 
 
     // PAGE DES POSTS

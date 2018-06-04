@@ -62,7 +62,7 @@
         <div class="subfooter-container container">
             <div class="row subfooter-content-area">
                 <div class="col-12 text-right">
-                    <p>Fais avec <i class="fa fa-heart"></i> par Romario!</p>
+                    <p>Fait par Romario!</p>
                 </div>
             </div>
         </div>

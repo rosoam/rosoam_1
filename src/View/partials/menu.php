@@ -40,7 +40,7 @@
                 <?php if(isset($_SESSION['username']))
                 {?>
                 <span class="nav-item dropdown menu-dropdown-parent">
-                    <img src="<?php echo isset($_SESSION['image_profil']) ? htmlspecialchars($_SESSION['image_profil']) : "https://via.placeholder.com/75x75"; ?>
+                    <img src="<?php echo isset($_SESSION['image_profil']) ? htmlspecialchars($_SESSION['image_profil']) : "/src/public/img/user_placeholder.svg"; ?>
 " class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/admin">Page admin</a>

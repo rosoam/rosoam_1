@@ -26,7 +26,7 @@ $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
                 <input type="text" class="form-control" id="update-post-extrait-article" value="<?= htmlspecialchars($this->_article->getExtrait()); ?>" >
             </div>
             <div class="form-group col-4">
-                <label for="post-couverture">Nouvelle image de couverture?</label>
+                <label for="update-post-couverture">Nouvelle image de couverture?</label>
                 <input type="file" id="update-post-couverture" class="form-control inputfile" name="update-post-couverture" data-multiple-caption="{count} files selected">
             </div>
         </div>
@@ -40,8 +40,8 @@ $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
         </div>
         <div class="modal-body">
             <div class="update-post-carac" id="update-post-carac">
-                <div class="row post-tags-area">
-                    <div class="col-12 tags-carousel">
+                <div class="row update-post-tags-area">
+                    <div class="col-12 update-tags-carousel">
                         <input type="text" class="update-tags-item" id="update-tags-item" placeholder="Pour enregistrer un tag, commencez votre mot par #. Essayez!">
                         <div class="update-cloud-tags">
                         <?php
@@ -64,8 +64,8 @@ $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
                         </div>
                     </div>
                 </div>
-                <div class="row post-categories-area">
-                    <div class="col-12 categories-carousel">
+                <div class="row update-post-categories-area">
+                    <div class="col-12 update-categories-carousel">
                         <?php
 
                         $categorie = $this->_post->categories($this->_article->getId());
@@ -73,7 +73,7 @@ $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
                         {
                             $this->newCategorie($categorie->fetch(PDO::FETCH_ASSOC));
                             ?>
-                            <p><?= $this->_categorie->getNom(); ?> <a href="#" class="change-cat">Modifier la catégorie?</a></p>
+                            <p><span class="update-choose-categorie"><?= $this->_categorie->getNom(); ?></span> <a href="#" class="change-cat">Modifier la catégorie?</a></p>
                         <?php }
                         else
                         { ?>

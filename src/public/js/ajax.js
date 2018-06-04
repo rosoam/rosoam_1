@@ -184,15 +184,31 @@ function add_post(add_post_datas) {
         type: 'POST',
         data: add_post_datas,
         success: function (data) {
-            /*$('#add-article-modal').modal('hide');
-            refresh_personal_posts();*/
-
+            $('#add-article-modal').modal('hide');
+            refresh_personal_posts();
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        error: function (xhr, textStatus) {
             $('#modal-triggerer .modal-header h5').text("Erreur!");
-            $('#modal-triggerer .modal-body').text(data);
+            $('#modal-triggerer .modal-body').text(xhr.responseText);
             $('#modal-triggerer').modal('show');
             setTimeout(function () {
                 $('#modal-triggerer').modal('hide');
             }, 3000);
+        }
+    });
+}
+
+function update_post(update_post_datas) {
+    $.ajax({
+        url: '/update_post',
+        type: 'POST',
+        data: update_post_datas,
+        success: function (data) {
+            $('#update-article-modal').modal('hide');
+            refresh_personal_posts();
         },
         cache: false,
         contentType: false,
@@ -228,11 +244,12 @@ function delete_post(id_article) {
         }
     });
 }
+var frontendTagsUpdate = [];
 
 function get_update_form(id_article)
 {
     $('.update-form-container').html("<img src='/src/public/img/ajax_loader_1.1.gif' class='update-form-loader'>");
-
+    frontendTagsUpdate.length = 0;
     $.ajax({
         url: '/get_update_form',
         type: 'POST',
@@ -242,6 +259,12 @@ function get_update_form(id_article)
         success: function (data) {
             $('.update-form-container').html(data);
             tinymceUpdateForm();
+
+
+            $('.update-tag').each(function(){
+                frontendTagsUpdate.push($(this).text());
+            });
+            return frontendTagsUpdate;
         },
         error: function (xhr, textStatus) {
             $('#modal-triggerer .modal-header h5').text("Erreur!");

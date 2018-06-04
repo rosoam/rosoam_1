@@ -233,8 +233,6 @@ class PostsManager extends Manager
         {
             return false;
         }
-
-        $query->closeCursor();
     }
 
     /**
@@ -379,24 +377,45 @@ class PostsManager extends Manager
      * @param $couverture_article
      * @param $id_article
      */
-    public function update_article($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article, $id_article)
+    public function update_article($id_article, $titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article,$tags,$nom_categorie,$haveTags,$haveCouverture)
     {
         $slugify = new Slugify();
         $article_slug = $slugify->slugify($titre_article);
 
         $db = $this->connection_to_db();
         $req = "UPDATE t_article SET titre_article=:titre_article, auteur_article=:auteur_article, extrait_article=:extrait_article, contenu_article=:contenu_article, couverture_article=:couverture_article, slug_article=:slug_article WHERE id_article=:id_article";
-        $query = $db->prepare($req);
+        $reqSansCouverture = "UPDATE t_article SET titre_article=:titre_article, auteur_article=:auteur_article, extrait_article=:extrait_article, contenu_article=:contenu_article, slug_article=:slug_article WHERE id_article=:id_article";
+        $haveCouverture === true ? $query = $db->prepare($req) : $query = $db->prepare($reqSansCouverture);
         $query->bindParam(':titre_article', $titre_article, PDO::PARAM_STR);
         $query->bindParam(':auteur_article', $auteur_article, PDO::PARAM_STR);
         $query->bindParam(':extrait_article', $extrait_article, PDO::PARAM_STR);
         $query->bindParam(':contenu_article', $contenu_article, PDO::PARAM_STR);
-        $query->bindParam(':couverture_article', $couverture_article, PDO::PARAM_STR);
+        if($haveCouverture === true){
+            $query->bindParam(':couverture_article', $couverture_article, PDO::PARAM_STR);
+        }
         $query->bindParam(':slug_article', $article_slug, PDO::PARAM_STR);
-        $query->bindParam(':id_article', $id_article, PDO::PARAM_INT);
         $query->execute();
 
         $query->closeCursor();
+
+        $this->delete_tag_article_relation($id_article);
+
+        if($haveTags === true)
+        {
+            foreach($tags as $tag)
+            {
+                if(!$this->tag_exist($tag))
+                {
+                    $this->create_tag($tag);
+                }
+                $this->make_tag_article_relation($tag, $id_article);
+            }
+        }
+
+        if(!$this->get_categorie_of_article($id_article,$nom_categorie)){
+            $this->delete_categorie_article_relation($id_article);
+            $this->make_categorie_article_relation($nom_categorie,$id_article);
+        }
     }
 
     /**
@@ -468,6 +487,17 @@ class PostsManager extends Manager
         return $query;
     }
 
+    public function delete_tag_article_relation($id_article)
+    {
+        $db = $this->connection_to_db();
+        $req = "DELETE * FROM rel_article_tags WHERE fk_article=:id_article";
+        $query = $db->prepare($req);
+        $query->bindParam(':id_article',$id_article,PDO::PARAM_INT);
+        $query->execute();
+        $query->closeCursor();
+    }
+
+
     /**
      * @param $nom_tag ->
      * @return bool|\PDOStatement
@@ -518,6 +548,31 @@ class PostsManager extends Manager
     }
 
     /**
+     * @param $id_article
+     * @param $nom_categorie -> Cette fonction sert lors de l'update d'un article, pour voir si la catégorie renvoyée
+     * lors de l'update étais déjà reliée à l'article ou non.
+     * @return bool
+     */
+    public function get_categorie_of_article($id_article, $nom_categorie)
+    {
+        $db = $this->connection_to_db();
+        $req = "SELECT * FROM t_categorie AS ca JOIN rel_article_categorie as aca ON aca.fk_categorie=ca.id_categorie JOIN t_article AS ar ON aca.fk_article= ar.id_article WHERE aca.fk_article=:id_article AND ca.nom_categorie=:nom_categorie";
+        $query = $db->prepare($req);
+        $query->bindParam(':id_article',$id_article, PDO::PARAM_INT);
+        $query->bindParam(':nom_categorie',$nom_categorie,PDO::PARAM_INT);
+        $query->execute();
+
+        if($query->rowCount() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
      * @param $nom_categorie -> Cette fonctionre retourne tous les articles reliés à une catégorie (via nom_categorie)
      * @return bool|\PDOStatement
      */
@@ -530,6 +585,21 @@ class PostsManager extends Manager
         $query->execute();
 
         return $query;
+    }
+
+    /**
+     * @param $id_article
+     * -> lors de l'update d'un article, si la catégorie envoyée est n'est pas identique à l'ancienne ALORS on supprime
+     * toutes les autres relations où l'id_article correspond
+     */
+    public function delete_categorie_article_relation($id_article)
+    {
+        $db = $this->connection_to_db();
+        $req = "DELETE * FROM rel_article_categorie WHERE fk_article=:id_article";
+        $query = $db->prepare($req);
+        $query->bindParam(':id_article',$id_article,PDO::PARAM_INT);
+        $query->execute();
+        $query->closeCursor();
     }
 }
 
