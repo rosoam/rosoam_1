@@ -6,7 +6,7 @@
  * Time: 16:36
  */
 
-$title = "Bienvenue sur la page des posts!";
+$title = "Projet Maccaud - Le blog";
 
 ob_start();
 ?>
@@ -19,26 +19,6 @@ ob_start();
             </div>
             <div class="row posts-content-area">
                 <div class="col-12 col-md-10">
-                    <div class="row post-tags-area">
-                        <div class="col-12 tags-carousel">
-                            <!-- Generated -->
-                            <!-- Generated -->
-                            <!-- Generated -->
-                            <?php
-                            $tags = $this->_post->all_tags();
-                            $fetch_tags = $tags->fetchAll();
-                            foreach($fetch_tags as $tag)
-                            {
-                                $this->newTag($tag);
-                                ?>
-                                <div class="tag-item"><p><a href="#"><?= htmlspecialchars($this->_tag->getNom()); ?></a></p></div>
-                            <?php }?>
-                            <!-- Generated -->
-                            <!-- Generated -->
-                            <!-- Generated -->
-                            <a class="tag_search" href="#">search</a>
-                        </div>
-                    </div>
                     <div class="all-posts the-blog">
                         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php'; ?>
                     </div>

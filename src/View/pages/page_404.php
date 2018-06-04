@@ -6,7 +6,7 @@
  * Time: 16:36
  */
 
-$title = "Bienvenue sur la homepage de mon site internet!";
+$title = "Error 404 - Page not found!";
 
 ob_start();
 ?>

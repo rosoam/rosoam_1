@@ -6,6 +6,8 @@
  * Time: 15:20
  */
 
+$title = "Projet Maccaud - Page de validation d'user";
+
 ob_start();
 ?>
     <div class="confirm-user-section section">

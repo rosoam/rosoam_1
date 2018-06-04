@@ -7,6 +7,8 @@
  */
 
 $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
+
+$title = "Projet Maccaud - Page de l'article " . $this->_article->getTitre();
 ob_start();
 ?>
     <div class="post-section section">

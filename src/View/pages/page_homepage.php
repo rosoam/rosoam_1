@@ -6,7 +6,7 @@
  * Time: 16:36
  */
 
-$title = "Bienvenue sur la homepage de mon site internet!";
+$title = "Projet Maccaud - Bienvenue!";
 
 ob_start();
 ?>

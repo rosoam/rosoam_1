@@ -6,7 +6,7 @@
  * Time: 20:58
  */
 
-$title = "Subscribing page";
+$title = "Projet Maccaud - Page d'inscription";
 
 ob_start();
 ?>

@@ -6,7 +6,7 @@
  * Time: 20:34
  */
 
-$title = "Admin page";
+$title = isset($_SESSION['username']) ? "Projet Maccaud - Page d'administration" : "Projet Maccaud - Page de connection";
 
 ob_start();
 ?>
