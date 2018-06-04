@@ -318,7 +318,7 @@ $(document).ready(function() {
         let auteur_article = $('#update-post-auteur-article').val();
         let extrait_article = $('#update-post-extrait-article').val();
         let contenu_article = tinyMCE.activeEditor.getContent();
-        let couverture_article = $('.update-post-formulaire input[type=file]')[0].files[0];
+        let couverture_article = $('.update-post-formulaire .inputfile')[0].files[0];
 
         let tags = frontendTagsUpdate;
         let nom_categorie = $('.update-choose-categorie').text();
@@ -333,7 +333,7 @@ $(document).ready(function() {
         update_post_datas.append('tags',tags);
         update_post_datas.append('nom_categorie',nom_categorie);
 
-        console.log(tags);
+        update_post(update_post_datas);
     });
 
     function check(id_article,nom_categorie)

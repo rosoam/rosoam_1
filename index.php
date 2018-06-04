@@ -97,6 +97,10 @@ try
         $controller->get_form_to_update_post($_POST['id_article'], $_SESSION['user_id']);
     });
 
+    $router->post('/update_post',function() use ($post){
+         $post->update_post($_POST['id_article'],$_POST['titre_article'],$_POST['auteur_article'],$_POST['extrait_article'],$_POST['contenu_article'], $_FILES['couverture_article'],$_POST['tags'],$_POST['nom_categorie']);
+    });
+
     $router->run();
 } catch(Exception $e)
 {

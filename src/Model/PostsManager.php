@@ -377,7 +377,7 @@ class PostsManager extends Manager
      * @param $couverture_article
      * @param $id_article
      */
-    public function update_article($id_article, $titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article,$tags,$nom_categorie,$haveTags,$haveCouverture)
+    public function update_article($id_article, $titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article,$tags,$nom_categorie,$haveCouverture)
     {
         $slugify = new Slugify();
         $article_slug = $slugify->slugify($titre_article);
@@ -394,15 +394,17 @@ class PostsManager extends Manager
             $query->bindParam(':couverture_article', $couverture_article, PDO::PARAM_STR);
         }
         $query->bindParam(':slug_article', $article_slug, PDO::PARAM_STR);
+        $query->bindParam(':id_article', $id_article, PDO::PARAM_INT);
         $query->execute();
 
         $query->closeCursor();
 
         $this->delete_tag_article_relation($id_article);
 
-        if($haveTags === true)
+
+        foreach($tags as $tag)
         {
-            foreach($tags as $tag)
+            if($tag !== "")
             {
                 if(!$this->tag_exist($tag))
                 {
@@ -411,6 +413,7 @@ class PostsManager extends Manager
                 $this->make_tag_article_relation($tag, $id_article);
             }
         }
+
 
         if(!$this->get_categorie_of_article($id_article,$nom_categorie)){
             $this->delete_categorie_article_relation($id_article);
@@ -490,7 +493,7 @@ class PostsManager extends Manager
     public function delete_tag_article_relation($id_article)
     {
         $db = $this->connection_to_db();
-        $req = "DELETE * FROM rel_article_tags WHERE fk_article=:id_article";
+        $req = "DELETE FROM rel_article_tags WHERE fk_article=:id_article";
         $query = $db->prepare($req);
         $query->bindParam(':id_article',$id_article,PDO::PARAM_INT);
         $query->execute();

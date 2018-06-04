@@ -30,6 +30,31 @@ class PostsController extends MainController
         }
     }
 
+    public function update_post($id_article,$titre_article,$auteur_article,$extrait_article,$contenu_article,$couverture_article,$tags,$nom_categorie){
+
+        if($this->_security->section_active())
+        {
+            if($this->_post->check_article_rel_user($_SESSION['user_id'],$id_article))
+            {
+                if($couverture_article['name'] == "") {
+                    $this->_post->update_article($id_article,$titre_article,$auteur_article,$extrait_article,$contenu_article,$couverture_article,explode(',',$tags),$nom_categorie,false);
+                }
+                else
+                {
+                    $this->_post->update_article($id_article,$titre_article,$auteur_article,$extrait_article,$contenu_article,$this->_file->downdload_couverture_article($couverture_article),explode(',',$tags),$nom_categorie,true);
+                }
+            }
+            else
+            {
+                $this->controllerException("Cet article ne vous appartient pas, vous ne pouvez pas faire cette action");
+            }
+        }
+        else
+        {
+            $this->controllerException("Vous devez être connecté pour faire cette action");
+        }
+    }
+
     public function add_post($titre_article, $auteur_article, $extrait_article, $contenu_article, $couverture_article, $tags, $categorie)
     {
         if($this->_security->section_active())

@@ -217,9 +217,9 @@ function update_post(update_post_datas) {
             $('#modal-triggerer .modal-header h5').text("Erreur!");
             $('#modal-triggerer .modal-body').text(xhr.responseText);
             $('#modal-triggerer').modal('show');
-            setTimeout(function () {
+            /*setTimeout(function () {
                 $('#modal-triggerer').modal('hide');
-            }, 3000);
+            }, 3000);*/
         }
     });
 }
