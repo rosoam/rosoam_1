@@ -7,7 +7,6 @@
  */
 ?>
 <section id="header" class="header-section section">
-    <img src="../src/public/img/Outer-space-knight-vector-10.png" alt="space knight" class="space-knight">
     <div class="header-container container">
         <div class="row">
             <div class="col-12 ">

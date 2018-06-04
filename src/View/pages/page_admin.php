@@ -39,34 +39,7 @@ ob_start();
     <div class="admin-section section">
         <div class="container">
             <div class="row">
-                <div class="col-3">
-                    <h2>Votre espace</h2>
-                    <div class="admin-menu-area">
-                        <ul class="admin-menu">
-                            <li class="admin-menu-item">
-                                <a href="#" class="admin-menu-link-item">
-                                    Page d'administration
-                                </a>
-                            </li>
-                            <li class="admin-menu-item">
-                                <a href="#" class="admin-menu-link-item">
-                                    Gérer vos articles
-                                </a>
-                            </li>
-                            <li class="admin-menu-item">
-                                <a href="#" class="admin-menu-link-item">
-                                    Gérer votre profil
-                                </a>
-                            </li>
-                            <li class="admin-menu-item">
-                                <a href="#" class="admin-menu-link-item">
-                                    Changer votre mot de passe
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-9 admin-main-area">
+                <div class="col-12 admin-main-area">
                     <?php //require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/manage-profil.php'; ?>
                     <!-- update-article-modal -->
                     <div class="modal fade" id="update-article-modal" tabindex="-1" role="dialog" aria-labelledby="update-article-modal" aria-hidden="true">
@@ -115,38 +88,34 @@ ob_start();
                                                 <input type="file" id="add-post-couverture" class="form-control inputfile" name="add-post-couverture" data-multiple-caption="{count} files selected">
                                             </div>
                                         </div>
+                                        <div class="row post-categories-area">
+                                            <div class="col-12 categories-carousel">
+                                                <p class="categories-title">Choisir la catégorie de votre article*</p>
+                                                <?php
+                                                $categories = $this->_post->all_categories();
+                                                $fetch_categories = $categories->fetchAll();
+                                                foreach($fetch_categories as $categorie)
+                                                {
+                                                    $this->newCategorie($categorie);
+                                                    ?>
+                                                    <div class="categorie-item"><p><a href="#"><?= htmlspecialchars($this->_categorie->getNom()); ?></a></p></div>
+                                                <?php }?>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label for="add-post-contenu-article">Votre contenu*</label>
                                             <textarea id="add-post-contenu-article" class="form-control" ></textarea>
                                         </div>
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modal-triggerer-title">Ajouter des tags & catégories (facultatif)</h5>
+                                        <div class="add-post-unecessary-header">
+                                            <h5 class="add-post-unecessary-title">Ajouter des tags & catégories (facultatif)</h5>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="add-post-unecessary-body">
                                             <div class="add-post-carac" id="add-post-carac">
                                                 <div class="row post-tags-area">
                                                     <div class="col-12 tags-carousel">
-                                                        <input type="text" class="tags-item" id="tags-item" placeholder="Pour enregistrer un tag, commencez votre mot par #. Essayez!">
+                                                        <p class="tags-description">Les tags nous aides à classer vos articles par thème. Plus vous mettrez de tags, plus il sera facil pour nous de trouver d'autres articles correspondant à vos critères!</p>
+                                                        <input type="text" class="tags-item" id="tags-item" placeholder="Pour enregistrer un tag, commencez votre mot par # et terminez le en appuyant sur ESPACE. Essayez!">
                                                         <div class="cloud-tags"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row post-categories-area">
-                                                    <div class="col-12 categories-carousel">
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
-                                                        <?php
-                                                        $categories = $this->_post->all_categories();
-                                                        $fetch_categories = $categories->fetchAll();
-                                                        foreach($fetch_categories as $categorie)
-                                                        {
-                                                            $this->newCategorie($categorie);
-                                                            ?>
-                                                            <div class="categorie-item"><p><a href="#"><?= htmlspecialchars($this->_categorie->getNom()); ?></a></p></div>
-                                                        <?php }?>
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
-                                                        <!-- Generated -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +138,7 @@ ob_start();
                         </div>
                         <div class="col-12 add-article-area">
                             <div class="add-article-zone">
-                                <a href="#" class="add-posts" data-toggle="modal" data-target="#add-article-modal" ><span>Créer un article?</span></a>
+                                <a href="#" class="blog-button add-posts" data-toggle="modal" data-target="#add-article-modal" ><span>Créer un article?</span></a>
                             </div>
                         </div>
                     </div>

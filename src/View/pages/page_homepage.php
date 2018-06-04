@@ -62,7 +62,6 @@ ob_start();
             <div class="row blog-title-area">
                 <div class="col-12">
                     <h2>Les derniers articles</h2>
-                    <a href="/posts">Tous les posts!</a>
                 </div>
             </div>
             <div class="row blog-content-area">
@@ -74,7 +73,7 @@ ob_start();
             </div>
             <div class="row blog-more-post-area">
                 <div class="col-12 text-center">
-                    <a href="#" class="more-posts"><span>More posts!</span></a>
+                    <a href="/posts" class="blog-button"><span>More posts!</span></a>
                 </div>
             </div>
         </div>

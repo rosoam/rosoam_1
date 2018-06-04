@@ -12,9 +12,9 @@ foreach ($fetch_blog as $post)
 {
     $this->newPost($post);
     ?>
-<div class="blog blog-blog-post ">
+<div class="col blog blog-blog-post ">
     <a href="/posts/<?= htmlspecialchars($this->_article->getSlug()) ?>" class="blog-post-link">
-        <img src="<?php if($this->_article->getCouverture() === ""){ echo "https://via.placeholder.com/800x600.png?text=BLOG";} else { echo htmlspecialchars($this->_article->getCouverture()); }; ?>" class="blog-post-couverture" alt="couverture de l'article">
+        <img src="<?= $this->_article->getCouverture() === "" ? "https://via.placeholder.com/800x600.png?text=BLOG" : htmlspecialchars($this->_article->getCouverture()); ?>" class="blog-post-couverture" alt="couverture de l'article">
     </a>
     <div class="blog-blog-post-body">
         <a href="/posts/<?= htmlspecialchars($this->_article->getSlug()) ?>" class="blog-post-link"></a>

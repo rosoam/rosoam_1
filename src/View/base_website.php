@@ -20,8 +20,7 @@
     <title><?= $title ?></title>
 
     <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Questrial|Raleway|Asap+Condensed" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed|Pavanam" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Karla|Lora" rel="stylesheet">
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="/src/public/css/bootstrap.min.css">
 

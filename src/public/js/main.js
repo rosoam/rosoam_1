@@ -379,20 +379,11 @@ $(document).ready(function() {
         auteur_posts(auteur);
     });
 
-    // Fonction qui permet de filtrer les articles via les tags entrés dans l'array en paramètre
-    $('.tag_search').click(function(e) {
+    // function qui reset les filtres et refresh tous les posts
+    $('.refresh_blog').on('click', function(e) {
         e.preventDefault();
-        var tags = [];
 
-        $('.tag-item.active').each(function() {
-            tags.push($(this).text());
-        });
-
-        if (tags.length === 0) {
-            refresh_posts();
-        } else {
-            get_tags_articles(tags);
-        }
+        refresh_posts();
     });
 
 });
@@ -441,8 +432,12 @@ function tinymceUpdateForm() {
     tinymce.remove(); // nous avons besoin de cette fonction car le textarea demandé est généré via ajax
     tinymce.init({
         selector: 'textarea#update-post-contenu-article',
-        plugins: "autolink",
-        plugins: "link",
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste imagetools wordcount"
+        ],
+        toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         theme: "modern",
         width: "100%",
         height: 300,
@@ -459,8 +454,13 @@ function tinymceAddForm() {
     tinymce.remove();
     tinymce.init({
         selector: 'textarea#add-post-contenu-article',
-        plugins: "autolink",
-        plugins: "link",
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste imagetools wordcount"
+        ],
+        toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        menubar: "insert",
         theme: "modern",
         width: "100%",
         height: 300,

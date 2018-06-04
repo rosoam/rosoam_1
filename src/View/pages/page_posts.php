@@ -24,16 +24,18 @@ ob_start();
                     </div>
                 </div>
                 <div class="col-12 col-md-2 filtres-area">
+                    <div class="refresh-area">
+                        <h3>Reset les filtres</h3>
+                        <a href="#" class="blog-button refresh_blog">Refresh tous les articles</a>
+                    </div>
                     <div class="auteurs-area">
                         <form>
                             <h3>Auteur</h3>
-                            <div class="form-row">
-                                <div class="col-12 col-lg-8">
-                                    <input type="text" id="auteur" class="form-control" placeholder="Auteur">
-                                </div>
-                                <div class="col-12 col-lg-4">
-                                    <button type="submit" class="btn btn-primary form-control get-auteur-posts" placeholder="Look!">Look!</button>
-                                </div>
+                            <div class="form-group">
+                                <input type="text" id="auteur" class="form-control" placeholder="Auteur">
+                            </div>
+                            <div class="form-group">
+                                <button class="form-control get-auteur-posts" placeholder="Look!">Look!</button>
                             </div>
                         </form>
                     </div>

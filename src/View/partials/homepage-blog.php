@@ -17,12 +17,6 @@ foreach ($fetch_blog as $post)
             <div class="blog-post-header">
                 <h3><?= htmlspecialchars($this->_article->getTitre()) ?></h3>
             </div>
-            <div class="blog-post-body">
-
-            </div>
-            <div class="blog-post-footer">
-
-            </div>
         </a>
         <div class="blog-post-likes">
             <i class="fa fa-heart"></i>

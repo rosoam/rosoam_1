@@ -127,20 +127,6 @@ class PagesController extends MainController
         }
     }
 
-    public function get_tags_articles($tags)
-    {
-        $blog = $this->_post->get_tags_articles($tags);
-
-        if($blog->rowCount() > 0)
-        {
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/src/View/partials/blog.php';
-        }
-        else
-        {
-            $this->controllerException("Tag(s) sélectionné invalide!");
-        }
-    }
-
     public function get_categorie_articles($categorie)
     {
         $blog = $this->_post->get_categorie_articles($categorie);
