@@ -160,7 +160,7 @@ class UsersManager extends Manager
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('info@rosoam.ch', 'localhost!');
+        $mail->setFrom('info@rosoam.ch', 'Projet Maccaud!');
         $mail->addAddress($email, $username);
 
         $mail->charSet = 'UTF-8';

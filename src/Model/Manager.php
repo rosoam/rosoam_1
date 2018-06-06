@@ -14,7 +14,7 @@ class Manager
 {
     protected function connection_to_db()
     {
-        $db = new PDO('mysql:host=localhost;dbname=sobreira_romario_104_d1_2018;charset=utf8', 'root','root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $db = new PDO('mysql:host=localhost;dbname=romario_sobreira_104_info1d_2018;charset=utf8', 'root','root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         return $db;
     }
 
