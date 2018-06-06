@@ -156,17 +156,17 @@ class UsersManager extends Manager
         $mail->Host = 'mail.infomaniak.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'info@rosoam.ch';
-        $mail->Password = '';
+        $mail->Password = 'document.readyfunction!2018';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
         $mail->setFrom('info@rosoam.ch', 'Projet Maccaud!');
         $mail->addAddress($email, $username);
 
-        $mail->charSet = 'UTF-8';
+        $mail->CharSet= 'UTF-8';
         $mail->isHTML(true);
         $mail->Subject = "Lien de validation de votre enregistrement " . $username . " :)";
-        $mail->Body    = "Merci de votre enregistrement! Naviguez jusqu'à ce lien pour valider votre enregistrement! -> <a href='https://rosoam.ch/validate_user/" . $last_id . "/" . $validation_code . "/'>https://rosoam.ch/validate_user/" . $last_id . "/" . $validation_code . "/ </a>";
+        $mail->Body    = "Merci de votre enregistrement! Naviguez jusqu'à ce lien pour valider votre enregistrement! -> <a href='http://localhost/validate_user/" . $last_id . "/" . $validation_code . "/'>http://localhost/validate_user/" . $last_id . "/" . $validation_code . "/ </a>";
         $mail->AltBody = 'Ceci est le alt body';
 
         $mail->send();

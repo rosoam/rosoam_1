@@ -15,6 +15,23 @@ ob_start();
     <div class="connection-section section">
         <div class="connection-content">
             <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Bonjour M. Maccaud!</h2>
+                        <p>Voici les 2 comptes enregistrés prêts pour vous et vos tests!</p>
+                        <p>
+                            <b>Utilisateur 1:</b> <br>
+                            username : <span style="color:red;">rom</span> <br>
+                            mot de passe : <span style="color:red;">rom</span>
+                        </p>
+                        <p>
+                            <b>Utilisateur 2:</b> <br>
+                            username : <span style="color:red;">romario</span> <br>
+                            mot de passe : <span style="color:red;">romario</span>
+                        </p>
+                        <p><b>Vous pouvez bien évidemment vous amusez à créer votre propre compte et vos propres articles! Essayez! L'inscription est rapide, n'oubliez pas de donner une adresse mail valide.. ^^ <a href="/subscribe" style="color:brown">INSCRIPTION ICI :)</a></b></p>
+                    </div>
+                </div>
                 <form id="connection-form">
                     <div class="form-group">
                         <div class="row">
