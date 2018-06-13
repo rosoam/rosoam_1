@@ -36,7 +36,7 @@ class PostsController extends MainController
         {
             if($this->_post->check_article_rel_user($_SESSION['user_id'],$id_article))
             {
-                if($couverture_article['name'] == "" OR $couverture_article['error'] > UPLOAD_ERR_OK) {
+                if($couverture_article['size'] == 0) {
                     $this->_post->update_article($id_article,$titre_article,$auteur_article,$extrait_article,$contenu_article,$couverture_article['name'],explode(',',$tags),$nom_categorie,false);
                 }
                 else

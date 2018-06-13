@@ -87,7 +87,7 @@ $this->newPost($post_details->fetch(PDO::FETCH_ASSOC));
                         {
                             $this->newCategorie($cat);
                             ?>
-                                <p><?= $this->_categorie->getNom(); ?></p>
+                                <p class="categorie-item-update"><?= $this->_categorie->getNom(); ?></p>
                         <?php }
                         $categorie->closeCursor();
                         ?>

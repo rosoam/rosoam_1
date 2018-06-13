@@ -84,6 +84,15 @@ body.modal-open #menu  {
     margin:0;
     padding:0;
 }
+
+@font-face {
+    font-family: Karla;
+    src: url(../fonts/Karla-Regular.ttf);
+}
+@font-face {
+    font-family: Lora;
+    src: url(../fonts/Lora-Regular.ttf);
+}
 /* header */
 #header {
     overflow:hidden;
@@ -576,6 +585,9 @@ body .mce-tinymce.mce-container.mce-panel {
     background-color: #00a4ff;
     color: #fff;
     float:right;
+}
+.categorie-item-update {
+    display:none;
 }
 /* post */
 .post-couverture-zone {
