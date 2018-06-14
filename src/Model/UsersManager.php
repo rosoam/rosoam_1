@@ -156,7 +156,7 @@ class UsersManager extends Manager
         $mail->Host = 'mail.infomaniak.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'info@rosoam.ch';
-        $mail->Password = 'document.readyfunction!2018';
+        $mail->Password = '';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
