@@ -386,7 +386,22 @@ $(document).ready(function() {
         refresh_posts();
     });
 
+    // test string length
+    $('.blog-blog-post-body h3').each(function(){
+        crop_text($(this));
+    });
+
+
+
 });
+
+function crop_text(elmt,maxlength)
+{
+    if($(elmt).text() > maxlength) {
+        $(elmt).text($(elmt).text().substring(0,maxlength) + "...");
+        console.log("OK");
+    }
+}
 
 function readURL(input) {
     if (input.files && input.files[0]) {
