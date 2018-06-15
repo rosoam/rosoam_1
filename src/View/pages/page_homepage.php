@@ -18,16 +18,13 @@ ob_start();
                 </div>
             </div>
             <div class="row presentation-content-area">
-                <div class="col-12 col-md-7">
+                <div class="col-12">
                     <p>
                         Bienvenue sur mon projet pour le module 104! J'ai trouvé intéressant d'essayer de comprendre le fonctionnement "interne" d'un blog.
                         Ce qui m'a logiquement dirigé sur la base de création de ce mini-blog! J'espère sincèrement que vous apprécierez le travail fourni,
                         car j'y ai passé énormément de temps! En passant par la conception de base d'un projet PHP, à la conception du modèle MVC,
                         celui-ci a été spécialement conçu pour être facil d'utilisation et compréhensible pour toute personne voulant reprendre le projet!
                     </p>
-                </div>
-                <div class="col-12 col-md-5">
-                    <img src="../src/public/img/Outer-space-knight-vector-3.png" alt="space knight 2" class="space-knight-presentation img">
                 </div>
             </div>
         </div>

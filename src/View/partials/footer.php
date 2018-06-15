@@ -24,7 +24,7 @@
                             <a href="mailto:romario.sobreira@hotmail.com">romario.sobreira@hotmail.com</a>
                         </address>
                     </div>
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-2">
                         <ul class="navbar-nav">
                             <h3>Menu</h3>
                             <!-- Generated from specific pages! -->

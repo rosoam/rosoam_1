@@ -65,7 +65,7 @@ class PostsManager extends Manager
     public function get_auteur_posts($auteur_article)
     {
         $db = $this->connection_to_db();
-        $req = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article WHERE auteur_article=:auteur_article";
+        $req = "SELECT id_article, titre_article, auteur_article, extrait_article, contenu_article, DATE_FORMAT(publication_article, '%d/%m/%Y') AS publication_article, couverture_article, slug_article, likes_article FROM t_article WHERE auteur_article LIKE :auteur_article";
         $query = $db->prepare($req);
         $query->bindParam(':auteur_article', $auteur_article, PDO::PARAM_STR);
         $query->execute();

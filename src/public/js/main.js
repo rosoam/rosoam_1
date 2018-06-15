@@ -387,20 +387,19 @@ $(document).ready(function() {
     });
 
     // test string length
-    $('.blog-blog-post-body h3').each(function(){
-        crop_text($(this));
-    });
-
-
+    crop_text($('.the-blog .blog-blog-post-body h3'), 62);
+    crop_text($('.user-blog .blog-blog-post-body h3'),100);
 
 });
 
 function crop_text(elmt,maxlength)
 {
-    if($(elmt).text() > maxlength) {
-        $(elmt).text($(elmt).text().substring(0,maxlength) + "...");
-        console.log("OK");
-    }
+    $(elmt).each(function(){
+        if($(this).text().length > maxlength)
+        {
+            $(this).text($(this).text().substring(0,maxlength) + "...");
+        }
+    });
 }
 
 function readURL(input) {

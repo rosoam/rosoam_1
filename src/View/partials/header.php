@@ -10,7 +10,7 @@
     <div class="header-container container">
         <div class="row">
             <div class="col-12 ">
-                <h2>Projet Maccaud - blog</h2>
+                <h2>Projet Maccaud <br>blog</h2>
             </div>
         </div>
     </div>

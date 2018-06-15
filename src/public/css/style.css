@@ -3,7 +3,7 @@ body {
     padding:0;
     font-family: 'Karla', sans-serif;
     overflow-x:hidden;
-    font-size:22px;
+    font-size:18px;
     color:#8d99ae;
 }
 
@@ -41,7 +41,7 @@ button, input {
 }
 
 .section {
-    padding:100px 0;
+    padding:60px 0;
     position:relative;
 }
 h1,h2,h3,h4,h5,h6{
@@ -51,11 +51,11 @@ h1,h2,h3,h4,h5,h6{
     color:#2b2d42;
 }
 h1 {
-    font-size:80px;
+    font-size:50px;
     font-weight:600;
 }
 h2 {
-    font-size:45px;
+    font-size:40px;
     font-weight:600;
 }
 a, a:hover {
@@ -96,7 +96,7 @@ body.modal-open #menu  {
 /* header */
 #header {
     overflow:hidden;
-    min-height:500px;
+    min-height:300px;
     background-color:#05121a;
     display:-webkit-box;
     display:-ms-flexbox;
@@ -105,32 +105,12 @@ body.modal-open #menu  {
     -ms-flex-align:center;
     align-items:center;
 }
-@-webkit-keyframes Gradient {
-    0% {
-        background-position: 0% 50%
-    }
-    50% {
-        background-position: 100% 50%
-    }
-    100% {
-        background-position: 0% 50%
-    }
-}
-
-@keyframes Gradient {
-    0% {
-        background-position: 0% 50%
-    }
-    50% {
-        background-position: 100% 50%
-    }
-    100% {
-        background-position: 0% 50%
-    }
+.header-container .col-12 {
+    text-align:center;
 }
 .header-container h2 {
     padding:0;
-    font-size:60px;
+    font-size:50px;
     color:#fff;
     text-transform:uppercase;
     font-weight:600;
@@ -175,7 +155,7 @@ body.modal-open #menu  {
 /* presentation */
 .space-knight-presentation {
     position: absolute;
-    top: -150px;
+    top: -180px;
     max-width:70%;
     left:50%;
     -webkit-transform: translatex(-50%);
@@ -253,7 +233,7 @@ body.modal-open #menu  {
 }
 .blog-post h3 {
     font-weight:600;
-    font-size:35px;
+    font-size:25px;
     text-transform:uppercase;
     color:#fff;
 }
@@ -422,7 +402,7 @@ body.modal-open #menu  {
     position:absolute;
     z-index:2;
     background-color:#fff;
-    padding:10px 10px 0;
+    padding:0;
     bottom:0;
     overflow: hidden;
 }
@@ -566,11 +546,13 @@ body.modal-open #menu  {
     position:absolute;
     top:10px;
     right:10px;
+    z-index:2;
 }
 .user-blog .update-post {
     position: absolute;
     top: 60px;
     right: 10px;
+    z-index:2;
 }
 /* admin modal */
 #add-article-modal{
@@ -612,6 +594,12 @@ body .mce-tinymce.mce-container.mce-panel {
     transform: translate(-50%,-50%);
     width: 100%;
     height: auto;
+}
+.post-couverture-zone {
+    margin-bottom:20px;
+}
+.post-section .row .col-12 {
+    padding:0;
 }
 /* footer */
 #footer {
@@ -696,4 +684,98 @@ form .mce-container #add-post-contenu-article_ifr {
     font-size: 15px;
     line-height: 10px;
     cursor: pointer;
+}
+@media screen and (max-width:1140px){
+    body {
+        font-size:18px;
+    }
+    h1 {
+        font-size:30px;
+    }
+    h2 {
+        font-size:25px;
+    }
+    footer h3 {
+        font-size:22px;
+    }
+    .code-pen, .stack-overflow,.codeacademy , .github{
+        max-width:50%;
+        margin-bottom:40px;
+    }
+    #footer address, #footer .nav-item .nav-link {
+        font-size:14px;
+    }
+    .space-knight-presentation {
+        position:inherit;
+        top:0;
+        left:0;
+        transform:inherit;
+    }
+}
+@media screen and (max-width:991px){
+    .header-container h2 {
+        font-size:35px;
+    }
+    .blog-box {
+        width:49%;
+    }
+}
+@media screen and (max-width:768px){
+    .section {
+        padding:50px 0;
+        text-align:center;
+    }
+    .blog-box {
+        width:49%;
+        height:400px;
+        margin-right:0;
+        margin-right:2%;
+    }
+    .blog-box:nth-of-type(2n){
+        margin-right:0;
+    }
+    .posts-content-area {
+        flex-direction: column-reverse;
+    }
+    .filtre-area-column {
+        padding:0 15px;
+        width:49%;
+        text-align:center;
+    }
+    .filtre-area-column .form-group {
+        display:flex;
+        justify-content: center;
+    }
+    .filtre-area-column #auteur, .filtre-area-column .get-auteur-posts {
+        width:200px;
+    }
+    .filtre-area-column h3 {
+        font-size:16px;
+    }
+    .filtre-area-column p, .filtre-area-column a {
+        font-size:14px;
+    }
+}
+@media screen and (max-width:600px){
+    .code-pen, .stack-overflow,.codeacademy , .github{
+        max-width:80%;
+    }
+    .blog-box {
+        height:300px;
+    }
+    .filtre-area-column {
+        width:100%;
+    }
+}
+@media screen and (max-width:450px)
+{
+    .blog-box {
+        width:100%;
+        margin-right:0;
+        height:300px;
+        margin-bottom:25px;
+    }
+    .blog-box .blog-blog-post-body h3 {
+        font-size:16px;
+    }
 }
