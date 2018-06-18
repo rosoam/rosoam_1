@@ -50,8 +50,8 @@
                     <div class="col-12 col-md-4">
                         <h3>Mes réseaux</h3>
                         <div class="reseau-links">
-                            <a href="#"><img src="../src/public/img/linkedin_white.svg" alt="linkedin réseau" class="linkedin-logo footer-logo"></a>
-                            <a href="#"><img src="../src/public/img/github_white.svg" alt="github réseau" class="github-logo footer-logo"></a>
+                            <a href="https://www.linkedin.com/in/romario-sobreira/"><img src="../src/public/img/linkedin_white.svg" alt="linkedin réseau" class="linkedin-logo footer-logo"></a>
+                            <a href="https://github.com/rosoam/"><img src="../src/public/img/github_white.svg" alt="github réseau" class="github-logo footer-logo"></a>
                         </div>
                     </div>
                 </div>

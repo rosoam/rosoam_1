@@ -9,17 +9,6 @@
 ob_start();
 ?>
     <div id="basic-page" class="content-page">
-        <section id="header-section">
-            <div class="header-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1>Hello World, welcome to my website!</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <?= $content ?>
     </div>
 <?php

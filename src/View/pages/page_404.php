@@ -12,7 +12,8 @@ ob_start();
 ?>
     <div class="404-section section">
         <div class="container">
-            <h1>ERROR 404</h1>
+            <h2>Page introuvable</h2>
+            <p>Oups, il se pourrait bien que la page que vous recherchez n'existe pas!</p>
         </div>
     </div>
 <?php

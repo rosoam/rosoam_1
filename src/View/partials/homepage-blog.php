@@ -18,10 +18,10 @@ foreach ($fetch_blog as $post)
                 <h3><?= htmlspecialchars($this->_article->getTitre()) ?></h3>
             </div>
         </a>
-        <div class="blog-post-likes">
+        <!--<div class="blog-post-likes">
             <i class="fa fa-heart"></i>
-            <span class="number-of-likes"><?= htmlspecialchars($this->_article->getLikes()) ?></span>
-        </div>
+            <span class="number-of-likes"> //htmlspecialchars($this->_article->getLikes()) </span>
+        </div>-->
     </div>
 <?php }
 $blog->closeCursor();
