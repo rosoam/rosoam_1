@@ -15,6 +15,10 @@ class Manager
     protected function connection_to_db()
     {
         $db = new PDO('mysql:host=localhost;dbname=romario_sobreira_104_info1d_2018;charset=utf8', 'root','root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
+        // SI VOUS AVEZ BESOIN DE CONFIGURER UN PORT DIFFERENT UTILISER PLUTOT CETTE DECLARATION
+        //$db = new PDO('mysql:host=localhost;port=VOTRE PORT ICI;dbname=romario_sobreira_104_info1d_2018;charset=utf8', 'root','root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
         return $db;
     }
 

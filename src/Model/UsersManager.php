@@ -77,14 +77,7 @@ class UsersManager extends Manager
     public function check_confirmed_user($username)
     {
         $db = $this->connection_to_db();
-        $req_check_confirmed_user = "SELECT
-                                        valid_utilisateur
-                                    FROM
-                                        t_utilisateur
-                                    WHERE
-                                        pseudo_utilisateur =:user 
-                                    OR 
-                                        email_utilisateur =:user";
+        $req_check_confirmed_user = "SELECT valid_utilisateur FROM t_utilisateur WHERE pseudo_utilisateur =:user OR email_utilisateur =:user";
         $query = $db->prepare($req_check_confirmed_user);
         $query->bindParam(':user', $username, PDO::PARAM_STR);
         $query->execute();
@@ -123,7 +116,6 @@ class UsersManager extends Manager
         $_SESSION['name'] = $user['nom_utilisateur'];
         $_SESSION['family_name'] = $user['nom_famille_utilisateur'];
         $_SESSION['email'] = $user['email_utilisateur'];
-        //$_SESSION['image_profil'] = $user['image_profil_utilisateur'];
     }
 
     /**
@@ -156,7 +148,7 @@ class UsersManager extends Manager
         $mail->Host = 'mail.infomaniak.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'info@rosoam.ch';
-        $mail->Password = '';
+        $mail->Password = 'document.readyfunction!2018';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
@@ -167,13 +159,9 @@ class UsersManager extends Manager
         $mail->isHTML(true);
         $mail->Subject = "Lien de validation de votre enregistrement " . $username . " :)";
         $mail->Body    = "Merci de votre enregistrement! Naviguez jusqu'à ce lien pour valider votre enregistrement! -> <a href='http://localhost/validate_user/" . $last_id . "/" . $validation_code . "/'>http://localhost/validate_user/" . $last_id . "/" . $validation_code . "/ </a>";
-        $mail->AltBody = 'Ceci est le alt body';
+        $mail->AltBody = 'Cliquez sur le lien afin de valider votre compte!';
 
         $mail->send();
-
-
-        //mail($to_email, $sujet, $message, $header);
-        //echo "Mail envoyé! Veuillez s'il vous-plaît vérifier votre boîte mail.";
     }
 
     /**
@@ -242,7 +230,7 @@ class UsersManager extends Manager
     {
         $psswd = password_hash($psswd, PASSWORD_DEFAULT);
         $db = $this->connection_to_db();
-        $req_add_user = 'INSERT INTO `t_utilisateur`(`pseudo_utilisateur`, `email_utilisateur`, `password_utilisateur`) VALUES(:username, :email, :user_password)';
+        $req_add_user = 'INSERT INTO t_utilisateur (pseudo_utilisateur, email_utilisateur, password_utilisateur) VALUES(:username, :email, :user_password)';
         $query = $db->prepare($req_add_user);
         $query->bindParam(':username', $username, PDO::PARAM_STR);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
